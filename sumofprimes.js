@@ -4,8 +4,8 @@ var isPrime = function(a) {
 		return true;
 	} else {
 			var maxTest = Math.floor(Math.sqrt(a));
-			for (i=3;i<=maxTest;i=i+2) {
-				if (a % i === 0) {
+			for (i=1;i<=maxTest;i=i+2) {
+				if (i !== 1 && a % i === 0) {
 					return false;
 				}
 			}
@@ -13,8 +13,8 @@ var isPrime = function(a) {
 	}
 }
 
-var sum = 17;
-var check = 11;
+var sum = 2;
+var check = 3;
 
 while (true) {
   if (isPrime(check)) {

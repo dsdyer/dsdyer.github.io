@@ -40,30 +40,32 @@ function Grid(array, h, w) {
 	this.checkSetProduct = function(index, direction, length) {
 		var product = 1;
 		for (j=0;j<length;j++) {
+      var x = this.getX(index);
+      var y = this.getY(index);
 			switch (direction) {
 				case "right":
-					if (length > this.width - this.getX(index)) {
+					if (length > this.width - x) {
 						return 0;
 					}
-					product = product * gridz0r.array[this.getIndex(this.getX(index) + j, this.getY(index))];
+					product = product * gridz0r.array[this.getIndex(x + j, y)];
 					break;
 				case "downright":
-					if (length > this.width - this.getX(index) || length > this.height - this.getY(index)) {
+					if (length > this.width - x || length > this.height - y) {
 						return 0;
 					}
-					product = product * gridz0r.array[this.getIndex(this.getX(index) + j, this.getY(index) + j)];
+					product = product * gridz0r.array[this.getIndex(x + j, y + j)];
 					break;
 				case "down":
-					if (length > this.height - this.getY(index)) {
+					if (length > this.height - y) {
 						return 0;
 					}
-					product = product * gridz0r.array[this.getIndex(this.getX(index), this.getY(index) + j)];
+					product = product * gridz0r.array[this.getIndex(x, y + j)];
 					break;
 				case "downleft":
-					if (length > this.getX(index) + 1 || length > this.height - this.getY(index)) {
+					if (length > x + 1 || length > this.height - y) {
 						return 0;
 					}
-					product = product * gridz0r.array[this.getIndex(this.getX(index) - j, this.getY(index) + j)];
+					product = product * gridz0r.array[this.getIndex(x - j, y + j)];
 					break;
 			}
 		}

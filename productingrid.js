@@ -76,12 +76,13 @@ var gridz0r = new Grid(input_array, 20, 20);
 var max_product = 0;
 var run_length = 4;
 for (i=0; i < gridz0r.array.length; i++) {
-  max_product = Math.max(max_product,
-												 gridz0r.checkSetProduct(i, "right", run_length),
-												 gridz0r.checkSetProduct(i, "downright", run_length),
-												 gridz0r.checkSetProduct(i, "down", run_length),
-												 gridz0r.checkSetProduct(i, "downleft", run_length)
-												);
+  max_product = Math.max(
+    max_product,
+    gridz0r.checkSetProduct(i, "right", run_length),
+    gridz0r.checkSetProduct(i, "downright", run_length),
+    gridz0r.checkSetProduct(i, "down", run_length),
+    gridz0r.checkSetProduct(i, "downleft", run_length)
+    );
 	}
 
 console.log(max_product);

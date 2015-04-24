@@ -83,7 +83,7 @@ for (i=0; i < gridz0r.array.length; i++) {
     gridz0r.checkSetProduct(i, "down", run_length),
     gridz0r.checkSetProduct(i, "downleft", run_length)
     );
-	}
+  }
 
 console.log(max_product);
 console.timeEnd("grid"); //end timer

@@ -37,7 +37,7 @@ function Grid(array, h, w) {
   this.getIndex = function(x, y) {
     return y * this.width + x;
   };
-  this.checkSetProduct = function(index, direction, length) {
+  this.checkRunProduct = function(index, direction, length) {
     var product = 1;
     for (j=0;j<length;j++) {
       var x = this.getX(index);
@@ -74,16 +74,17 @@ function Grid(array, h, w) {
 }
 
 // Does the thing:
-var gridz0r = new Grid(input_array, 20, 20);
+var gridz0r     = new Grid(input_array, 20, 20);
 var max_product = 0;
-var run_length = 4;
+var run_length  = 4;
+
 for (i=0; i < gridz0r.array.length; i++) {
   max_product = Math.max(
     max_product,
-    gridz0r.checkSetProduct(i, "right", run_length),
-    gridz0r.checkSetProduct(i, "downright", run_length),
-    gridz0r.checkSetProduct(i, "down", run_length),
-    gridz0r.checkSetProduct(i, "downleft", run_length)
+    gridz0r.checkRunProduct(i, "right", run_length),
+    gridz0r.checkRunProduct(i, "downright", run_length),
+    gridz0r.checkRunProduct(i, "down", run_length),
+    gridz0r.checkRunProduct(i, "downleft", run_length)
     );
   }
 

@@ -1,6 +1,3 @@
-let map = [[true, true, true], [false, false, true], [true, true, true]];
-let answer = ["down", "down", "right", "right", "up", "up"];
-
 function isEquivalent(a, b) {
   let aProperties = Object.getOwnPropertyNames(a);
   let bProperties = Object.getOwnPropertyNames(b);
@@ -26,10 +23,6 @@ class MineMap {
       return c.slice();
     });
     return a;
-  }
-
-  checkSquare(square) {
-    return this.grid[square.x][square.y];
   }
 
   checkLeft(square) {
@@ -66,19 +59,11 @@ class MineMap {
     let deadends = [];
     let new_map = this.arrayCleaner(old_map);
 
-    console.log('old 1 ', old_map[0].toString());
-    console.log('new 1 ', new_map[0]);
-
-
     for (let i = 0; i < this.grid.length; i++) {
-      console.log('i', i);
       for (let j = 0; j < this.grid[i].length; j++) {
-        console.log('j', j);
 
         let square = this.grid[i][j];
         let coords = {x: i, y: j};
-
-        console.log(coords, square);
 
         // Walls always stay walls
         if (!square) continue;
@@ -87,12 +72,11 @@ class MineMap {
         if (isEquivalent(coords, this.start) || isEquivalent(coords, this.end)) break;
 
         let exits = 0;
-        if (this.checkSquare(coords)) {
           if (this.checkLeft(coords)) exits++;
           if (this.checkRight(coords)) exits++;
           if (this.checkUp(coords)) exits++;
           if (this.checkDown(coords)) exits++;
-        }
+
 
         if (exits < 2) {
           deadends.push(coords)
@@ -106,24 +90,76 @@ class MineMap {
 
 
     if (old_map.toString() === new_map.toString()) {
-      console.log('done!');
       return;
     } else {
       this.grid = new_map;
-      console.log('more collapsing!');
       this.collapse();
     }
+  }
 
+  findPath() {
+    let coords = new Object(this.start);
+    let path = [];
+
+    while (!isEquivalent(coords, this.end)) {
+      console.log('starting loop', coords);
+        if (this.checkLeft(coords)) {
+
+          path.push("left");
+
+
+          this.grid[coords.x][coords.y] = false;
+
+          coords.x = coords.x - 1;
+
+          continue;
+
+        } else if (this.checkRight(coords)) {
+
+          path.push("right");
+
+          this.grid[coords.x][coords.y] = false;
+
+          coords.x = coords.x + 1;
+
+
+
+          continue;
+
+
+        } else if (this.checkUp(coords)) {
+
+          path.push("up");
+
+
+          this.grid[coords.x][coords.y] = false;
+
+          coords.y = coords.y - 1;
+
+          continue;
+
+        } else if (this.checkDown(coords)) {
+
+          path.push("down");
+
+          this.grid[coords.x][coords.y] = false;
+
+          coords.y = coords.y + 1;
+
+          continue;
+        }
+
+    }
+    return path;
   }
 }
+
 
 function solve(map, start, end) {
   let saneMap = map;
   let x = new MineMap(saneMap, start, end);
   x.collapse();
 
-  console.log('function grid: ', x.grid);
+  let path = x.findPath();
+  return path;
 }
-
-
-solve(map, {x:0, y:0}, {x:2,y:0});

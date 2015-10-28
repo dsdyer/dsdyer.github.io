@@ -1,4 +1,4 @@
-let grid = [[true, true, true], [false, false, true], [true, true, true]];
+let map = [[true, true, true], [false, false, true], [true, true, true]];
 let answer = ["down", "down", "right", "right", "up", "up"];
 
 function isEquivalent(a, b) {
@@ -15,11 +15,16 @@ function isEquivalent(a, b) {
 class MineMap {
 
   constructor(array, start, end) {
-    "use strict";
     this.grid = array;
     this.start = start;
     this.end = end;
-    this.collapse();
+  }
+
+  arrayCleaner(array) {
+    let a = array.map(function(c, i, a) {
+      return c.splice();
+    });
+    return a;
   }
 
   checkSquare(square) {
@@ -56,22 +61,12 @@ class MineMap {
   }
 
   collapse() {
+    let old_map = this.grid;
     let deadends = [];
-    let old_map = [];
+    let new_map = [];
 
-    this.grid.forEach(function(element, index, array){
-      console.log(element);
-      old_map.push(element);
-
-    });
-
-    console.log('old_map1: ', old_map[0]);
-    console.log('this grid1: ', this);
-
-
-
-    for (var i = 0; i < this.grid.length; i++) {
-      for (var j = 0; j < this.grid.length; j++) {
+    for (let i = 0; i < this.grid.length; i++) {
+      for (let j = 0; j < this.grid.length; j++) {
         let square = this.grid[i][j];
         let coords = {x: i, y: j};
 
@@ -96,12 +91,8 @@ class MineMap {
     };
 
     deadends.forEach(function(element, index, array) {
-      console.log(this);
       this.grid[element.x][element.y] = false;
     }, this);
-
-    console.log('old_map2: ', old_map[0]);
-    console.log('grid after deadends: ', this.grid[0]);
 
 
     if (this.grid === old_map) {
@@ -112,9 +103,10 @@ class MineMap {
 }
 
 function solve(map, start, end) {
-  let x = new MineMap(map, start, end);
-
+  let saneMap = new Object(map);
+  let x = new MineMap(saneMap, start, end);
+  x.collapse();
 }
 
-solve(grid, {x:0, y:0}, {x:2,y:0});
 
+solve(map, {x:0, y:0}, {x:2,y:0});

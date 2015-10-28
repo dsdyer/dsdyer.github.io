@@ -18,11 +18,12 @@ class MineMap {
     this.grid = array;
     this.start = start;
     this.end = end;
+    this.fail_counter = 0;
   }
 
   arrayCleaner(array) {
     let a = array.map(function(c, i, a) {
-      return c.splice();
+      return c.slice();
     });
     return a;
   }
@@ -63,18 +64,27 @@ class MineMap {
   collapse() {
     let old_map = this.grid;
     let deadends = [];
-    let new_map = [];
+    let new_map = this.arrayCleaner(old_map);
+
+    console.log('old 1 ', old_map[0].toString());
+    console.log('new 1 ', new_map[0]);
+
 
     for (let i = 0; i < this.grid.length; i++) {
-      for (let j = 0; j < this.grid.length; j++) {
+      console.log('i', i);
+      for (let j = 0; j < this.grid[i].length; j++) {
+        console.log('j', j);
+
         let square = this.grid[i][j];
         let coords = {x: i, y: j};
 
+        console.log(coords, square);
+
         // Walls always stay walls
-        if (!square) break;
+        if (!square) continue;
 
         // We always keep the starting and end locations
-        // if (isEquivalent(coords, this.start) || isEquivalent(coords, this.end)) break;
+        if (isEquivalent(coords, this.start) || isEquivalent(coords, this.end)) break;
 
         let exits = 0;
         if (this.checkSquare(coords)) {
@@ -91,21 +101,28 @@ class MineMap {
     };
 
     deadends.forEach(function(element, index, array) {
-      this.grid[element.x][element.y] = false;
+      new_map[element.x][element.y] = false;
     }, this);
 
 
-    if (this.grid === old_map) {
+    if (old_map.toString() === new_map.toString()) {
+      console.log('done!');
       return;
     } else {
+      this.grid = new_map;
+      console.log('more collapsing!');
+      this.collapse();
     }
+
   }
 }
 
 function solve(map, start, end) {
-  let saneMap = new Object(map);
+  let saneMap = map;
   let x = new MineMap(saneMap, start, end);
   x.collapse();
+
+  console.log('function grid: ', x.grid);
 }
 
 

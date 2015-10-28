@@ -1,3 +1,5 @@
+var braces = "";
+
 function validBraces(braces){
   //TODO
   var braces = braces;
@@ -10,3 +12,7 @@ function validBraces(braces){
   }
   return true;
 }
+
+var x = validBraces(braces);
+
+console.log(x);

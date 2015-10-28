@@ -1,3 +1,10 @@
+var map = [[true, true, true, false, true],
+    [false, false, true, false, true],
+    [true, true, true, true, true],
+    [true, false, true, false, false],
+    [false, true, true, true, true]];
+let answer = ["down", "down", "right", "right", "up", "up"];
+
 function isEquivalent(a, b) {
   let aProperties = Object.getOwnPropertyNames(a);
   let bProperties = Object.getOwnPropertyNames(b);
@@ -23,6 +30,10 @@ class MineMap {
       return c.slice();
     });
     return a;
+  }
+
+  checkSquare(square) {
+    return this.grid[square.x][square.y];
   }
 
   checkLeft(square) {
@@ -72,6 +83,7 @@ class MineMap {
         if (isEquivalent(coords, this.start) || isEquivalent(coords, this.end)) break;
 
         let exits = 0;
+
           if (this.checkLeft(coords)) exits++;
           if (this.checkRight(coords)) exits++;
           if (this.checkUp(coords)) exits++;
@@ -97,20 +109,25 @@ class MineMap {
     }
   }
 
-  findPath() {
-    let coords = new Object(this.start);
+  findPath(coords=this.start) {
     let path = [];
+    let safety = 0;
 
     while (!isEquivalent(coords, this.end)) {
-      console.log('starting loop', coords);
+
+     console.log('begin while');
+     console.log(coords);
+
+      if (this.checkSquare(coords)) {
         if (this.checkLeft(coords)) {
 
           path.push("left");
 
+          console.log('move left');
 
           this.grid[coords.x][coords.y] = false;
 
-          coords.x = coords.x - 1;
+          coords.x = coords.x -1;
 
           continue;
 
@@ -118,11 +135,11 @@ class MineMap {
 
           path.push("right");
 
+          console.log('move right');
+
           this.grid[coords.x][coords.y] = false;
 
-          coords.x = coords.x + 1;
-
-
+          coords.x = coords.x +1;
 
           continue;
 
@@ -130,6 +147,8 @@ class MineMap {
         } else if (this.checkUp(coords)) {
 
           path.push("up");
+
+          console.log('move up');
 
 
           this.grid[coords.x][coords.y] = false;
@@ -142,6 +161,9 @@ class MineMap {
 
           path.push("down");
 
+          console.log('move down');
+
+
           this.grid[coords.x][coords.y] = false;
 
           coords.y = coords.y + 1;
@@ -149,11 +171,14 @@ class MineMap {
           continue;
         }
 
+      } else {
+        console.log
+      }
+      console.log('end while');
     }
     return path;
   }
 }
-
 
 function solve(map, start, end) {
   let saneMap = map;
@@ -161,5 +186,6 @@ function solve(map, start, end) {
   x.collapse();
 
   let path = x.findPath();
+  console.log(path);
   return path;
 }

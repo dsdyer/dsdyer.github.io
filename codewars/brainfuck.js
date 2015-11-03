@@ -19,7 +19,6 @@ class Interpreter{
     this.output = [];
     this.parseBraces();
     this.interpret();
-    console.log('start output: ', this.output);
   }
 
   parseBraces() {
@@ -39,11 +38,9 @@ class Interpreter{
   }
 
   interpret() {
-    let safety = 0;
     for (let inst_pointer = 0; inst_pointer < this.code.length;) { // Moving the pointer explictly to
       console.log('start of for loop inst pointer: ', inst_pointer);
       console.log('start of for loop instruction: ', this.code[inst_pointer].toString());
-      if (safety > 200) break;
       switch (this.code[inst_pointer].toString()) {                          // Make [] loops less confusing.
         case ">":
           console.log('pointer right');
@@ -58,13 +55,12 @@ class Interpreter{
           console.log('pointer left');
 
           this.pointer--;
-          this.output.push('less than');
           inst_pointer++;
           break;
         case "+":
           console.log('increment data');
 
-          this.memory[this.pointer] = (++this.memory[this.pointer] % 255); // Overflow at 255
+          this.memory[this.pointer] = (++this.memory[this.pointer] % 256); // Overflow at 255
 
           console.log('new data: ', this.memory[this.pointer]);
           inst_pointer++;
@@ -85,6 +81,7 @@ class Interpreter{
           console.log('data as string: ', String.fromCharCode(this.memory[this.pointer]));
 
           this.output.push(String.fromCharCode(this.memory[this.pointer]));
+          console.log('what\'s actually there in output:', this.output[this.output.length -1]);
           inst_pointer++;
           console.log('new instruction pointer: ', inst_pointer);
 
@@ -93,7 +90,9 @@ class Interpreter{
           console.log('accepting input: ');
           console.log('starting data pointer: ', this.pointer);
           console.log('starting data: ', this.memory[this.pointer]);
-          this.memory[this.pointer] = this.input.shift().charCodeAt(0); // Store character as Unicode value
+          let shifted = this.input.shift();
+          console.log('shifted data value: ', shifted);
+          this.memory[this.pointer] = shifted.charCodeAt(0); // Store character as Unicode value
           console.log('ending data: ', this.memory[this.pointer]);
 
           inst_pointer++;
@@ -126,12 +125,13 @@ class Interpreter{
           inst_pointer++;
           break;
       }
-      safety++;
     }
+    console.log('out of for loop');
       console.log('this: ', this);
       console.log('output: ', this.output);
 
-    return this.output.join();
+    this.output = this.output.join("");
+    return;
   }
 }
 

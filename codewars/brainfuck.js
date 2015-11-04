@@ -16,6 +16,7 @@ class Interpreter{
     this.code = code.split("");
     this.input = input.split("");
     this.output = [];
+
     this.parseBraces();
     this.interpret();
   }
@@ -36,8 +37,8 @@ class Interpreter{
   }
 
   interpret() {
-    for (let inst_pointer = 0; inst_pointer < this.code.length;) { // Moving the pointer explictly to
-      switch (this.code[inst_pointer].toString()) {                          // Make [] loops less confusing.
+    for (let inst_pointer = 0; inst_pointer < this.code.length;) { // Moving the pointer manually to
+      switch (this.code[inst_pointer].toString()) {                // Make braces less confusing.
         case ">":
           this.pointer++;
           while (this.pointer >= this.memory.length) {  // If we're at the end of or outside memory,
@@ -54,7 +55,7 @@ class Interpreter{
           inst_pointer++;
           break;
         case "-":
-          this.memory[this.pointer] = (this.memory[this.pointer] - 1); // Overflow at 255
+          this.memory[this.pointer] = (this.memory[this.pointer] - 1);
           if (this.memory[this.pointer] < 0) this.memory[this.pointer] = (this.memory[this.pointer] % 255) + 1;
           inst_pointer++;
           break;
@@ -67,16 +68,16 @@ class Interpreter{
           this.memory[this.pointer] = shifted.charCodeAt(0); // Store character as Unicode value
           inst_pointer++;
           break;
-        case "[object Object]":
+        case "[object Object]":  // This is a Brace
           if (this.code[inst_pointer].type === 'open') {
             if (this.memory[this.pointer] === 0) {
-              inst_pointer = this.code.indexOf(this.code[inst_pointer].mate) + 1;
-              break;
+              inst_pointer = this.code.indexOf(this.code[inst_pointer].mate) + 1;  // Jump to one instruction after
+              break;                                                               // The matching (close) brace
             }
           } else if (this.code[inst_pointer].type === 'close') {
             if (this.memory[this.pointer] !== 0) {
-              inst_pointer = this.code.indexOf(this.code[inst_pointer].mate) + 1;
-              break;
+              inst_pointer = this.code.indexOf(this.code[inst_pointer].mate) + 1;  // Jump to one instruction after
+              break;                                                               // The matching (open) brace
             }
           }
           inst_pointer++;

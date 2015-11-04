@@ -51,7 +51,6 @@ class Interpreter{
           inst_pointer++;
           break;
         case "+":
-
           this.memory[this.pointer] = (++this.memory[this.pointer] % 256); // Overflow at 255
           inst_pointer++;
           break;
@@ -63,7 +62,6 @@ class Interpreter{
         case ".":
           this.output.push(String.fromCharCode(this.memory[this.pointer]));
           inst_pointer++;
-
           break;
         case ",":
           let shifted = this.input.shift();
@@ -93,8 +91,5 @@ class Interpreter{
 
 function brainLuck(code, input){
   var x = new Interpreter(code, input);
-  console.log(x.output);
   return x.output;
 }
-
-brainLuck(',>,<[>[->+>+<<]>>[-<<+>>]<<<-]>>.', String.fromCharCode(8,9));

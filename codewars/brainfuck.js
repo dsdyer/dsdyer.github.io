@@ -1,10 +1,9 @@
 class Brace {
-  constructor(number, type, mate) {
-    this.id = number;
+  constructor(type, mate) {
     this.type = type;
 
     if (this.type === 'open') {
-      this.mate = new Brace(this.id, 'close', this);
+      this.mate = new Brace('close', this);
     } else this.mate = mate;
   }
 }
@@ -25,7 +24,7 @@ class Interpreter{
     let ends = [];
     this.code = this.code.map(function(c, i){
       if (c === '[') {
-        let brace = new Brace(i, 'open');
+        let brace = new Brace('open');
         ends.push(brace.mate);
         return brace;
       }

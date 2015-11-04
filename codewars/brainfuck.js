@@ -65,7 +65,7 @@ class Interpreter{
     for (let ipointer = 0; ipointer < this.code.length; ipointer++) {
       let instruction = this.code[ipointer];
       if (typeof(instruction) === 'string') {
-        this.commands[instruction].call(this); // Call the command with 'this' set the the Interpreter
+        this.commands[instruction].call(this); // Call the command with 'this' set to the Interpreter
       } else {  // This is a Brace
           if (instruction.type === 'open') {
             if (this.memory[this.pointer] === 0) {

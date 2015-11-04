@@ -38,9 +38,11 @@ class Interpreter{
   }
 
   interpret() {
+    let safety = 0;
     for (let inst_pointer = 0; inst_pointer < this.code.length;) { // Moving the pointer explictly to
       console.log('start of for loop inst pointer: ', inst_pointer);
       console.log('start of for loop instruction: ', this.code[inst_pointer].toString());
+      if (safety > 20000) break;
       switch (this.code[inst_pointer].toString()) {                          // Make [] loops less confusing.
         case ">":
           console.log('pointer right');
@@ -58,17 +60,42 @@ class Interpreter{
           inst_pointer++;
           break;
         case "+":
-          console.log('increment data');
+          console.log('increment data:');
 
-          this.memory[this.pointer] = (++this.memory[this.pointer] % 256); // Overflow at 255
+          console.log('old data: ', this.memory[this.pointer]);
+
+          if (typeof this.memory[this.pointer] !== 'number') {
+            console.log('incremented data: ', ((this.memory[this.pointer].charCodeAt(0) + 1) % 256));
+            this.memory[this.pointer] = String.fromCharCode(((this.memory[this.pointer].charCodeAt(0) + 1) % 256));
+            console.log('data as number back to string: ', this.memory[this.pointer]);
+
+          } else {
+            console.log('data is already a number');
+            this.memory[this.pointer] = (++this.memory[this.pointer] % 256); // Overflow at 255
+          }
 
           console.log('new data: ', this.memory[this.pointer]);
           inst_pointer++;
           break;
         case "-":
-          console.log('decrement data');
+          console.log('decrement data:');
 
-          this.memory[this.pointer]--;
+          console.log('old data: ', this.memory[this.pointer]);
+
+          if (typeof this.memory[this.pointer] !== 'number') {
+            console.log('decremented data: ', this.memory[this.pointer].charCodeAt(0) - 1);
+            this.memory[this.pointer] = String.fromCharCode(this.memory[this.pointer].charCodeAt(0) - 1);
+            console.log('data as number back to string: ', this.memory[this.pointer]);
+
+          } else {
+            console.log('data is already a number');
+            this.memory[this.pointer] = (this.memory[this.pointer] - 1); // Overflow at 255
+          }
+
+          console.log('new data: ', this.memory[this.pointer]);
+
+
+
           if (this.memory[this.pointer] < 0) this.memory[this.pointer] = (this.memory[this.pointer] % 255) + 1;
           console.log('new data: ', this.memory[this.pointer]);
           inst_pointer++;
@@ -80,19 +107,19 @@ class Interpreter{
           console.log('data: ', this.memory[this.pointer]);
           console.log('data as string: ', String.fromCharCode(this.memory[this.pointer]));
 
-          this.output.push(String.fromCharCode(this.memory[this.pointer]));
+          this.output.push(this.memory[this.pointer]);
           console.log('what\'s actually there in output:', this.output[this.output.length -1]);
           inst_pointer++;
           console.log('new instruction pointer: ', inst_pointer);
 
           break;
         case ",":
-          console.log('accepting input: ');
+          console.log('accepting input:');
           console.log('starting data pointer: ', this.pointer);
           console.log('starting data: ', this.memory[this.pointer]);
           let shifted = this.input.shift();
           console.log('shifted data value: ', shifted);
-          this.memory[this.pointer] = shifted.charCodeAt(0); // Store character as Unicode value
+          this.memory[this.pointer] = shifted; // Store character as Unicode value
           console.log('ending data: ', this.memory[this.pointer]);
 
           inst_pointer++;
@@ -100,12 +127,22 @@ class Interpreter{
 
           break;
         case "[object Object]":
-          console.log('loop testing');
+          console.log('loop testing:');
 
           if (this.code[inst_pointer].type === 'open') {
             console.log('start of loop testing');
 
-            if (this.memory[this.pointer] === 0) {
+            if (typeof this.memory[this.pointer] === 'number') {
+              console.log('open brace, is number');
+              var test = this.memory[this.pointer];
+            } else {
+              console.log('open brace, not number');
+
+              var test = this.memory[this.pointer].charCodeAt(0);
+            }
+
+
+            if (test === 0) {
               console.log('jumping to end of loop');
 
               inst_pointer = this.code.indexOf(this.code[inst_pointer].mate) + 1;
@@ -114,7 +151,17 @@ class Interpreter{
           } else if (this.code[inst_pointer].type === 'close') {
             console.log('end of loop testing');
 
-            if (this.memory[this.pointer] !== 0) {
+            if (typeof this.memory[this.pointer] === 'number') {
+              console.log('close brace, is number');
+
+              var test = this.memory[this.pointer];
+            } else {
+              console.log('close brace, not number');
+
+              var test = this.memory[this.pointer].charCodeAt(0);
+            }
+
+            if (test !== 0) {
               console.log('jumping to start of loop');
 
               inst_pointer = this.code.indexOf(this.code[inst_pointer].mate) + 1;
@@ -125,8 +172,9 @@ class Interpreter{
           inst_pointer++;
           break;
       }
+      safety++;
     }
-    console.log('out of for loop');
+      console.log('out of for loop');
       console.log('this: ', this);
       console.log('output: ', this.output);
 
@@ -141,4 +189,4 @@ function brainLuck(code, input){
   return x.output;
 }
 
-brainLuck(',+[-.,+]', 'Codewars'+String.fromCharCode(255));
+brainLuck(',>,<[>[->+>+<<]>>[-<<+>>]<<<-]>>.', String.fromCharCode(8,9));

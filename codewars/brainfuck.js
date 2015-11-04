@@ -34,7 +34,6 @@ class Interpreter{
       }
       return c;
     });
-    console.log('brace_map: ', this.code);
   }
 
   interpret() {
@@ -57,83 +56,36 @@ class Interpreter{
           inst_pointer++;
           break;
         case "-":
-          console.log('decrement data:');
-
-          console.log('old data: ', this.memory[this.pointer]);
-
-
-            console.log('data is already a number');
-            this.memory[this.pointer] = (this.memory[this.pointer] - 1); // Overflow at 255
-
-
-          console.log('new data: ', this.memory[this.pointer]);
-
-
-
+          this.memory[this.pointer] = (this.memory[this.pointer] - 1); // Overflow at 255
           if (this.memory[this.pointer] < 0) this.memory[this.pointer] = (this.memory[this.pointer] % 255) + 1;
-          console.log('new data: ', this.memory[this.pointer]);
           inst_pointer++;
-          console.log('new instruction pointer: ', inst_pointer);
           break;
         case ".":
-          console.log('output data:');
-          console.log('data pointer: ', this.pointer);
-          console.log('data: ', this.memory[this.pointer]);
-          console.log('data as string: ', String.fromCharCode(this.memory[this.pointer]));
-
           this.output.push(String.fromCharCode(this.memory[this.pointer]));
-          console.log('what\'s actually there in output:', this.output[this.output.length -1]);
           inst_pointer++;
-          console.log('new instruction pointer: ', inst_pointer);
 
           break;
         case ",":
-          console.log('accepting input:');
-          console.log('starting data pointer: ', this.pointer);
-          console.log('starting data: ', this.memory[this.pointer]);
           let shifted = this.input.shift();
-          console.log('shifted data value: ', shifted);
           this.memory[this.pointer] = shifted.charCodeAt(0); // Store character as Unicode value
-          console.log('ending data: ', this.memory[this.pointer]);
-
           inst_pointer++;
-          console.log('ending inst pointer: ', inst_pointer);
-
           break;
         case "[object Object]":
-          console.log('loop testing:');
-
           if (this.code[inst_pointer].type === 'open') {
-            console.log('start of loop testing');
-
-
-
             if (this.memory[this.pointer] === 0) {
-              console.log('jumping to end of loop');
-
               inst_pointer = this.code.indexOf(this.code[inst_pointer].mate) + 1;
               break;
             }
           } else if (this.code[inst_pointer].type === 'close') {
-            console.log('end of loop testing');
-
-
             if (this.memory[this.pointer] !== 0) {
-              console.log('jumping to start of loop');
-
               inst_pointer = this.code.indexOf(this.code[inst_pointer].mate) + 1;
               break;
             }
           }
-          console.log('not jumping');
           inst_pointer++;
           break;
       }
     }
-      console.log('out of for loop');
-      console.log('this: ', this);
-      console.log('output: ', this.output);
-
     this.output = this.output.join("");
     return;
   }

@@ -5,7 +5,7 @@
 function MemoryManager(memory){
   this.memory = memory;
   this.blocks = [];
-  this.free_mem_sizes = [0, this.memory.length, 0];
+  this.free_mem_sizes = [this.memory.length];
 }
 
 /**
@@ -19,17 +19,16 @@ MemoryManager.prototype.allocate = function(size) {
   // Find the best place to start a new block
   var free_blocks = this.free_mem_sizes;
   console.log('starting allocate');
-  var x = free_blocks.sort(function(a,b) { // X is the smallest sized span of free memory 
-  	return a-b;							               // that can be sectioned into a block of requested size
+  var x = free_blocks.sort(function(a,b) { 
+  	return a-b;							               
   });
-  for (var i = 0; i < x.length; i++) {
-  	if (x[i] > size ) {
+  for (var i = 0; i < x.length; i++) { // X is the smallest span of free memory that can
+  	if (x[i] > size ) {                // be sectioned into a block of the requested size
       console.log(x[i]);
   	  x = x[i];
   	  break;
   	}	
   }
-
 
   var block_index;  // Int
   // Create an object holding block's index and size
@@ -65,11 +64,11 @@ MemoryManager.prototype.release = function(pointer){
 MemoryManager.prototype.read = function(pointer){
   // To do:
   // Make sure the pointer points to allocated memory
-  if (pointerIsAllocated) {
-    return this.memory[pointer];
-	} else {
-		throw "That ain\'t a valid pointer!";
-	}
+
+    for (var i = 0; i < this.blocks.length; i++) {
+      (this.blocks.index < pointer < this.blocks.index + this.blocks.size) ? return this.memory[pointer] : continue;
+    };
+    throw "That ain\'t a valid pointer!";
 };
 
 
@@ -82,9 +81,7 @@ MemoryManager.prototype.read = function(pointer){
 MemoryManager.prototype.write = function(pointer, value){
   // To do:
   // Make sure the pointer points to allocated memory
-  if (pointerIsAllocated) {
-  	this.memory[pointer] = value;
-  } else {
-  	  throw "That ain\'t a valid pointer!";
-  }
+    for (var i = 0; i < this.blocks.length; i++) {
+      (this.blocks.index < pointer < this.blocks.index + this.blocks.size) ? this.memory[pointer] = value : continue;
+    };
 }

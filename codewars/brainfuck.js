@@ -10,8 +10,12 @@ class Brace {
 
 class Interpreter{
   constructor (code, input) {
+    this.codestr = code;
+
     this.memory = [0];
     this.pointer = 0;
+    this.ipointer = 0;
+    this.loop_stack = [];
 
     this.code = code.split("");
     this.input = input.split("");
@@ -37,46 +41,43 @@ class Interpreter{
               this.output.push(String.fromCharCode(this.memory[this.pointer]));
             },
       "," : function() {
-              let shifted = this.input.shift();
-              this.memory[this.pointer] = shifted.charCodeAt(0); // Store character as Unicode value
+              this.memory[this.pointer] = this.input.shift().charCodeAt(0); // Store character as Unicode value
+            },
+      "[" : function() {
+              this.loop_stack.push(this.ipointer);
+
+              if (this.memory[this.pointer] === 0) {
+                // Jump to the matching (close) brace
+                let count = 0;
+
+                for (let i = this.ipointer + 1; i < this.code.length; i++) {
+                  if (this.code[i] === '[') {
+                    count++;
+                    continue;
+                  }
+                  if (this.code[i] === ']' && count === 0) {
+                    this.ipointer = i;
+                    break;
+                  }
+                }
+              }
+            },
+      "]" : function() {
+              if (this.memory[this.pointer] !== 0) {
+                this.ipointer = this.loop_stack[this.loop_stack.length -1];
+              } else {
+                this.loop_stack.pop();
+              }
             }
     }
-
-    this.parseBraces();
     this.interpret();
   }
 
-  parseBraces() {
-    let ends = [];
-    this.code = this.code.map(function(c, i){
-      if (c === '[') {
-        let brace = new Brace('open');
-        ends.push(brace.mate);
-        return brace;
-      }
-      if (c === ']') {
-        return ends.pop();
-      }
-      return c;
-    });
-  }
-
   interpret() {
-    for (let ipointer = 0; ipointer < this.code.length; ipointer++) {
-      let instruction = this.code[ipointer];
-      if (typeof(instruction) === 'string') {
-        this.commands[instruction].call(this); // Call the command with 'this' set to the Interpreter
-      } else {  // This is a Brace
-          if (instruction.type === 'open') {
-            if (this.memory[this.pointer] === 0) {
-              ipointer = this.code.indexOf(instruction.mate);  // Jump to the matching (close) brace
-            }
-          } else if (instruction.type === 'close') {
-            if (this.memory[this.pointer] !== 0) {
-              ipointer = this.code.indexOf(instruction.mate);  // Jump to the matching (open) brace
-            }
-          }
-        }
+    let commands = this.commands;
+    for (; this.ipointer < this.code.length; this.ipointer++) {
+      let instruction = this.code[this.ipointer];
+      commands[instruction].call(this); // Call the command with 'this' set to the Interpreter
       }
     this.output = this.output.join("");
     return;

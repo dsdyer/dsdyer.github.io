@@ -4,8 +4,8 @@
  */
 function MemoryManager(memory){
   this.memory = memory;
-  this.blocks = [];
-  this.free_mem_sizes = [this.memory.length];
+  this.blocks = [];  // A block is an object with index and size.
+                     // Index+size is the first address not in the block
 }
 
 /**
@@ -15,24 +15,49 @@ function MemoryManager(memory){
  * @throws If it is not possible to allocate a block of the requested size.
  */
 MemoryManager.prototype.allocate = function(size) {
-  // To do: 
+  // To do:
   // Find the best place to start a new block
-  var free_blocks = this.free_mem_sizes;
-  console.log('starting allocate');
-  var x = free_blocks.sort(function(a,b) { 
-  	return a-b;							               
-  });
-  for (var i = 0; i < x.length; i++) { // X is the smallest span of free memory that can
-  	if (x[i] > size ) {                // be sectioned into a block of the requested size
-      console.log(x[i]);
-  	  x = x[i];
-  	  break;
-  	}	
-  }
 
-  var block_index;  // Int
+  if (this.blocks.length === 0) {
+    if (size <= this.memory.length) {
+      this.blocks.push({index: 0, size: size});
+      return 0;
+    } else {
+      throw new Error('Impossible block1');
+    }
+  }
+  var smallest_viable_size = this.memory.length;
+  var blocks_index = 0;
+
+  this.blocks.forEach(function(c,i,a) {
+    if (i < a.length - 1) {
+
+      var new_size = a[i+1].index - c.index - c.size;
+
+    } else {
+
+      var new_size = this.memory.length - c.index - c.size;
+      if (new_size < size) {
+        new_size = c.index;
+      }
+
+    }
+
+      if (new_size >= size) {
+        if (new_size < smallest_viable_size) {
+          smallest_viable_size = new_size;
+          blocks_index = i;
+
+        }
+      }
+  }, this);
+
+  if (smallest_viable_size === this.memory.length) throw new Error('Impossible block2');
+
+  var new_index = this.blocks[blocks_index].index + this.blocks[blocks_index].size;
   // Create an object holding block's index and size
-  this.blocks.push({index: block_index, size: size});
+  this.blocks.push({index: new_index, size: size});
+  return new_index;
 };
 
 /**
@@ -42,17 +67,19 @@ MemoryManager.prototype.allocate = function(size) {
  */
 MemoryManager.prototype.release = function(pointer){
   // To do:
+  var safe_address = false;
 
-  var block = this.blocks.sort(function(a,b) {
-    if (a.index === pointer) {
-    	return 1;
+  this.blocks = this.blocks.sort(function(a,b) {
+    if (a.index === pointer) {                   // This sorts the blocks array in ascending order,
+      if (!safe_address) safe_address = true;    // but with the requested block at the end
+      return 1;
     } else {
-    	return a - b;
+      return a - b;
     }
-  }).pop();
-
-  // Merge any adjacent free blocks
-
+  });
+  if (!safe_address) {
+    throw new Error('Not a valid pointer!');
+  }
 };
 
 /**
@@ -61,14 +88,16 @@ MemoryManager.prototype.release = function(pointer){
  * @returns {number} The value at that location.
  * @throws If pointer is in unallocated memory.
  */
-MemoryManager.prototype.read = function(pointer){
+MemoryManager.prototype.read = function(pointer) {
   // To do:
   // Make sure the pointer points to allocated memory
 
-    for (var i = 0; i < this.blocks.length; i++) {
-      (this.blocks.index < pointer < this.blocks.index + this.blocks.size) ? return this.memory[pointer] : continue;
-    };
-    throw "That ain\'t a valid pointer!";
+  for (var i = 0; i < this.blocks.length; i++) {
+    if (this.blocks[i].index < pointer < this.blocks[i].index + this.blocks[i].size) {
+      return this.memory[pointer];
+    }
+  }
+  throw new Error("That ain\'t a valid pointer!");
 };
 
 
@@ -81,7 +110,11 @@ MemoryManager.prototype.read = function(pointer){
 MemoryManager.prototype.write = function(pointer, value){
   // To do:
   // Make sure the pointer points to allocated memory
-    for (var i = 0; i < this.blocks.length; i++) {
-      (this.blocks.index < pointer < this.blocks.index + this.blocks.size) ? this.memory[pointer] = value : continue;
-    };
-}
+  for (var i = 0; i < this.blocks.length; i++) {
+    if ((this.blocks[i].index <= pointer) && pointer < (this.blocks[i].index + this.blocks[i].size)) {
+      this.memory[pointer] = value;
+      return;
+    }
+  }
+  throw new Error("That ain\'t a valid pointer!");
+};

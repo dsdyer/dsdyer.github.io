@@ -46,6 +46,8 @@ function bruteForce(Puzzle) {
   // Check if the Puzzle is valid
   //   Yes: increment pointer
   //   No: Goto 43
+
+  return Puzzle.puzzle;
 };
 
 function sudoku(puzzle) {

@@ -41,7 +41,7 @@ class Puzzle {
 
 function bruteForce(Puzzle) {
   // Increment the square referenced by Puzzle.pointer
-  // If square > 9, decrement pointer
+  // If square > 9: square = 0, decrement pointer
 
   // Check if the Puzzle is valid
   //   Yes: increment pointer

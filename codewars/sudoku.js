@@ -12,6 +12,8 @@ function Puzzle(puzzle) {
   this.rows = {};
   this.columns = {};
   this.boxes = {};
+  this.blanks = [];
+  this.pointer = 0;
 
   _possible = [1,2,3,4,5,6,7,8,9];
 
@@ -35,7 +37,7 @@ function Puzzle(puzzle) {
   };
 };
 
-function solveIt(Puzzle, puzzle) {
+function bruteForce(Puzzle, puzzle) {
   for (i = 0; i < 9; i++) {
     for (var j = 0; j < 9; j++) {
       var square = Puzzle.puzzle[i][j];
@@ -62,18 +64,4 @@ function sudoku(puzzle) {
   var a = new Puzzle(puzzle);
 
   solveIt(a, puzzle);
-  console.log('first pass');
-
-  console.log(a.puzzle);
-
-  solveIt(a, puzzle);
-  console.log('second pass');
-  console.log(a.puzzle);
-  solveIt(a, puzzle);
-  console.log('third pass');
-  console.log(a.puzzle);
-  solveIt(a, puzzle);
-  console.log('forth pass');
-  console.log(a.puzzle);
-
 };

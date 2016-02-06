@@ -89,6 +89,8 @@ function sudoku(puzzle) {
     }
 
     if (a.isValid(sq_y, sq_x, test_value)) {
+      console.log('Valid!');
+
       a.updateSquare(sq_y, sq_x, test_value);
       a.pointer++;
       if (a.pointer >= a.blanks.length) {
@@ -112,7 +114,6 @@ function sudoku(puzzle) {
     //   Yes: increment pointer
     //   No: Try again
 
-    console.log('isValid: ' + a.isValid(sq_y, sq_x, test_value));
 
 
     count++;

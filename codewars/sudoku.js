@@ -48,17 +48,17 @@ class Puzzle {
   }
 
   updateSquare(y, x, new_value) {
-    console.log('old value: ' + this.puzzle[y][x]);
-    console.log('new_value: ' + new_value);
+    // console.log('old value: ' + this.puzzle[y][x]);
+    // console.log('new_value: ' + new_value);
 
     this.puzzle[y][x] = new_value;
     this.columns[x][y] = new_value;
     this.rows[y][x] = new_value;
-    this.boxes[this.findBox(y, x)][(Math.floor(y/3) * 3) + (x % 3)] = new_value;
+    this.boxes[this.findBox(y, x)][((y % 3) * 3) + (x % 3)] = new_value;
 
-    console.log('row: ' + this.rows[y]);
-    console.log('column: ' + this.columns[x]);
-    console.log('box: ' + this.boxes[this.findBox(y, x)]);
+    // console.log('row: ' + this.rows[y]);
+    // console.log('column: ' + this.columns[x]);
+    // console.log('box: ' + this.boxes[this.findBox(y, x)]);
 
   };
 };
@@ -74,12 +74,13 @@ function sudoku(puzzle) {
 
   // Increment the square referenced by Puzzle.pointer
 
-  while (count < 6) {
+  while (count < 6000) {
     sq_y = a.blanks[a.pointer][0];
     sq_x = a.blanks[a.pointer][1];
 
-    console.log('\npointer: ' + a.pointer);
-    console.log('\nsquareLoc: ' + a.blanks[[a.pointer]]);
+    // console.log('\npointer: ' + a.pointer);
+    // console.log('\nsquareLoc: ' + a.blanks[[a.pointer]]);
+    // console.log('\ntrying: ' + test_value);
 
     if (test_value > 9) {
       a.updateSquare(sq_y, sq_x, 0);
@@ -89,14 +90,16 @@ function sudoku(puzzle) {
     }
 
     if (a.isValid(sq_y, sq_x, test_value)) {
-      console.log('Valid!');
+      // console.log('Valid!');
 
       a.updateSquare(sq_y, sq_x, test_value);
       a.pointer++;
+      test_value = 1;
       if (a.pointer >= a.blanks.length) {
         return a.puzzle;
       }
     } else {
+      // console.log('Invalid!');
       test_value++;
       continue;
     }

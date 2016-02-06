@@ -39,35 +39,69 @@ class Puzzle {
     // The first number is the x coordinate of the box on a 3x3 grid,
     // The second number is the y coordinate
     return Math.floor(y/3) * 3 + Math.floor(x/3)
-
-
-
   };
 
-  isValid(y, x) {
-    console.log(this.puzzle[y][x]);
+  isValid(y, x, test_value) {
     return this.rows[y].indexOf(this.puzzle[y][x]) === -1 &&
            this.columns[x].indexOf(this.puzzle[y][x]) === -1 &&
            this.boxes[this.findBox(y, x)].indexOf(this.puzzle[y][x]) === -1;
   }
+
+  updateSquare(y, x, new_value) {
+    console.log('old value: ' + this.puzzle[y][x]);
+    console.log('new_value: ' + new_value);
+
+    this.puzzle[y][x] = new_value;
+    this.columns[x][y] = new_value;
+    this.rows[y][x] = new_value;
+    this.boxes[this.findBox(y, x)][(Math.floor(y/3) * 3) + (x % 3)] = new_value;
+
+    console.log('row: ' + this.rows[y]);
+    console.log('column: ' + this.columns[x]);
+    console.log('box: ' + this.boxes[this.findBox(y, x)]);
+
+  };
 };
 
 
 function sudoku(puzzle) {
   // Create a Puzzle object from the input array
   let a = new Puzzle(puzzle);
-  let sq_x = a.blanks[a.pointer][0];
-  let sq_y = a.blanks[a.pointer][1];
+  let sq_x;
+  let sq_y;
+  let count = 0;
+  let test_value = 1;
 
   // Increment the square referenced by Puzzle.pointer
 
-  while (true) {
-    a.puzzle[sq_y][sq_x]++;
+  while (count < 6) {
+    sq_y = a.blanks[a.pointer][0];
+    sq_x = a.blanks[a.pointer][1];
+
+    console.log('\npointer: ' + a.pointer);
+    console.log('\nsquareLoc: ' + a.blanks[[a.pointer]]);
+
+    if (test_value > 9) {
+      a.updateSquare(sq_y, sq_x, 0);
+      a.pointer--;
+      test_value = a.puzzle[a.blanks[a.pointer][0]][a.blanks[a.pointer][1]] + 1;
+      continue;
+    }
+
+    if (a.isValid(sq_y, sq_x, test_value)) {
+      a.updateSquare(sq_y, sq_x, test_value);
+      a.pointer++;
+      if (a.pointer >= a.blanks.length) {
+        return a.puzzle;
+      }
+    }
+
+
+
 
     // If square > 9: square = 0, decrement pointer
-
     if (a.puzzle[sq_y][sq_x] > 9) {
-      a.puzzle[sq_y][sq_x] = 0;
+      a.updateSquare(sq_y, sq_x, 0);
       a.pointer--;
     }
 
@@ -75,9 +109,10 @@ function sudoku(puzzle) {
     //   Yes: increment pointer
     //   No: Try again
 
-    if (a.isValid(sq_y, sq_x)) {
-      a.pointer++;
-    }
+    console.log('isValid: ' + a.isValid(sq_y, sq_x));
+
+
+    count++;
   }
 
 

@@ -42,9 +42,9 @@ class Puzzle {
   };
 
   isValid(y, x, test_value) {
-    return this.rows[y].indexOf(this.puzzle[y][x]) === -1 &&
-           this.columns[x].indexOf(this.puzzle[y][x]) === -1 &&
-           this.boxes[this.findBox(y, x)].indexOf(this.puzzle[y][x]) === -1;
+    return this.rows[y].indexOf(test_value) === -1 &&
+           this.columns[x].indexOf(test_value) === -1 &&
+           this.boxes[this.findBox(y, x)].indexOf(test_value) === -1;
   }
 
   updateSquare(y, x, new_value) {
@@ -94,22 +94,25 @@ function sudoku(puzzle) {
       if (a.pointer >= a.blanks.length) {
         return a.puzzle;
       }
+    } else {
+      test_value++;
+      continue;
     }
 
 
 
 
     // If square > 9: square = 0, decrement pointer
-    if (a.puzzle[sq_y][sq_x] > 9) {
-      a.updateSquare(sq_y, sq_x, 0);
-      a.pointer--;
-    }
+    // if (a.puzzle[sq_y][sq_x] > 9) {
+    //   a.updateSquare(sq_y, sq_x, 0);
+    //   a.pointer--;
+    // }
 
     // Check if the Puzzle is valid
     //   Yes: increment pointer
     //   No: Try again
 
-    console.log('isValid: ' + a.isValid(sq_y, sq_x));
+    console.log('isValid: ' + a.isValid(sq_y, sq_x, test_value));
 
 
     count++;

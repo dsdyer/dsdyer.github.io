@@ -69,12 +69,11 @@ function sudoku(puzzle) {
   let a = new Puzzle(puzzle);
   let sq_x;
   let sq_y;
-  let count = 0;
   let test_value = 1;
 
   // Increment the square referenced by Puzzle.pointer
 
-  while (count < 6000) {
+  while (true) {
     sq_y = a.blanks[a.pointer][0];
     sq_x = a.blanks[a.pointer][1];
 
@@ -104,24 +103,7 @@ function sudoku(puzzle) {
       continue;
     }
 
-
-
-
-    // If square > 9: square = 0, decrement pointer
-    // if (a.puzzle[sq_y][sq_x] > 9) {
-    //   a.updateSquare(sq_y, sq_x, 0);
-    //   a.pointer--;
-    // }
-
-    // Check if the Puzzle is valid
-    //   Yes: increment pointer
-    //   No: Try again
-
-
-
-    count++;
   }
-
 
   //return the solved puzzle as a 2d array of 9 x 9
   return Puzzle.puzzle;

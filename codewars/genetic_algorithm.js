@@ -21,11 +21,17 @@ class GeneticAlgorithm {
 
   }
 
-  generate(length) {
+  static generate(length = 35) {
   // TODO: Implement the generate method
   // The generate method generates a random chromosome
   // of a given length (use this in your run method 
-  // to create a population). 
+  // to create a population).
+
+    let chromosome = [];  // Let's keep the chromosomes as arrays for now
+    for (var i = 0; i < length; i++) {
+      chromosome.push(Math.round(Math.random()));
+    };
+    return chromosome;
   };
 
   select(population, fitnesses) {
@@ -43,7 +49,7 @@ class GeneticAlgorithm {
   // TODO: Implement the crossover method
   };
 
-  run(fitness, length, p_c, p_m, iterations) {
+  run(fitness, length, p_c = 0.6, p_m = 0.002, iterations) {
     // TODO: Implement the run method
     // The run method will take a fitness function that 
     // accepts a chromosome and returns the fitness of that 
@@ -55,3 +61,5 @@ class GeneticAlgorithm {
     // it deemed to be fittest.
   };
 }
+
+console.log(GeneticAlgorithm.generate());

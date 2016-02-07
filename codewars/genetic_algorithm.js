@@ -17,10 +17,6 @@
   // you can try again and you'll probably be fine.
 
 class GeneticAlgorithm {
-  constructor() {
-
-  }
-
   static generate(length = 35) {
   // TODO: Implement the generate method
   // The generate method generates a random chromosome
@@ -34,22 +30,22 @@ class GeneticAlgorithm {
     return chromosome;
   };
 
-  select(population, fitnesses) {
+  static select(population, fitnesses) {
     // TODO: Implement the select method
     // The select method will take a population and a 
     // corresponding list of fitnesses and return two 
     // chromosomes selected with the roulette wheel method.
   };
 
-  mutate(chromosome, p) {
+  static mutate(chromosome, p) {
     // TODO: Implement the mutate method
   };
 
-  crossover(chromosome1, chromosome2) {
+  static crossover(chromosome1, chromosome2) {
   // TODO: Implement the crossover method
   };
 
-  run(fitness, length, p_c = 0.6, p_m = 0.002, iterations) {
+  static run(fitness, length, p_c = 0.6, p_m = 0.002, iterations) {
     // TODO: Implement the run method
     // The run method will take a fitness function that 
     // accepts a chromosome and returns the fitness of that 

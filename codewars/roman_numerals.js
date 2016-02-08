@@ -25,6 +25,7 @@ class RomanNumerals {
   };
 
     console.log(roman.join(''));
+    return roman.join('');
   }
 
   static fromRoman(string) {

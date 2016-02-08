@@ -45,5 +45,8 @@ class RomanNumerals {
 
   static fromRoman(string) {
     // Takes a Roman numeral and returns the integer
+    let count = 0;
+
+    return count;
   }
 }

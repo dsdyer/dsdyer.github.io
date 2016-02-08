@@ -17,14 +17,10 @@
   // you can try again and you'll probably be fine.
 
 class GeneticAlgorithm {
-  static generate(length = 35) {
-  // TODO: Implement the generate method
-  // The generate method generates a random chromosome
-  // of a given length (use this in your run method 
-  // to create a population).
 
+  static generate(length = 35) {
     let chromosome = [];  // Let's keep the chromosomes as arrays for now
-    for (var i = 0; i < length; i++) {
+    for (let i = 0; i < length; i++) {
       chromosome.push(Math.round(Math.random()));
     };
     return chromosome;
@@ -35,17 +31,43 @@ class GeneticAlgorithm {
     // The select method will take a population and a 
     // corresponding list of fitnesses and return two 
     // chromosomes selected with the roulette wheel method.
+
+    let fitness_pool = fitnesses.reduce((a, b) => a+b );
+
+    Math.random() * fitness_pool;
+
   };
 
   static mutate(chromosome, p) {
-    // TODO: Implement the mutate method
+    for (let i = 0; i < chromosome.length; i++) {
+      if (Math.random < p) {
+        chromosome[i] = (chromosome[i] + 1) % 2;
+      }
+    };
   };
 
-  static crossover(chromosome1, chromosome2) {
-  // TODO: Implement the crossover method
+static crossover(chromosome1, chromosome2) {
+    let c_bit = Math.floor(Math.random() * 34) + 1;
+
+    let c1_head = chromosome1.slice(0, c_bit);
+    let c2_head = chromosome2.slice(0, c_bit);
+    let c1_tail = chromosome1.slice(c_bit);
+    let c2_tail = chromosome2.slice(c_bit);
+
+    let ng_1 = c1_head.concat(c2_tail);
+    let ng_2 = c2_head.concat(c1_tail);
+
+    console.log('crossover at: ' + c_bit);
+    console.log('chromosome1: ' + c1_head.concat([' '], c1_tail).join(''));
+    console.log('chromosome2: ' + c2_head.concat([' '], c2_tail).join(''));
+
+    return {
+      "ng_1": ng_1.join(''),
+      "ng_2": ng_2.join('')
+    };
   };
 
-  static run(fitness, length, p_c = 0.6, p_m = 0.002, iterations) {
+  static run(fitness, length = 35, p_c = 0.6, p_m = 0.002, iterations = 100) {
     // TODO: Implement the run method
     // The run method will take a fitness function that 
     // accepts a chromosome and returns the fitness of that 
@@ -58,4 +80,7 @@ class GeneticAlgorithm {
   };
 }
 
-console.log(GeneticAlgorithm.generate());
+for (let i = 0; i < 10; i++) {
+  console.log(GeneticAlgorithm.crossover(GeneticAlgorithm.generate(), GeneticAlgorithm.generate()));
+}
+

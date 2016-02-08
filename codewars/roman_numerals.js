@@ -2,29 +2,44 @@ class RomanNumerals {
 
   static toRoman(int) {
     // Takes an integer and returns the Roman numeral
-    let int_array = String(int).split('');
+    let digit_array = String(int).split('');
     let roman = [];
 
     let simple = {
-      'I' : int_array[int_array.length - 1],                            // number of Is
-      'X' : int_array.length > 1 ? int_array[int_array.length - 2] : 0, // number of Xs
-      'C' : int_array.length > 2 ? int_array[int_array.length - 3] : 0, // number of Cs
-      'M' : int_array.length > 3 ? int_array[int_array.length - 4] : 0 // number of Ms
+      'I' : digit_array[digit_array.length - 1],                            // number of Is
+      'X' : digit_array.length > 1 ? digit_array[digit_array.length - 2] : 0, // number of Xs
+      'C' : digit_array.length > 2 ? digit_array[digit_array.length - 3] : 0, // number of Cs
+      'M' : digit_array.length > 3 ? digit_array[digit_array.length - 4] : 0 // number of Ms
     };
+
+    let conversions = {
+      4: function(i) {
+        roman.unshift(vld[i]);
+        roman.unshift(ixcm[i]);
+      },
+      5: function(i) {
+        roman.unshift(vld[i]);
+      },
+      6: function(i) {
+        roman.unshift(ixcm[i]);
+        roman.unshift(vld[i]);
+      }
+    }
 
     let ixcm = ['I', 'X', 'C', 'M'];
+    let vld = ['V', 'L', 'D'];
 
   for (let i = 0, l = Object.keys(simple).length; i < l; i++) {
-    for (let j = 0, jl = simple[ixcm[i]]; j < jl; j++) {
-      roman.unshift((function() {
-            // if (Object.keys()[i]) {
-              return ixcm[i];
-            // };
-      })());
+    let jl = simple[ixcm[i]];
+
+    if (conversions.hasOwnProperty(jl)) {
+      conversions[jl](i);
+      continue;
+    }
+    for (let j = 0; j < jl; j++) {
+      roman.unshift(ixcm[i]);
     };
   };
-
-    console.log(roman.join(''));
     return roman.join('');
   }
 
@@ -32,9 +47,3 @@ class RomanNumerals {
     // Takes a Roman numeral and returns the integer
   }
 }
-
-RomanNumerals.toRoman(5);
-RomanNumerals.toRoman(9);
-RomanNumerals.toRoman(23);
-RomanNumerals.toRoman(223);
-RomanNumerals.toRoman(2324);

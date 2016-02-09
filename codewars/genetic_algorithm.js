@@ -17,7 +17,7 @@ class GeneticAlgorithm {
     for (let i = 0; i < length; i++) {
       chromosome.push(Math.round(Math.random()));
     };
-    return chromosome;
+    return chromosome.join('');
   };
 
   select(population, fitnesses) {
@@ -64,9 +64,9 @@ class GeneticAlgorithm {
     let fitnesses = [];
 
     for (let i = 0; i < pop_size; i++) {      // Setting up the first generation
-      progentior = this.generate(length);
-      population.push(progentior);
-      fitnesses.push(fitness(progentior.join('')));
+      progenitor = this.generate(length);
+      population.push(progenitor);
+      fitnesses.push(fitness(progenitor));
     }
 
     for (let i = 0; i < generations; i++) {
@@ -77,12 +77,12 @@ class GeneticAlgorithm {
         if (Math.random() < p_c) chosen = this.crossover(chosen[0], chosen[1]);
 
         let offspring_1 = this.mutate(chosen[0], p_m);
-        let fit_1 = fitness(offspring_1.join(''));
-        if (fit_1 === 1) return offspring_1.join('');  // Why iterate on perfection?
+        let fit_1 = fitness(offspring_1);
+        if (fit_1 === 1) return offspring_1;  // Don't iterate on perfection
 
         let offspring_2 = this.mutate(chosen[1], p_m);
-        let fit_2 = fitness(offspring_2.join(''));
-        if (fit_2 === 1) return offspring_2.join('');
+        let fit_2 = fitness(offspring_2);
+        if (fit_2 === 1) return offspring_2;
 
         next_gen.push(offspring_1, offspring_2);
         next_fit.push(fit_1, fit_2);

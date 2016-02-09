@@ -1,10 +1,10 @@
 // A chromosome is a string of 0s and 1s representing a solution
-// to a given problem. fitness() is a function that chromosome and
-// returns a number from 0-1 that represents the quality of the
-// solution.
+// to a given problem. fitness() is a function that takes a
+// chromosome and returns a number from 0-1 that represents the
+// quality of the solution it represents.
 //
-// If fitness(chromosome) === 1, then chromosome represents the
-// ideal solution to that problem.
+// If fitness(some_chromosome) === 1, then some_chromosome
+// represents the ideal solution to that problem.
 //
 // This class creates 500 random chromosomes, chooses the most
 // fit, and re-combines and mutates them to form a new generation.

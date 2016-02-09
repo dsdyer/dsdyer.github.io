@@ -8,21 +8,21 @@
 describe('Roman Numeral Helper', function() {
 
   it('Should take a number and return the Roman Numeral', function() {
-    let input = 4;
+    let input = 9;
     let my_numeral = RomanNumerals.toRoman(input);
-    let correct = 'IV';
+    let correct = 'IX';
 
     Test.assertEquals(my_numeral, correct, 'Failed on ' + input + '. Should have been ' + correct + '.');
 
-    input = 100;
+    input = 900;
     my_numeral = RomanNumerals.toRoman(input);
-    correct = 'C';
+    correct = 'CM';
 
     Test.assertEquals(my_numeral, correct, 'Failed on ' + input + '. Should have been ' + correct + '.');
     
-    input = 1666;
+    input = 999;
     my_numeral = RomanNumerals.toRoman(input);
-    correct = 'MDCLXVI';
+    correct = 'CMXCIX';
 
     Test.assertEquals(my_numeral, correct, 'Failed on ' + input + '. Should have been ' + correct + '.');
 

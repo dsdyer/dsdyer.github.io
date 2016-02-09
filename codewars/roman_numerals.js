@@ -24,7 +24,7 @@ class RomanNumerals {
 
         if (i === 4 || i === 5) {
           roman.unshift(vld[symbol]);
-          i = 5 - i;
+          i = 6 - i;
           continue;
         }
         roman.unshift(ixcm[symbol]);

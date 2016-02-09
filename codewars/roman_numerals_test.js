@@ -8,9 +8,9 @@
 describe('Roman Numeral Helper', function() {
 
   it('Should take a number and return the Roman Numeral', function() {
-    let input = 9;
+    let input = 4;
     let my_numeral = RomanNumerals.toRoman(input);
-    let correct = 'IX';
+    let correct = 'IV';
 
     Test.assertEquals(my_numeral, correct, 'Failed on ' + input + '. Should have been ' + correct + '.');
 

@@ -53,17 +53,16 @@ class GeneticAlgorithm {
     let c1_tail = chromosome1.slice(c_bit);
     let c2_tail = chromosome2.slice(c_bit);
 
-    let ng_1 = c1_head.concat(c2_tail);
-    let ng_2 = c2_head.concat(c1_tail);
-
-    return [ng_1, ng_2];
+    let chromo_1 = c1_head.concat(c2_tail);
+    let chromo_2 = c2_head.concat(c1_tail);
+    return [chromo_1, chromo_2];
   };
 
   run(fitness, length = 35, p_c = 0.6, p_m = 0.002, generations = 100, pop_size = 500) {
     let population = [];
     let fitnesses = [];
 
-    for (let i = 0; i < pop_size; i++) {      // Setting up the first generation
+    for (let i = 0; i < pop_size; i++) {               // Setting up the first generation
       progenitor = this.generate(length);
       population.push(progenitor);
       fitnesses.push(fitness(progenitor));
@@ -72,15 +71,15 @@ class GeneticAlgorithm {
     for (let i = 0; i < generations; i++) {
       let next_gen = [];
       let next_fit = [];
-      while (next_gen.length < pop_size) {             // Adds 2 offspring to the next generation
-        let chosen = this.select(population, fitnesses);
-        if (Math.random() < p_c) chosen = this.crossover(chosen[0], chosen[1]);
+      while (next_gen.length < pop_size) {             // Each loop adds 2 offspring to the next generation
+        [chromo_1, chromo_2] = this.select(population, fitnesses);
+        if (Math.random() < p_c) [chromo_1, chromo_2] = this.crossover(chromo_1, chromo_2);
 
-        let offspring_1 = this.mutate(chosen[0], p_m);
+        let offspring_1 = this.mutate(chromo_1, p_m);
         let fit_1 = fitness(offspring_1);
-        if (fit_1 === 1) return offspring_1;  // Don't iterate on perfection
+        if (fit_1 === 1) return offspring_1;           // Don't iterate on perfection
 
-        let offspring_2 = this.mutate(chosen[1], p_m);
+        let offspring_2 = this.mutate(chromo_2, p_m);
         let fit_2 = fitness(offspring_2);
         if (fit_2 === 1) return offspring_2;
 

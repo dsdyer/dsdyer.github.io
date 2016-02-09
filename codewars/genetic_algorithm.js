@@ -86,10 +86,27 @@ static crossover(chromosome1, chromosome2) {
     // number of iterations (default to 100). After the 
     // iterations are finished, the method returns the chromosome
     // it deemed to be fittest.
+
+    // let population = [];
+    // let fitnesses = [];
+
+    // for (let i = 0, l = 50; i < l; i++) {
+      let my_fitness = fitness;
+      console.log(GeneticAlgorithm.generate(length));
+      console.log(fitness("101010"));
+      // let c_fitness = fitness('10101110010111110111111010110011011');
+      // population.push(newborn.join(''));
+      // fitnesses.push(c_fitness);
+    // }
+
+    // console.log('population: ' + population[0]);
+    // console.log('fitnesses: ' + fitnesses[0]);
   };
 }
 
-for (let i = 0; i < 10; i++) {
-  console.log(GeneticAlgorithm.crossover(GeneticAlgorithm.generate(), GeneticAlgorithm.generate()));
-}
+// GeneticAlgorithm.run(fitness, 35, 0.6, 0.002, 100);
+// console.log(fitness.toString());
+// console.log(fitness().toString());
 
+let x = fitness("101010");
+console.log(x("101010"));

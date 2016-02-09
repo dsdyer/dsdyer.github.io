@@ -33,9 +33,18 @@ class GeneticAlgorithm {
     // chromosomes selected with the roulette wheel method.
 
     let fitness_pool = fitnesses.reduce((a, b) => a+b );
+    let chosen = [];
 
-    Math.random() * fitness_pool;
-
+    while (chosen.length < 2) {
+      let selection = Math.random() * fitness_pool;
+      for (let i = 0, l = population.length; i < l; i++) {
+        selection = selection - fitnesses[i];
+        if (selection <= 0) {
+          chosen.push(population[i]);
+        }
+      }
+    }
+    return chosen;
   };
 
   static mutate(chromosome, p) {

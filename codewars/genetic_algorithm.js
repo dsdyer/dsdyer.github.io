@@ -1,61 +1,38 @@
-  // TODO: Translate this to ES6
-
-
-  // This fitness function will be preloaded! What the 
-  // test will do is generate a random binary string of 
-  // 35 digits and your algorithm must discover that string! 
-  // The fitness will be calculated in a way similar to above, 
-  // where the score of a chromosome is the number of bits 
-  // that differ from the goal string.
-
-  // The crossover probability we will use is 0.6 and the 
-  // mutation probability we will use is 0.002. Now, since 
-  // the chromosome length is small, 100 iterations should 
-  // be enough to get the correct answer every time. The 
-  // test fixture will run the algorithm 10 times on 10 
-  // different goal strings. If not all of them work, then 
-  // you can try again and you'll probably be fine.
-
 class GeneticAlgorithm {
-
-  static generate(length = 35) {
-    let chromosome = [];  // Let's keep the chromosomes as arrays for now
+  generate(length = 35) {
+    let chromosome = [];
     for (let i = 0; i < length; i++) {
       chromosome.push(Math.round(Math.random()));
     };
     return chromosome;
   };
 
-  static select(population, fitnesses) {
-    // TODO: Implement the select method
-    // The select method will take a population and a 
-    // corresponding list of fitnesses and return two 
-    // chromosomes selected with the roulette wheel method.
-
+  select(population, fitnesses) {
     let fitness_pool = fitnesses.reduce((a, b) => a+b );
     let chosen = [];
-
     while (chosen.length < 2) {
       let selection = Math.random() * fitness_pool;
       for (let i = 0, l = population.length; i < l; i++) {
         selection = selection - fitnesses[i];
         if (selection <= 0) {
           chosen.push(population[i]);
+          break;
         }
       }
     }
     return chosen;
   };
 
-  static mutate(chromosome, p) {
+  mutate(chromosome, p) {
     for (let i = 0; i < chromosome.length; i++) {
       if (Math.random < p) {
         chromosome[i] = (chromosome[i] + 1) % 2;
       }
     };
+    return chromosome;
   };
 
-static crossover(chromosome1, chromosome2) {
+  crossover(chromosome1, chromosome2) {
     let c_bit = Math.floor(Math.random() * 34) + 1;
 
     let c1_head = chromosome1.slice(0, c_bit);
@@ -66,47 +43,53 @@ static crossover(chromosome1, chromosome2) {
     let ng_1 = c1_head.concat(c2_tail);
     let ng_2 = c2_head.concat(c1_tail);
 
-    console.log('crossover at: ' + c_bit);
-    console.log('chromosome1: ' + c1_head.concat([' '], c1_tail).join(''));
-    console.log('chromosome2: ' + c2_head.concat([' '], c2_tail).join(''));
-
-    return {
-      "ng_1": ng_1.join(''),
-      "ng_2": ng_2.join('')
-    };
+    return [ng_1, ng_2];
   };
 
-  static run(fitness, length = 35, p_c = 0.6, p_m = 0.002, iterations = 100) {
-    // TODO: Implement the run method
-    // The run method will take a fitness function that 
-    // accepts a chromosome and returns the fitness of that 
-    // chromosome, the length of the chromosomes to generate 
-    // (should be the same length as the goal chromosome), 
-    // the crossover and mutation probabilities, and an optional 
-    // number of iterations (default to 100). After the 
-    // iterations are finished, the method returns the chromosome
-    // it deemed to be fittest.
+  run(fitness, length = 35, p_c = 0.6, p_m = 0.002, iterations = 100) {
+    let pop_size = 500;
+    let population = [];
+    let fitnesses = [];
 
-    // let population = [];
-    // let fitnesses = [];
+    for (let i = 0; i < pop_size; i++) {
+      progentior = this.generate(length);
+      population.push(progentior);
+      fitnesses.push(fitness(progentior.join('')));
+    }
 
-    // for (let i = 0, l = 50; i < l; i++) {
-      let my_fitness = fitness;
-      console.log(GeneticAlgorithm.generate(length));
-      console.log(fitness("101010"));
-      // let c_fitness = fitness('10101110010111110111111010110011011');
-      // population.push(newborn.join(''));
-      // fitnesses.push(c_fitness);
-    // }
+    for (let i = 0; i < iterations; i++) {
+      let next_gen = [];
+      let next_fit = [];
+      while (next_gen.length < pop_size) {
+        let chosen = this.select(population, fitnesses);
 
-    // console.log('population: ' + population[0]);
-    // console.log('fitnesses: ' + fitnesses[0]);
+        if (Math.random() < p_c) {
+          chosen = this.crossover(chosen[0], chosen[1]);
+        }
+        let offspring_1 = this.mutate(chosen[0], p_m);
+        let fitness_1 = fitness(offspring_1.join(''));
+
+        if (fitness_1 == 1) {
+          return offspring_1.join('');
+        };
+
+        let offspring_2 = this.mutate(chosen[1], p_m);
+        let fitness_2 = fitness(offspring_2.join(''));
+
+        if (fitness_2 == 1) {
+          return offspring_2.join('');
+        };
+
+        next_gen.push(offspring_1);
+        next_fit.push(fitness_1);
+
+        next_gen.push(offspring_2);
+        next_fit.push(fitness_2);
+      }
+      population = next_gen;
+      fitnesses = next_fit;
+    }
+    return population[fitnesses.indexOf(Math.Max(...fitnesses))];
   };
 }
 
-// GeneticAlgorithm.run(fitness, 35, 0.6, 0.002, 100);
-// console.log(fitness.toString());
-// console.log(fitness().toString());
-
-let x = fitness("101010");
-console.log(x("101010"));

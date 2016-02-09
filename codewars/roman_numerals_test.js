@@ -1,11 +1,11 @@
 // Create your own tests here. These are some of the methods available:
-//  Test.expect(boolean, [optional] message) 
+//  Test.expect(boolean, [optional] message)
 //  Test.assertEquals(actual, expected, [optional] message)
 //  Test.assertSimilar(actual, expected, [optional] message)
 //  Test.assertNotEquals(actual, expected, [optional] message)
 
 
-describe('Roman Numeral Helper', function() {
+Test.describe('Roman Numeral Helper', function() {
 
   it('Should take a number and return the Roman Numeral', function() {
     let input = 4;
@@ -19,14 +19,14 @@ describe('Roman Numeral Helper', function() {
     correct = 'CM';
 
     Test.assertEquals(my_numeral, correct, 'Failed on ' + input + '. Should have been ' + correct + '.');
-    
+
     input = 999;
     my_numeral = RomanNumerals.toRoman(input);
     correct = 'CMXCIX';
 
     Test.assertEquals(my_numeral, correct, 'Failed on ' + input + '. Should have been ' + correct + '.');
 
-    
+
   });
 
   it('Should take a Roman Numeral and return the number', function() {

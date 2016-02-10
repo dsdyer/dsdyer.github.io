@@ -1,61 +1,51 @@
-  // TODO: Translate this to ES6
-
-
-  // This fitness function will be preloaded! What the 
-  // test will do is generate a random binary string of 
-  // 35 digits and your algorithm must discover that string! 
-  // The fitness will be calculated in a way similar to above, 
-  // where the score of a chromosome is the number of bits 
-  // that differ from the goal string.
-
-  // The crossover probability we will use is 0.6 and the 
-  // mutation probability we will use is 0.002. Now, since 
-  // the chromosome length is small, 100 iterations should 
-  // be enough to get the correct answer every time. The 
-  // test fixture will run the algorithm 10 times on 10 
-  // different goal strings. If not all of them work, then 
-  // you can try again and you'll probably be fine.
+// A chromosome is a string of 0s and 1s representing a solution
+// to a given problem. fitness() is a function that takes a
+// chromosome and returns a number from 0-1 that represents the
+// quality of the solution it represents.
+//
+// If fitness(some_chromosome) === 1, then some_chromosome
+// represents the ideal solution to that problem.
+//
+// This class creates 500 random chromosomes, chooses the most
+// fit, and re-combines and mutates them to form a new generation.
+// Returns the best solution after 100 generations, or the first
+// ideal solution found.
 
 class GeneticAlgorithm {
-
-  static generate(length = 35) {
-    let chromosome = [];  // Let's keep the chromosomes as arrays for now
+  generate(length = 35) {
+    let chromosome = [];
     for (let i = 0; i < length; i++) {
       chromosome.push(Math.round(Math.random()));
     };
-    return chromosome;
+    return chromosome.join('');
   };
 
-  static select(population, fitnesses) {
-    // TODO: Implement the select method
-    // The select method will take a population and a 
-    // corresponding list of fitnesses and return two 
-    // chromosomes selected with the roulette wheel method.
-
+  select(population, fitnesses) {
     let fitness_pool = fitnesses.reduce((a, b) => a+b );
     let chosen = [];
-
     while (chosen.length < 2) {
       let selection = Math.random() * fitness_pool;
       for (let i = 0, l = population.length; i < l; i++) {
         selection = selection - fitnesses[i];
         if (selection <= 0) {
           chosen.push(population[i]);
+          break;
         }
       }
     }
     return chosen;
   };
 
-  static mutate(chromosome, p) {
+  mutate(chromosome, p) {
     for (let i = 0; i < chromosome.length; i++) {
       if (Math.random < p) {
         chromosome[i] = (chromosome[i] + 1) % 2;
       }
     };
+    return chromosome;
   };
 
-static crossover(chromosome1, chromosome2) {
+  crossover(chromosome1, chromosome2) {
     let c_bit = Math.floor(Math.random() * 34) + 1;
 
     let c1_head = chromosome1.slice(0, c_bit);
@@ -63,50 +53,42 @@ static crossover(chromosome1, chromosome2) {
     let c1_tail = chromosome1.slice(c_bit);
     let c2_tail = chromosome2.slice(c_bit);
 
-    let ng_1 = c1_head.concat(c2_tail);
-    let ng_2 = c2_head.concat(c1_tail);
-
-    console.log('crossover at: ' + c_bit);
-    console.log('chromosome1: ' + c1_head.concat([' '], c1_tail).join(''));
-    console.log('chromosome2: ' + c2_head.concat([' '], c2_tail).join(''));
-
-    return {
-      "ng_1": ng_1.join(''),
-      "ng_2": ng_2.join('')
-    };
+    let chromo_1 = c1_head.concat(c2_tail);
+    let chromo_2 = c2_head.concat(c1_tail);
+    return [chromo_1, chromo_2];
   };
 
-  static run(fitness, length = 35, p_c = 0.6, p_m = 0.002, iterations = 100) {
-    // TODO: Implement the run method
-    // The run method will take a fitness function that 
-    // accepts a chromosome and returns the fitness of that 
-    // chromosome, the length of the chromosomes to generate 
-    // (should be the same length as the goal chromosome), 
-    // the crossover and mutation probabilities, and an optional 
-    // number of iterations (default to 100). After the 
-    // iterations are finished, the method returns the chromosome
-    // it deemed to be fittest.
+  run(fitness, length = 35, p_c = 0.6, p_m = 0.002, generations = 100, pop_size = 500) {
+    let population = [];
+    let fitnesses = [];
 
-    // let population = [];
-    // let fitnesses = [];
+    for (let i = 0; i < pop_size; i++) {               // Setting up the first generation
+      progenitor = this.generate(length);
+      population.push(progenitor);
+      fitnesses.push(fitness(progenitor));
+    }
 
-    // for (let i = 0, l = 50; i < l; i++) {
-      let my_fitness = fitness;
-      console.log(GeneticAlgorithm.generate(length));
-      console.log(fitness("101010"));
-      // let c_fitness = fitness('10101110010111110111111010110011011');
-      // population.push(newborn.join(''));
-      // fitnesses.push(c_fitness);
-    // }
+    for (let i = 0; i < generations; i++) {
+      let next_gen = [];
+      let next_fit = [];
+      while (next_gen.length < pop_size) {             // Each loop adds 2 offspring to the next generation
+        [chromo_1, chromo_2] = this.select(population, fitnesses);
+        if (Math.random() < p_c) [chromo_1, chromo_2] = this.crossover(chromo_1, chromo_2);
 
-    // console.log('population: ' + population[0]);
-    // console.log('fitnesses: ' + fitnesses[0]);
+        let offspring_1 = this.mutate(chromo_1, p_m);
+        let fit_1 = fitness(offspring_1);
+        if (fit_1 === 1) return offspring_1;           // Don't iterate on perfection
+
+        let offspring_2 = this.mutate(chromo_2, p_m);
+        let fit_2 = fitness(offspring_2);
+        if (fit_2 === 1) return offspring_2;
+
+        next_gen.push(offspring_1, offspring_2);
+        next_fit.push(fit_1, fit_2);
+      }
+      population = next_gen;
+      fitnesses = next_fit;
+    }
+    return population[fitnesses.indexOf(Math.Max(...fitnesses))];  // This is an ES6 thing!
   };
 }
-
-// GeneticAlgorithm.run(fitness, 35, 0.6, 0.002, 100);
-// console.log(fitness.toString());
-// console.log(fitness().toString());
-
-let x = fitness("101010");
-console.log(x("101010"));

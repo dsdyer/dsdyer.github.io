@@ -12,10 +12,7 @@ window.onload = function() {
 
     function attachCatMenu(catlist, i) {
       return function() {
-        console.log(this);
-
         catlist.forEach(function(x) {x.html.style.display = "none";});
-
         catlist[i].html.style.display = "block";
       };
     };
@@ -32,21 +29,21 @@ window.onload = function() {
 
       if (i !== 0) newCat.html.style.display = "none";
 
-      newCat.catbanner = newCat.html.appendChild(document.createElement('h1'));
-      newCat.catbanner.textContent = newCat.name.replace(newCat.name[0], newCat.name[0].toUpperCase());
+      var banner = newCat.html.appendChild(document.createElement('h1'));
+      var pic = newCat.html.appendChild(document.createElement('img'));
+      var menuitem = document.getElementById('catlist').appendChild(document.createElement('li'));
+      newCat.catcount = newCat.html.appendChild(document.createElement('p')); // We'll need this one later
 
-      newCat.catpic = newCat.html.appendChild(document.createElement('img'));
-      newCat.catpic.setAttribute('src', './images/' + newCat.name + '.jpg');
+      banner.textContent = newCat.name.replace(newCat.name[0], newCat.name[0].toUpperCase());
+      pic.setAttribute('src', './images/' + newCat.name + '.jpg');
 
-      newCat.catcount = newCat.html.appendChild(document.createElement('p'));
       newCat.catcount.textContent = newCat.count;
 
-      newCat.catpic.addEventListener('click', attachCat(newCat), true);
+      pic.addEventListener('click', attachCat(newCat), true);
 
-      newCat.menuitem = document.getElementById('catlist').appendChild(document.createElement('li'));
-      newCat.menuitem.textContent = newCat.name.replace(newCat.name[0], newCat.name[0].toUpperCase());
+      menuitem.textContent = newCat.name.replace(newCat.name[0], newCat.name[0].toUpperCase());
 
-      newCat.menuitem.addEventListener('click', attachCatMenu(this.catlist, i), true);
+      menuitem.addEventListener('click', attachCatMenu(this.catlist, i), true);
 
     }
   };

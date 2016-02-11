@@ -49,8 +49,6 @@ window.onload = function() {
       newCat.menuitem.addEventListener('click', attachCatMenu(this.catlist, i), true);
 
     }
-
-
   };
 
   new CatClicker(["mittens", "mittens", "mittens", "mittens",

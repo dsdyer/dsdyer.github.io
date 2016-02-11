@@ -1,9 +1,28 @@
+* {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+div,
+ul,
+li {
+  border: 1px #000 solid;
+}
+
+
+
+#catwrap {
+  max-width: 960px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
 #catarea {
   width: 60%;
   float: left;
 }
 
 #catlist {
-  width: 40%;
-  float: left;
+  width: 20%;
+  float: right;
 }

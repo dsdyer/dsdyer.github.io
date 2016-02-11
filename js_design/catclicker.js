@@ -64,5 +64,5 @@ window.onload = function() {
 
   // });
 
-  new CatClicker(["mittens", "german"]);
+  new CatClicker(["mittens", "mittens", "mittens", "mittens", "mittens", "mittens", "german"]);
 };

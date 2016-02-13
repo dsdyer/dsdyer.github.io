@@ -1,5 +1,5 @@
 var elems = document.getElementsByTagName("*"), item;
-var matches = ['classes for buddy\n'];
+var matches = [];
 
 String.prototype.isClassName = function() {
   return this.match(/[A-Z]+\s+\d{2,3}/g) || false;

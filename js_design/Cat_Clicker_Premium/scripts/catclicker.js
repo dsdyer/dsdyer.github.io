@@ -70,20 +70,19 @@ window.onload = function() {
 
       toggle.addEventListener('click', function() {
         octopus.toggleAdmin();
-        catView.renderAdmin();
       });
 
       cancel.addEventListener('click', function(e) {
         e.preventDefault();
         octopus.toggleAdmin();
-        catView.renderAdmin();
       });
 
       save.addEventListener('click', function(e) {
         e.preventDefault();
         octopus.saveAdmin(catView.admin_name.value,catView.admin_url.value,catView.admin_count.value);
         octopus.toggleAdmin();
-        octopus.renderAdmin();
+        catView.renderCat();
+        catView.renderCount();
       });
 
       this.renderCat(octopus.getCurrentCat().name);
@@ -130,11 +129,10 @@ window.onload = function() {
     },
     toggleAdmin: function() {
       model.admin = !model.admin;
+      catView.renderAdmin();
     },
     adminOff: function() {
       model.admin = false;
-    },
-    renderAdmin: function() {
       catView.renderAdmin();
     },
     saveAdmin: function(displayname, url, count) {

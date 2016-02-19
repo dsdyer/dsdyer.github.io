@@ -1,32 +1,33 @@
 window.onload = function() {
   var model = {
     catlist: [],
-    currentcat: {},
-    buildCat: function(name) {
-      var newCat = {};
-      newCat.name = name[0].toUpperCase() + name.slice(1);
-      newCat.count = 0;
-      return newCat;
-    },
+    currentcat: null,
     init: function(cats) {
       for (var i = 0, l = cats.length; i < l; i++) {
-        var cat = this.buildCat(cats[i]);
-        this.catlist.push(cat);
+        var newCat = {};
+        var name = cats[i];
+
+        newCat.name = name[0].toUpperCase() + name.slice(1);
+        newCat.count = 0;
+
+        this.catlist.push(newCat);
       }
       this.currentcat = this.catlist[0];
     }
   };
 
   var catView = {
-    renderCat: function(string) {
-      this.header.textContent = string;
-      this.pic.src = './images/' + string + '.jpg';
-      this.pic.alt = string + " the kitten.";           // Accessibility
+    renderCat: function() {
+      var name = octopus.getCurrentCat().name;
+      this.header.textContent = name;
+      this.pic.src = './images/' + name + '.jpg';
+      this.pic.alt = name + " the kitten.";           // Accessibility
     },
-    renderCount: function(number) {
-      this.count.textContent = number;
+    renderCount: function() {
+      var count = octopus.getCurrentCat().count;
+      this.count.textContent = count;
     },
-    init: function(cat) {
+    init: function() {
       var catarea = document.getElementById('catarea');
       var picwrap = document.getElementById('picwrap');
 
@@ -38,14 +39,15 @@ window.onload = function() {
         octopus.updateCount();
       });
 
-      this.renderCat(cat.name);
-      this.renderCount(cat.count);
+      this.renderCat(octopus.getCurrentCat().name);
+      this.renderCount(octopus.getCurrentCat().count);
     }
 
   };
 
   var listView = {
-    init: function(cats) {
+    init: function() {
+      var cats = octopus.getCatList();
       var listarea = document.getElementById('listarea');
       var list = listarea.getElementsByTagName('ul')[0];
 
@@ -58,19 +60,24 @@ window.onload = function() {
       for (var i = 0, l = cats.length; i < l; i++) {
         var listitem = list.appendChild(document.createElement('li'));
         listitem.textContent = cats[i].name;
-
         listitem.addEventListener('click', callChangeCat(cats[i].name));
       };
     }
   };
 
   var octopus = {
+    getCurrentCat: function() {
+      return model.currentcat;
+    },
+    getCatList: function() {
+      return model.catlist;
+    },
     changeCat: function(cat) {
       model.currentcat = model.catlist.find(function(e) {
         return e.name === cat;
       });
-      catView.renderCat(model.currentcat.name);
-      catView.renderCount(model.currentcat.count);
+      catView.renderCat();
+      catView.renderCount();
     },
     updateCount: function() {
       model.currentcat.count++;

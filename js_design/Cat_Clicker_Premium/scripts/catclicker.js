@@ -2,12 +2,18 @@ window.onload = function() {
   var model = {
     catlist: [],
     currentcat: null,
+    admin: false,
+
     init: function(cats) {
       for (var i = 0, l = cats.length; i < l; i++) {
         var newCat = {};
         var name = cats[i];
+        var loc = String(window.location);
+        var url = loc.slice(0, loc.lastIndexOf('/')) + '/images/' + name + '.jpg';
 
         newCat.name = name[0].toUpperCase() + name.slice(1);
+        newCat.displayname = newCat.name;
+        newCat.url = url;
         newCat.count = 0;
 
         this.catlist.push(newCat);
@@ -18,25 +24,66 @@ window.onload = function() {
 
   var catView = {
     renderCat: function() {
-      var name = octopus.getCurrentCat().name;
-      this.header.textContent = name;
-      this.pic.src = './images/' + name + '.jpg';
-      this.pic.alt = name + " the kitten.";           // Accessibility
+      var cat = octopus.getCurrentCat();
+      this.header.textContent = cat.displayname;
+      this.pic.src = cat.url;
+      this.pic.alt = cat.displayname + " the kitten.";      // Accessibility
     },
     renderCount: function() {
       var count = octopus.getCurrentCat().count;
       this.count.textContent = count;
     },
+    renderAdmin: function() {
+      var cat = octopus.getCurrentCat();
+
+      this.admin_name.value = cat.displayname;
+      this.admin_url.value = cat.url;
+      this.admin_count.value = cat.count;
+
+      if (octopus.getAdminStatus()) {
+        admin.style.display = 'block';
+      } else {
+        admin.style.display ='none';
+      }
+    },
     init: function() {
       var catarea = document.getElementById('catarea');
       var picwrap = document.getElementById('picwrap');
+
+      var toggle = document.getElementById('toggle-admin');
+      var admin = document.getElementById('admin');
+      var cancel = document.getElementById('admin-cancel');
+      var save = document.getElementById('admin-save');
 
       this.header = document.getElementById('cat-name');
       this.pic = picwrap.appendChild(document.createElement('img'));
       this.count = catarea.appendChild(document.createElement('p'));
 
+      this.admin_name = document.getElementById('admin-name');
+      this.admin_url = document.getElementById('admin-url');
+      this.admin_count = document.getElementById('admin-count');
+
       this.pic.addEventListener('click', function() {
         octopus.updateCount();
+      });
+
+
+      toggle.addEventListener('click', function() {
+        octopus.toggleAdmin();
+        catView.renderAdmin();
+      });
+
+      cancel.addEventListener('click', function(e) {
+        e.preventDefault();
+        octopus.toggleAdmin();
+        catView.renderAdmin();
+      });
+
+      save.addEventListener('click', function(e) {
+        e.preventDefault();
+        octopus.saveAdmin(catView.admin_name.value,catView.admin_url.value,catView.admin_count.value);
+        octopus.toggleAdmin();
+        octopus.renderAdmin();
       });
 
       this.renderCat(octopus.getCurrentCat().name);
@@ -59,8 +106,14 @@ window.onload = function() {
 
       for (var i = 0, l = cats.length; i < l; i++) {
         var listitem = list.appendChild(document.createElement('li'));
-        listitem.textContent = cats[i].name;
+        listitem.textContent = cats[i].displayname;
+
         listitem.addEventListener('click', callChangeCat(cats[i].name));
+
+        listitem.addEventListener('click', function() {
+          octopus.adminOff();
+          octopus.renderAdmin();
+        });
       };
     }
   };
@@ -71,6 +124,23 @@ window.onload = function() {
     },
     getCatList: function() {
       return model.catlist;
+    },
+    getAdminStatus: function() {
+      return model.admin;
+    },
+    toggleAdmin: function() {
+      model.admin = !model.admin;
+    },
+    adminOff: function() {
+      model.admin = false;
+    },
+    renderAdmin: function() {
+      catView.renderAdmin();
+    },
+    saveAdmin: function(displayname, url, count) {
+      model.currentcat.displayname = displayname;
+      model.currentcat.url = url;
+      model.currentcat.count = count;
     },
     changeCat: function(cat) {
       model.currentcat = model.catlist.find(function(e) {

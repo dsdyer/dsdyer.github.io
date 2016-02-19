@@ -5,14 +5,19 @@ window.onload = function() {
     admin: false,
 
     init: function(cats) {
-      for (var i = 0, l = cats.length; i < l; i++) {
-        var newCat = {};
-        var name = cats[i];
-        var loc = String(window.location);
-        var url = loc.slice(0, loc.lastIndexOf('/')) + '/images/' + name + '.jpg';
+      var loc = String(window.location);
+      var urlbase = String(loc.slice(0, loc.lastIndexOf('/')) + '/images/');
 
-        newCat.name = name[0].toUpperCase() + name.slice(1);
-        newCat.displayname = newCat.name;
+      for (var i = 0, l = cats.length; i < l; i++) {
+        var newCat = {};  // Create a new object
+
+        var id = i;
+        var catname = cats[i];
+        var displayname = catname[0].toUpperCase() + catname.slice(1);
+        var url = urlbase + catname + '.jpg';
+
+        newCat.id = id;
+        newCat.displayname = displayname;
         newCat.url = url;
         newCat.count = 0;
 
@@ -41,9 +46,9 @@ window.onload = function() {
       this.admin_count.value = cat.count;
 
       if (octopus.getAdminStatus()) {
-        admin.style.display = 'block';
+        this.admin.style.display = 'block';
       } else {
-        admin.style.display ='none';
+        this.admin.style.display ='none';
       }
     },
     init: function() {
@@ -51,7 +56,6 @@ window.onload = function() {
       var picwrap = document.getElementById('picwrap');
 
       var toggle = document.getElementById('toggle-admin');
-      var admin = document.getElementById('admin');
       var cancel = document.getElementById('admin-cancel');
       var save = document.getElementById('admin-save');
 
@@ -59,14 +63,18 @@ window.onload = function() {
       this.pic = picwrap.appendChild(document.createElement('img'));
       this.count = catarea.appendChild(document.createElement('p'));
 
+      this.admin = document.getElementById('admin-form');
       this.admin_name = document.getElementById('admin-name');
       this.admin_url = document.getElementById('admin-url');
       this.admin_count = document.getElementById('admin-count');
 
       this.pic.addEventListener('click', function() {
+        if (octopus.getAdminStatus()) {
+          alert('Cat clicking disabled in admin mode.');
+          return;
+        }
         octopus.updateCount();
       });
-
 
       toggle.addEventListener('click', function() {
         octopus.toggleAdmin();
@@ -77,10 +85,10 @@ window.onload = function() {
         octopus.toggleAdmin();
       });
 
-      save.addEventListener('click', function(e) {
+      this.admin.addEventListener('submit', function(e) {
         e.preventDefault();
         octopus.saveAdmin(catView.admin_name.value,catView.admin_url.value,catView.admin_count.value);
-        octopus.toggleAdmin();
+        octopus.adminOff();
         catView.renderCat();
         catView.renderCount();
       });
@@ -88,7 +96,6 @@ window.onload = function() {
       this.renderCat(octopus.getCurrentCat().name);
       this.renderCount(octopus.getCurrentCat().count);
     }
-
   };
 
   var listView = {
@@ -107,11 +114,10 @@ window.onload = function() {
         var listitem = list.appendChild(document.createElement('li'));
         listitem.textContent = cats[i].displayname;
 
-        listitem.addEventListener('click', callChangeCat(cats[i].name));
+        listitem.addEventListener('click', callChangeCat(i));
 
         listitem.addEventListener('click', function() {
           octopus.adminOff();
-          octopus.renderAdmin();
         });
       };
     }
@@ -142,7 +148,7 @@ window.onload = function() {
     },
     changeCat: function(cat) {
       model.currentcat = model.catlist.find(function(e) {
-        return e.name === cat;
+        return e.id === cat;
       });
       catView.renderCat();
       catView.renderCount();

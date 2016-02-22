@@ -19,6 +19,7 @@ var app = app || {};
 		events: {
 			'click .toggle': 'toggleCompleted',
 			'dblclick label': 'edit',
+			'click .priority-btn': 'togglePriority',
 			'click .edit-btn': 'edit',
 			'click .destroy': 'clear',
 			'keypress .edit': 'updateOnEnter',
@@ -34,6 +35,7 @@ var app = app || {};
 			this.listenTo(this.model, 'change', this.render);
 			this.listenTo(this.model, 'destroy', this.remove);
 			this.listenTo(this.model, 'visible', this.toggleVisible);
+			this.listenTo(this.model, 'priority', this.togglePriority);
 		},
 
 		// Re-render the titles of the todo item.
@@ -52,6 +54,7 @@ var app = app || {};
 			this.$el.html(this.template(this.model.toJSON()));
 			this.$el.toggleClass('completed', this.model.get('completed'));
 			this.toggleVisible();
+			this.toggleRed();
 			this.$input = this.$('.edit');
 			return this;
 		},
@@ -60,15 +63,30 @@ var app = app || {};
 			this.$el.toggleClass('hidden', this.isHidden());
 		},
 
+		toggleRed: function () {
+			this.$el.toggleClass('priority', this.model.get('priority'));
+		},
+
 		isHidden: function () {
 			return this.model.get('completed') ?
 				app.TodoFilter === 'active' :
 				app.TodoFilter === 'completed';
 		},
 
+		// isPriority: function () {
+		// 	return this.model.get('priority') ?
+		// 		app.TodoFilter === 'active' :
+		// 		app.TodoFilter === 'completed';
+		// },
+
 		// Toggle the `"completed"` state of the model.
 		toggleCompleted: function () {
 			this.model.toggle();
+		},
+
+		// Toggle the `"priority"` state of the model.
+		togglePriority: function () {
+			this.model.togglePriority();
 		},
 
 		// Switch this view into `"editing"` mode, displaying the input field.

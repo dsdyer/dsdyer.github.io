@@ -1,4 +1,6 @@
 versions of catclicker
 MVOctopus
 Entering unfamiliar codebase == "be tofu"
--- Spaces, tabs, quotes
+-- Spaces, tabs, quotes, comments
+
+Any problems you have are discoverable and understandable

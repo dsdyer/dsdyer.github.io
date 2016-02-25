@@ -1,2 +1,0 @@
-# astrolabe
-Project Euler!

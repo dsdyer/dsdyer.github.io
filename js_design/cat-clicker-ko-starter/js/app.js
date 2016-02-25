@@ -41,6 +41,7 @@ window.onload = function() {
       [200, 'cat'],
       [500, 'master'],
       [800, 'regent'],
+      [1000, 'lord of storms'],
       [1200, 'paragon']
     ];
 

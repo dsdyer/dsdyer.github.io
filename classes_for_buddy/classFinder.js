@@ -4,7 +4,7 @@ var elems = document.getElementsByTagName("*"), item;
 var matches = [];
 
 String.prototype.isClassName = function() {
-  return this.match(/[A-Z]+\s+\d{2,3}/g) || false;
+  return this.match(/[A-Z]*\s*[A-Z]+\s+\d{2,3}/g) || false;
 };
 
 for (var i = 0, len = elems.length; i < len; i++) {

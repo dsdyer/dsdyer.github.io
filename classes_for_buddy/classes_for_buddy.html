@@ -1,0 +1,359 @@
+<html>
+  <head>
+    <style>
+      .wrapper {
+        max-width: 960px;
+        margin: 0 auto;
+      }
+      h1 {
+        padding-left: 20px;
+        text-align: center;
+        margin: 0;
+      }
+      h2 {
+        margin: .5em 0 2em 0;
+        font-weight: normal;
+        text-align: center;
+        font-size: 1.1em;
+      }
+      td {
+        padding: 10px 20px;
+        border: 1px #000 solid;
+        text-align: center;
+      }
+      .class-name {
+        font-weight: bold;
+        font-size: 1.5em;
+      }
+      form {
+        width: 500px;
+        margin: 0 auto;
+        overflow: hidden;
+      }
+      .subject {
+        width: 120px;
+        float: left;
+        font-size: 1em;
+        margin-bottom: 10px;
+        margin-left: 5px;
+      }
+      textarea {
+        height: 300px;
+        width: 500px;
+        padding-top: 120px;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      button {
+        display: block;
+        clear: both;
+        padding: 20px;
+        width: 200px;
+        margin: 0 auto;
+        font-size: 2em;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <table id="buddytable"></table>
+
+      <h1>Hi Buddy!</h1>
+      <h2>What subjects do you care about?</h2>
+      <form action="#" id="form">
+        <div class="subject">
+          <input id="ABE GED" type="checkbox">
+          <label for="ABE GED">ABE GED</label>
+        </div>
+
+        <div class="subject">
+          <input id="ADLTFIT" type="checkbox">
+          <label for="ADLTFIT">ADLTFIT</label>
+        </div>
+
+        <div class="subject">
+          <input id="AFRO AM" type="checkbox">
+          <label for="AFRO AM">AFRO AM</label>
+        </div>
+
+        <div class="subject">
+          <input id="ANTHRO" type="checkbox">
+          <label for="ANTHRO">ANTHRO</label>
+        </div>
+
+        <div class="subject">
+          <input id="ART" type="checkbox">
+          <label for="ART">ART</label>
+        </div>
+
+        <div class="subject">
+          <input id="ASTROMY" type="checkbox">
+          <label for="ASTROMY">ASTROMY</label>
+        </div>
+
+        <div class="subject">
+          <input id="BIOLOGY" type="checkbox">
+          <label for="BIOLOGY">BIOLOGY</label>
+        </div>
+
+        <div class="subject">
+          <input id="BUSINES" type="checkbox">
+          <label for="BUSINES">BUSINES</label>
+        </div>
+
+        <div class="subject">
+          <input id="CHEM" type="checkbox">
+          <label for="CHEM">CHEM</label>
+        </div>
+
+        <div class="subject">
+          <input id="CHINESE" type="checkbox">
+          <label for="CHINESE">CHINESE</label>
+        </div>
+
+        <div class="subject">
+          <input id="CHLD DV" type="checkbox">
+          <label for="CHLD DV">CHLD DV</label>
+        </div>
+
+        <div class="subject">
+          <input id="CIS" type="checkbox">
+          <label for="CIS">CIS</label>
+        </div>
+
+        <div class="subject">
+          <input id="EMT" type="checkbox">
+          <label for="EMT">EMT</label>
+        </div>
+
+        <div class="subject">
+          <input id="ENGLISH" type="checkbox">
+          <label for="ENGLISH">ENGLISH</label>
+        </div>
+
+        <div class="subject">
+          <input id="ENTRE" type="checkbox">
+          <label for="ENTRE">ENTRE</label>
+        </div>
+
+        <div class="subject">
+          <input id="ESL" type="checkbox">
+          <label for="ESL">ESL</label>
+        </div>
+
+        <div class="subject">
+          <input id="ESSS" type="checkbox">
+          <label for="ESSS">ESSS</label>
+        </div>
+
+        <div class="subject">
+          <input id="FIN ART" type="checkbox">
+          <label for="FIN ART">FIN ART</label>
+        </div>
+
+        <div class="subject">
+          <input id="FIREMGT" type="checkbox">
+          <label for="FIREMGT">FIREMGT</label>
+        </div>
+
+        <div class="subject">
+          <input id="GEOLOGY" type="checkbox">
+          <label for="GEOLOGY">GEOLOGY</label>
+        </div>
+
+        <div class="subject">
+          <input id="HEALTH" type="checkbox">
+          <label for="HEALTH">HEALTH</label>
+        </div>
+
+        <div class="subject">
+          <input id="HEAPRO" type="checkbox">
+          <label for="HEAPRO">HEAPRO</label>
+        </div>
+
+        <div class="subject">
+          <input id="HIM" type="checkbox">
+          <label for="HIM">HIM</label>
+        </div>
+
+        <div class="subject">
+          <input id="HISTORY" type="checkbox">
+          <label for="HISTORY">HISTORY</label>
+        </div>
+
+        <div class="subject">
+          <input id="HUM" type="checkbox">
+          <label for="HUM">HUM</label>
+        </div>
+
+        <div class="subject">
+          <input id="INTDSP" type="checkbox">
+          <label for="INTDSP">INTDSP</label>
+        </div>
+
+        <div class="subject">
+          <input id="LEVELUP" type="checkbox">
+          <label for="LEVELUP">LEVELUP</label>
+        </div>
+
+        <div class="subject">
+          <input id="LIT" type="checkbox">
+          <label for="LIT">LIT</label>
+        </div>
+
+        <div class="subject">
+          <input id="MAS" type="checkbox">
+          <label for="MAS">MAS</label>
+        </div>
+
+        <div class="subject">
+          <input id="MATH" type="checkbox">
+          <label for="MATH">MATH</label>
+        </div>
+
+        <div class="subject">
+          <input id="MCROBIO" type="checkbox">
+          <label for="MCROBIO">MCROBIO</label>
+        </div>
+
+        <div class="subject">
+          <input id="MOR SCI" type="checkbox">
+          <label for="MOR SCI">MOR SCI</label>
+        </div>
+
+        <div class="subject">
+          <input id="MUSIC" type="checkbox">
+          <label for="MUSIC">MUSIC</label>
+        </div>
+
+        <div class="subject">
+          <input id="NURSING" type="checkbox">
+          <label for="NURSING">NURSING</label>
+        </div>
+
+        <div class="subject">
+          <input id="PERDEV" type="checkbox">
+          <label for="PERDEV">PERDEV</label>
+        </div>
+
+        <div class="subject">
+          <input id="PHAR TC" type="checkbox">
+          <label for="PHAR TC">PHAR TC</label>
+        </div>
+
+        <div class="subject">
+          <input id="PHIL" type="checkbox">
+          <label for="PHIL">PHIL</label>
+        </div>
+
+        <div class="subject">
+          <input id="PHLEB" type="checkbox">
+          <label for="PHLEB">PHLEB</label>
+        </div>
+
+        <div class="subject">
+          <input id="PHY SCI" type="checkbox">
+          <label for="PHY SCI">PHY SCI</label>
+        </div>
+
+        <div class="subject">
+          <input id="PHYS ED" type="checkbox">
+          <label for="PHYS ED">PHYS ED</label>
+        </div>
+
+        <div class="subject">
+          <input id="PHYSICS" type="checkbox">
+          <label for="PHYSICS">PHYSICS</label>
+        </div>
+
+        <div class="subject">
+          <input id="POL SCI" type="checkbox">
+          <label for="POL SCI">POL SCI</label>
+        </div>
+
+        <div class="subject">
+          <input id="PPDMED" type="checkbox">
+          <label for="PPDMED">PPDMED</label>
+        </div>
+
+        <div class="subject">
+          <input id="PROFDEV" type="checkbox">
+          <label for="PROFDEV">PROFDEV</label>
+        </div>
+
+        <div class="subject">
+          <input id="PSYCH" type="checkbox">
+          <label for="PSYCH">PSYCH</label>
+        </div>
+
+        <div class="subject">
+          <input id="RADIOGR" type="checkbox">
+          <label for="RADIOGR">RADIOGR</label>
+        </div>
+
+        <div class="subject">
+          <input id="READING" type="checkbox">
+          <label for="READING">READING</label>
+        </div>
+
+        <div class="subject">
+          <input id="RESP TC" type="checkbox">
+          <label for="RESP TC">RESP TC</label>
+        </div>
+
+        <div class="subject">
+          <input id="SENIORS" type="checkbox">
+          <label for="SENIORS">SENIORS</label>
+        </div>
+
+        <div class="subject">
+          <input id="SOC" type="checkbox">
+          <label for="SOC">SOC</label>
+        </div>
+
+        <div class="subject">
+          <input id="SOC SCI" type="checkbox">
+          <label for="SOC SCI">SOC SCI</label>
+        </div>
+
+        <div class="subject">
+          <input id="SPANISH" type="checkbox">
+          <label for="SPANISH">SPANISH</label>
+        </div>
+
+        <div class="subject">
+          <input id="SPEECH" type="checkbox">
+          <label for="SPEECH">SPEECH</label>
+        </div>
+
+        <div class="subject">
+          <input id="STHLTH" type="checkbox">
+          <label for="STHLTH">STHLTH</label>
+        </div>
+
+        <div class="subject">
+          <input id="SURG TC" type="checkbox">
+          <label for="SURG TC">SURG TC</label>
+        </div>
+
+        <div class="subject">
+          <input id="THR ART" type="checkbox">
+          <label for="THR ART">THR ART</label>
+        </div>
+
+        <div class="subject">
+          <input id="WFA" type="checkbox">
+          <label for="WFA">WFA</label>
+        </div>
+
+
+
+        <button id="submit" type="submit" value="">Schedule</button>
+        <p><em>(tested in chrome, firefox, and safari; let me know if you see weirdness IE/edge)</em></p>
+        <p>also, I haven't done a super ton of checking the table against <em>https://ccccsprd.ccc.edu/psc/ccccsprd/EMPLOYEE/CS/c/COMMUNITY_ACCESS.CLASS_SEARCH.GBL</em>, so you might want to randomly check a couple of classes before you rely on this. if anything's wrong it's probably an easy fix.</p>
+      </form>
+    </div>
+    <script src="./tableMaker.js"></script>
+  </body>
+</html>

@@ -172,7 +172,7 @@ document.body.onload = function() {
 
   form.addEventListener('submit', function(e) {
     e.preventDefault();
-    table.innerHTML('');
+    table.innerHTML = '';
     var subjects = [];
     for (var i = 0, l = form.elements.length; i < l; i++) {
       if (form.elements[i].checked) {

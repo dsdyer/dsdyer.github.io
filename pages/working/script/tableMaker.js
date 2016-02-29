@@ -168,9 +168,11 @@ function tableForBuddies(subjects) {
 
 document.body.onload = function() {
   var form = document.getElementById('form');
+  var table = document.getElementById('buddytable');
 
   form.addEventListener('submit', function(e) {
     e.preventDefault();
+    table.innerHTML('');
     var subjects = [];
     for (var i = 0, l = form.elements.length; i < l; i++) {
       if (form.elements[i].checked) {

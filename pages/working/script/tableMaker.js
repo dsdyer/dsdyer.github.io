@@ -1,5 +1,5 @@
 String.prototype.isClassName = function() {
-  return this.match(/[A-Z]+\s+\d{2,3}/g) || false;
+  return this.match(/[A-Z]*\s*[A-Z]+\s+\d{2,4}[^\s]*\s\-\s[\w\d\s.]+/g) || false;
 };
 
 String.prototype.startsNewSection = function() {
@@ -206,6 +206,7 @@ document.body.onload = function() {
     e.preventDefault();
     table.innerHTML = '';
     var subjects = [];
+    tablerows = [];
     for (var i = 0, l = form.elements.length; i < l; i++) {
       if (form.elements[i].checked) {
         subjects.push(form.elements[i].id);

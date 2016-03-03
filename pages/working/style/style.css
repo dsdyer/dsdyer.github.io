@@ -16,6 +16,9 @@ h2 {
 h3 {
   text-align: center;
 }
+#buddytable {
+  width: 100%;
+}
 th {
   padding-top: 20px;
   text-align: left;
@@ -55,4 +58,7 @@ button {
   width: 200px;
   margin: 0 auto;
   font-size: 1.5em;
+}
+#day-chooser {
+  display: none;
 }

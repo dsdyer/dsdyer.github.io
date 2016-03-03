@@ -164,7 +164,8 @@ var model = {
     if (this.active_days.indexOf(day) !== -1) {
       this.active_days.splice(this.active_days.indexOf(day), 1);
     }
-  }
+  },
+  showClassNames : true
 };
 
 var view = {
@@ -184,6 +185,12 @@ var view = {
       }
       tablerows[i].style.display = display;
     }
+  },
+  updateClassNames: function() {
+    var classNames = document.getElementsByClassName('class-name');
+    for (var i = 0, l = classNames.length; i < l; i++) {
+      model.showClassNames ? classNames[i].style.display = 'table-row' : classNames[i].style.display = 'none';
+    }
   }
 };
 
@@ -193,6 +200,8 @@ document.body.onload = function() {
   var dayChooser = document.getElementById('day-chooser');
   var days = dayChooser.getElementsByTagName('input');
 
+  var nameToggle = document.getElementById('name-toggle');
+  
   form.addEventListener('submit', function(e) {
     e.preventDefault();
     table.innerHTML = '';
@@ -204,6 +213,7 @@ document.body.onload = function() {
     }
     rows = tableForBuddies(subjects);
     dayChooser.style.display = 'block';
+    nameToggle.style.display = 'block';
   });
 
   for (var i = 0, l = days.length; i < l; i++) {
@@ -217,4 +227,9 @@ document.body.onload = function() {
       }
     );
   }
+
+  nameToggle.addEventListener('change', function() {
+    model.showClassNames = !model.showClassNames;
+    view.updateClassNames();
+  })
 };

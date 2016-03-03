@@ -59,6 +59,11 @@ button {
   margin: 0 auto;
   font-size: 1.5em;
 }
-#day-chooser {
+#day-chooser,
+#name-toggle {
   display: none;
+}
+#name-toggle {
+  width: 150px;
+  margin: 0 auto;
 }

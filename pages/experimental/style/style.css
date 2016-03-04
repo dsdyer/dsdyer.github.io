@@ -13,6 +13,12 @@ h2 {
   text-align: center;
   font-size: 1.1em;
 }
+h3 {
+  text-align: center;
+}
+#buddytable {
+  width: 100%;
+}
 th {
   padding-top: 20px;
   text-align: left;
@@ -53,7 +59,11 @@ button {
   margin: 0 auto;
   font-size: 1.5em;
 }
-iframe {
-  height: 600px;
-  width: 600px;
+#day-chooser,
+#name-toggle {
+  display: none;
+}
+#name-toggle {
+  width: 150px;
+  margin: 0 auto;
 }

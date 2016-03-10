@@ -49,7 +49,6 @@ for (var i = 0, l = matches.length; i < l; i++) {
 var output = class_list.join(',');
 
 var url = "https://dsdyer.github.io/pages/experimental/experimental.html";
-
 var w = window.open(url, 'target=_blank');
 
 var done = false;

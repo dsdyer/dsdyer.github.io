@@ -236,8 +236,8 @@ document.body.onload = function() {
   });
 
   window.addEventListener("message", function(e) {
-    console.log('message received!');
     tableForBuddies(e.data, undefined);
+    dayChooser.style.display = 'block';
     window.opener.postMessage(true, '*');
   }, false);
 

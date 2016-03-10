@@ -52,18 +52,19 @@ var url = "https://dsdyer.github.io/pages/experimental/experimental.html";
 
 var w = window.open(url, 'target=_blank');
 
+var done = false;
+
 var sendMsg = function(count) {
   console.log(count);
-  console.log(typeof w);
-  if (count > 50) return;
-
-  if (w && (w.location.href === url)) {
-      w.postMessage(output, '*');
-      return;
-  } else {
+  if (count > 50 || done === true) return;
+    w.postMessage([output, window], '*');
     window.setTimeout(sendMsg(count + 1), 100);
   }
 };
+
+window.addEventListener("message", function(e) {
+  done = e.data;
+}, false);
 
 // var count = 0;
 

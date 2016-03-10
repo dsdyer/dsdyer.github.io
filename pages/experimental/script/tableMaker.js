@@ -233,6 +233,12 @@ document.body.onload = function() {
     dayChooser.style.display = 'block';
   });
 
+  window.addEventListener("message", function(e) {
+    console.log('message received!');
+    tableForBuddies(e.data);
+  }, false);
+
+
   for (var i = 0, l = days.length; i < l; i++) {
     days[i].addEventListener('change', function(elem) {
         if (this.checked) {
@@ -243,5 +249,5 @@ document.body.onload = function() {
         view.updateDays();
       }
     );
-  }
+  };
 };

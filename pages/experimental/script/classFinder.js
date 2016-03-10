@@ -50,6 +50,15 @@ var output = class_list.join(',');
 
 var w = window.open('https://dsdyer.github.io/pages/experimental/experimental.html', 'target=_blank');
 
-window.setTimeout(function(){
-  w.postMessage(output, 'https://dsdyer.github.io/pages/experimental/experimental.html');
-}, 2000);
+var count = 0;
+
+while (count < 100) {
+  if (typeof w === 'object') {
+    w.postMessage(output, 'https://dsdyer.github.io/pages/experimental/experimental.html');
+    break;
+  }
+  window.setTimeout(function(){
+    count++;
+  }, 10);
+}
+

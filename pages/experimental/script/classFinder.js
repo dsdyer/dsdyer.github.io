@@ -57,7 +57,7 @@ var sendMsg = function(count) {
   if (count > 20) return;
 
   if (w && (w.location.href === url)) {
-      w.postMessage(output, url);
+      w.postMessage(output, '*');
       return;
   } else {
     window.setTimeout(sendMsg(count + 1), 100);

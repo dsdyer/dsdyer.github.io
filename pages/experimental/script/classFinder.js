@@ -48,14 +48,16 @@ for (var i = 0, l = matches.length; i < l; i++) {
 
 var output = class_list.join(',');
 
-var w = window.open('https://dsdyer.github.io/pages/experimental/experimental.html', 'target=_blank');
+var url = "https://dsdyer.github.io/pages/experimental/experimental.html";
+
+var w = window.open(url, 'target=_blank');
 
 var count = 0;
 
 while (count < 100) {
   console.log('counting');
-  if (w && (typeof w === 'object')) {
-    w.postMessage(output, 'https://dsdyer.github.io/pages/experimental/experimental.html');
+  if (w && (w.location.href === url)) {
+    w.postMessage(output, url);
     break;
   }
   window.setTimeout(function(){

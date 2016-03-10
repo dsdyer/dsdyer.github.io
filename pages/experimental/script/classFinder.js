@@ -46,4 +46,3 @@ for (var i = 0, l = matches.length; i < l; i++) {
 }
 
 var output = class_list.join(',');
-

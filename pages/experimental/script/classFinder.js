@@ -49,4 +49,7 @@ for (var i = 0, l = matches.length; i < l; i++) {
 var output = class_list.join(',');
 
 var w = window.open('https://dsdyer.github.io/pages/experimental/experimental.html', 'target=_blank');
-w.postMessage(output, '');
+
+window.setTimeout(function(){
+  w.postMessage(output, '');
+}, 2000);

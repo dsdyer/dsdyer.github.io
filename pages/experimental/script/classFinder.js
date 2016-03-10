@@ -53,21 +53,23 @@ var url = "https://dsdyer.github.io/pages/experimental/experimental.html";
 var w = window.open(url, 'target=_blank');
 
 var done = false;
+var count = 0;
 
 var sendMsg = function(count) {
   // console.log(count);
-  // if (count > 50 || done === true) return;
+  if (count > 500) window.clearInterval(sender);
     w.postMessage(output, '*');
+    count++;
+
     // window.setTimeout(sendMsg(count + 1), 100);
 };
 
-var sender = window.setInterval(sendMsg, 100);
+var sender = window.setInterval(sendMsg, 10);
 
 window.addEventListener("message", function(e) {
   window.clearInterval(sender);
 }, false);
 
-// var count = 0;
 
 // while (count < 20) {
 //   if (w && (w.location.href === url)) {

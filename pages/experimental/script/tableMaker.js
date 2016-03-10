@@ -77,7 +77,6 @@ function hearEvent(e) {
   window.opener.postMessage(true, '*');
 
   tableForBuddies(e.data, undefined);
-  dayChooser.style.display = 'block';
 }
 
 function tableForBuddies(data, subjects) {
@@ -90,6 +89,23 @@ function tableForBuddies(data, subjects) {
   var tablerow;
   var tableitem;
   var currentclass;
+
+  var dayChooser = document.getElementById('day-chooser');
+  var days = dayChooser.getElementsByTagName('input');
+
+  dayChooser.style.display = 'block';
+
+  for (var i = 0, l = days.length; i < l; i++) {
+    days[i].addEventListener('change', function(elem) {
+        if (this.checked) {
+          model.addDay(this.id);
+        } else {
+          model.removeDay(this.id);
+        }
+        view.updateDays();
+      }
+    );
+  };
 
   for (var i = 0, l = classstring.length; i < l; i++) {
     if (classstring[i].isClassName()) {
@@ -223,9 +239,6 @@ var view = {
 document.body.onload = function() {
   var form = document.getElementById('form');
 
-  var dayChooser = document.getElementById('day-chooser');
-  var days = dayChooser.getElementsByTagName('input');
-
   form.addEventListener('submit', function(e) {
     e.preventDefault();
     var subjects = [];
@@ -236,21 +249,7 @@ document.body.onload = function() {
       }
     }
     rows = tableForBuddies(undefined, subjects);
-    dayChooser.style.display = 'block';
   });
 
   window.addEventListener("message", hearEvent, false);
-
-
-  for (var i = 0, l = days.length; i < l; i++) {
-    days[i].addEventListener('change', function(elem) {
-        if (this.checked) {
-          model.addDay(this.id);
-        } else {
-          model.removeDay(this.id);
-        }
-        view.updateDays();
-      }
-    );
-  };
 };

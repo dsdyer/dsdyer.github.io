@@ -55,7 +55,6 @@ function sortByDay() {
 
 function sortByTime() {
   return function(a, b) {
-    console.log('sorting by time');
     var atime = convertTo24Hour(a.getElementsByClassName('datetime')[0].textContent.extractTime());
     var btime = convertTo24Hour(b.getElementsByClassName('datetime')[0].textContent.extractTime());
     return new Date('2016-1-1 ' + atime) - new Date('2016-1-1 ' + btime);
@@ -154,7 +153,6 @@ function tableForBuddies(data, subjects) {
     if ((prevDay && prevDay !== dayText)) {
       oneDay.sort(sortByTime());
       ultimateSorted = ultimateSorted.concat(oneDay);
-      console.log(ultimateSorted);
       oneDay = [];
     }
     oneDay.push(row)
@@ -165,7 +163,6 @@ function tableForBuddies(data, subjects) {
     prevDay = dayText;
   }
 
-  console.log(ultimateSorted);
   for (var i = 0, l = ultimateSorted.length; i < l; i++) {
     table.appendChild(ultimateSorted[i]);
   }
@@ -221,7 +218,7 @@ document.body.onload = function() {
 
   var dayChooser = document.getElementById('day-chooser');
   var days = dayChooser.getElementsByTagName('input');
-  
+
   form.addEventListener('submit', function(e) {
     e.preventDefault();
     var subjects = [];

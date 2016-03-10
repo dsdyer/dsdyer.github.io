@@ -55,12 +55,12 @@ var done = false;
 var count = 0;
 
 var sendMsg = function() {
-  if (count > 500) window.clearInterval(sender);
+  if (count > 20) window.clearInterval(sender);
     w.postMessage(output, '*');
     count++;
 };
 
-var sender = window.setInterval(sendMsg, 10);
+var sender = window.setInterval(sendMsg, 100);
 
 window.addEventListener("message", function(e) {
   window.clearInterval(sender);

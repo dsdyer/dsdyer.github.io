@@ -55,7 +55,6 @@ var w = window.open(url, 'target=_blank');
 var count = 0;
 
 while (count < 100) {
-  console.log('counting');
   if (w && (w.location.href === url)) {
     w.postMessage(output, url);
     break;

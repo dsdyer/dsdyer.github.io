@@ -53,8 +53,8 @@ var url = "https://dsdyer.github.io/pages/experimental/experimental.html";
 var w = window.open(url, 'target=_blank');
 
 var sendMsg = function(count) {
-  console.log('counting');
-  if (count > 20) return;
+  console.log(count);
+  if (count > 50) return;
 
   if (w && (w.location.href === url)) {
       w.postMessage(output, '*');

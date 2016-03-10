@@ -59,8 +59,10 @@ while (count < 20) {
     w.postMessage(output, url);
     break;
   }
-  window.setTimeout(function(){
-    count++;
-  }, 100);
+  window.setTimeout((function(count){
+    return function() {
+      count = count + 1;
+    }
+    })(count), 100);
 }
 

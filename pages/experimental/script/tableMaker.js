@@ -236,7 +236,7 @@ document.body.onload = function() {
 
   window.addEventListener("message", function(e) {
     console.log('message received!');
-    tableForBuddies(e.data[0], undefined);
+    tableForBuddies(e.data, undefined);
     this.opener.postMessage(true, '*');
   }, false);
 

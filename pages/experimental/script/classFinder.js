@@ -53,15 +53,12 @@ var url = "https://dsdyer.github.io/pages/experimental/experimental.html";
 var w = window.open(url, 'target=_blank');
 
 var done = false;
-var count = 0;
 
 var sendMsg = function(count) {
-  // console.log(count);
+  var count = count || 0;
   if (count > 500) window.clearInterval(sender);
     w.postMessage(output, '*');
     count++;
-
-    // window.setTimeout(sendMsg(count + 1), 100);
 };
 
 var sender = window.setInterval(sendMsg, 10);
@@ -69,22 +66,3 @@ var sender = window.setInterval(sendMsg, 10);
 window.addEventListener("message", function(e) {
   window.clearInterval(sender);
 }, false);
-
-
-// while (count < 20) {
-//   if (w && (w.location.href === url)) {
-//     w.postMessage(output, url);
-//     break;
-//   }
-//   window.setTimeout((function(count){
-//     return function() {
-//       count = count + 1;
-//     }
-//     })(count), 100);
-// }
-
-  // window.setTimeout(function() {
-  //   w.postMessage(output, url);
-  // }, 2000);
-
-  sendMsg(0);

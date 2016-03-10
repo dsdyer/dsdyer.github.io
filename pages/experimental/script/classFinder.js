@@ -53,9 +53,9 @@ var url = "https://dsdyer.github.io/pages/experimental/experimental.html";
 var w = window.open(url, 'target=_blank');
 
 var done = false;
+var count = 0;
 
-var sendMsg = function(count) {
-  var count = count || 0;
+var sendMsg = function() {
   if (count > 500) window.clearInterval(sender);
     w.postMessage(output, '*');
     count++;

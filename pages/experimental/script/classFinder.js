@@ -55,14 +55,16 @@ var w = window.open(url, 'target=_blank');
 var done = false;
 
 var sendMsg = function(count) {
-  console.log(count);
-  if (count > 50 || done === true) return;
+  // console.log(count);
+  // if (count > 50 || done === true) return;
     w.postMessage(output, '*');
-    window.setTimeout(sendMsg(count + 1), 100);
+    // window.setTimeout(sendMsg(count + 1), 100);
 };
 
+var sender = window.setInterval(sendMsg, 100);
+
 window.addEventListener("message", function(e) {
-  done = e.data;
+  window.clearInterval(sender);
 }, false);
 
 // var count = 0;

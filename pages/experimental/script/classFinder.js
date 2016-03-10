@@ -59,7 +59,6 @@ var sendMsg = function(count) {
   if (count > 50 || done === true) return;
     w.postMessage(output, '*');
     window.setTimeout(sendMsg(count + 1), 100);
-  }
 };
 
 window.addEventListener("message", function(e) {

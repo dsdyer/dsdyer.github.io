@@ -54,13 +54,13 @@ var w = window.open(url, 'target=_blank');
 
 var count = 0;
 
-while (count < 100) {
+while (count < 20) {
   if (w && (w.location.href === url)) {
     w.postMessage(output, url);
     break;
   }
   window.setTimeout(function(){
     count++;
-  }, 10);
+  }, 100);
 }
 

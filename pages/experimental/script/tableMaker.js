@@ -163,7 +163,7 @@ function tableForBuddies(data, subjects) {
     prevDay = dayText;
   }
 
-console.log(ultimateSorted);
+  console.log(ultimateSorted);
   for (var i = 0, l = ultimateSorted.length; i < l; i++) {
     table.appendChild(ultimateSorted[i]);
   }
@@ -235,8 +235,8 @@ document.body.onload = function() {
   });
 
   window.addEventListener("message", function(e) {
-    console.log('message received!');
-    tableForBuddies(e.data, undefined);
+    console.log(e.data);
+    // tableForBuddies(e.data, undefined);
   }, false);
 
 

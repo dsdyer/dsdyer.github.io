@@ -54,6 +54,7 @@ var w = window.open(url, 'target=_blank');
 
 var sendMsg = function(count) {
   console.log(count);
+  console.log(typeof w);
   if (count > 50) return;
 
   if (w && (w.location.href === url)) {

@@ -52,6 +52,17 @@ var url = "https://dsdyer.github.io/pages/experimental/experimental.html";
 
 var w = window.open(url, 'target=_blank');
 
+var sendMsg = function(count) {
+  if (count > 20) return;
+
+  if (w && (w.location.href === url)) {
+      w.postMessage(output, url);
+      return;
+  } else {
+    window.setTimeout(sendMsg(count + 1), 100);
+  }
+};
+
 // var count = 0;
 
 // while (count < 20) {
@@ -66,6 +77,8 @@ var w = window.open(url, 'target=_blank');
 //     })(count), 100);
 // }
 
-  window.setTimeout(function() {
-    w.postMessage(output, url);
-  }, 2000);
+  // window.setTimeout(function() {
+  //   w.postMessage(output, url);
+  // }, 2000);
+
+  sendMsg(0);

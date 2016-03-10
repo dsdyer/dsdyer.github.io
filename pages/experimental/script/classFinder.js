@@ -52,17 +52,20 @@ var url = "https://dsdyer.github.io/pages/experimental/experimental.html";
 
 var w = window.open(url, 'target=_blank');
 
-var count = 0;
+// var count = 0;
 
-while (count < 20) {
-  if (w && (w.location.href === url)) {
+// while (count < 20) {
+//   if (w && (w.location.href === url)) {
+//     w.postMessage(output, url);
+//     break;
+//   }
+//   window.setTimeout((function(count){
+//     return function() {
+//       count = count + 1;
+//     }
+//     })(count), 100);
+// }
+
+  window.setTimeout(function() {
     w.postMessage(output, url);
-    break;
-  }
-  window.setTimeout((function(count){
-    return function() {
-      count = count + 1;
-    }
-    })(count), 100);
-}
-
+  }, 2000);

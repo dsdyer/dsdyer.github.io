@@ -72,6 +72,13 @@ function convertTo24Hour(time) {
   return time.replace(/(am|pm)/i, '');
 }
 
+function hearEvent(e) {
+  window.removeEventListener('message', hearEvent);
+  window.opener.postMessage(true, '*');
+
+  tableForBuddies(e.data, undefined);
+  dayChooser.style.display = 'block';
+}
 
 function tableForBuddies(data, subjects) {
   table.innerHTML = '';
@@ -232,11 +239,7 @@ document.body.onload = function() {
     dayChooser.style.display = 'block';
   });
 
-  window.addEventListener("message", function(e) {
-    tableForBuddies(e.data, undefined);
-    dayChooser.style.display = 'block';
-    window.opener.postMessage(true, '*');
-  }, false);
+  window.addEventListener("message", hearEvent, false);
 
 
   for (var i = 0, l = days.length; i < l; i++) {

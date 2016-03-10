@@ -51,5 +51,5 @@ var output = class_list.join(',');
 var w = window.open('https://dsdyer.github.io/pages/experimental/experimental.html', 'target=_blank');
 
 window.setTimeout(function(){
-  w.postMessage(output, '');
+  w.postMessage(output, '*');
 }, 2000);

@@ -235,8 +235,8 @@ document.body.onload = function() {
   });
 
   window.addEventListener("message", function(e) {
-    console.log(e.data);
-    // tableForBuddies(e.data, undefined);
+    console.log('message received!');
+    tableForBuddies(e.data, undefined);
   }, false);
 
 

@@ -53,6 +53,7 @@ var w = window.open('https://dsdyer.github.io/pages/experimental/experimental.ht
 var count = 0;
 
 while (count < 100) {
+  console.log('counting');
   if (w && (typeof w === 'object')) {
     w.postMessage(output, 'https://dsdyer.github.io/pages/experimental/experimental.html');
     break;

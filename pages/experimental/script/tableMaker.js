@@ -55,7 +55,6 @@ function sortByDay() {
 
 function sortByTime() {
   return function(a, b) {
-    console.log('sorting by time');
     var atime = convertTo24Hour(a.getElementsByClassName('datetime')[0].textContent.extractTime());
     var btime = convertTo24Hour(b.getElementsByClassName('datetime')[0].textContent.extractTime());
     return new Date('2016-1-1 ' + atime) - new Date('2016-1-1 ' + btime);
@@ -73,6 +72,12 @@ function convertTo24Hour(time) {
   return time.replace(/(am|pm)/i, '');
 }
 
+function hearEvent(e) {
+  window.removeEventListener('message', hearEvent);
+  window.opener.postMessage(true, '*');
+
+  tableForBuddies(e.data, undefined);
+}
 
 function tableForBuddies(data, subjects) {
   table.innerHTML = '';
@@ -84,6 +89,23 @@ function tableForBuddies(data, subjects) {
   var tablerow;
   var tableitem;
   var currentclass;
+
+  var dayChooser = document.getElementById('day-chooser');
+  var days = dayChooser.getElementsByTagName('input');
+
+  dayChooser.style.display = 'block';
+
+  for (var i = 0, l = days.length; i < l; i++) {
+    days[i].addEventListener('change', function(elem) {
+        if (this.checked) {
+          model.addDay(this.id);
+        } else {
+          model.removeDay(this.id);
+        }
+        view.updateDays();
+      }
+    );
+  };
 
   for (var i = 0, l = classstring.length; i < l; i++) {
     if (classstring[i].isClassName()) {
@@ -154,7 +176,6 @@ function tableForBuddies(data, subjects) {
     if ((prevDay && prevDay !== dayText)) {
       oneDay.sort(sortByTime());
       ultimateSorted = ultimateSorted.concat(oneDay);
-      console.log(ultimateSorted);
       oneDay = [];
     }
     oneDay.push(row)
@@ -165,7 +186,6 @@ function tableForBuddies(data, subjects) {
     prevDay = dayText;
   }
 
-  console.log(ultimateSorted);
   for (var i = 0, l = ultimateSorted.length; i < l; i++) {
     table.appendChild(ultimateSorted[i]);
   }
@@ -219,9 +239,6 @@ var view = {
 document.body.onload = function() {
   var form = document.getElementById('form');
 
-  var dayChooser = document.getElementById('day-chooser');
-  var days = dayChooser.getElementsByTagName('input');
-  
   form.addEventListener('submit', function(e) {
     e.preventDefault();
     var subjects = [];
@@ -232,25 +249,7 @@ document.body.onload = function() {
       }
     }
     rows = tableForBuddies(undefined, subjects);
-    dayChooser.style.display = 'block';
   });
 
-  window.addEventListener("message", function(e) {
-    tableForBuddies(e.data, undefined);
-    dayChooser.style.display = 'block';
-    window.opener.postMessage(true, '*');
-  }, false);
-
-
-  for (var i = 0, l = days.length; i < l; i++) {
-    days[i].addEventListener('change', function(elem) {
-        if (this.checked) {
-          model.addDay(this.id);
-        } else {
-          model.removeDay(this.id);
-        }
-        view.updateDays();
-      }
-    );
-  };
+  window.addEventListener("message", hearEvent, false);
 };

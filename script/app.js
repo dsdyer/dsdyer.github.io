@@ -23,7 +23,7 @@ var dateRange = year + '-' + month + '-' + day;
 var topFive = document.getElementById('top-five');
 
 var requestRepos = new XMLHttpRequest();
-var params = "?q=language%3A" + language +  "+created%3A>" + dateRange + "&sort=stars&order=desc&access_token=d7482f43b775f4cf6cd88dad36637ed4b155f7f9"; // Token has access to public repos and users
+var params = "?q=language%3A" + language +  "+created%3A>" + dateRange + "&sort=stars&order=desc"; // Token has access to public repos and users
 var url = "https://api.github.com/search/repositories";
 
 requestRepos.responseType = "json";

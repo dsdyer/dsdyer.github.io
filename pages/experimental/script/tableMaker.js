@@ -148,7 +148,11 @@ function tableForBuddies(data, subjects) {
       continue;
     }
     var row = tablerows[i];
-    var dayText = row.getElementsByClassName('days')[0].textContent.slice(0, 2);
+    try {
+      var dayText = row.getElementsByClassName('days')[0].textContent.slice(0, 2);
+  } catch(e) {
+    console.log(row.getElementsByClassName('days'));
+  }
 
     if ((prevDay && prevDay !== dayText)) {
       oneDay.sort();

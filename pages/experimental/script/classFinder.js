@@ -39,6 +39,8 @@ for (var i = 0, l = matches.length; i < l; i++) {
     class_list.push(matches[i]);
   } else {
       if (matches[i].match(/\b-\b/g)) {
+        console.log('i is: ', i);
+        console.log('the match is: ', matches[i]);
         class_list.push(class_num.trim() + '-' + matches[i].slice(0, matches[i].indexOf('-')) + " ");
     } else {
       class_list.push(matches[i].replace("MXM - ", ""));

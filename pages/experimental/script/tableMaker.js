@@ -59,8 +59,8 @@ function sortByDays() {
     var btext = b.getElementsByClassName('days')[0].textContent.toLowerCase();
 
     console.log('sorting by DAYS');
-    console.log('a: ', a);
-    console.log('b: ', b);
+    console.log('atext: ', atext);
+    console.log('btext: ', btext);
 
     if (atext < btext) return -1;
     if (atext > btext) return 1;

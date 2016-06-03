@@ -62,8 +62,8 @@ function sortByDays() {
     console.log('a: ', a);
     console.log('b: ', b);
 
-    if (a < b) return -1;
-    if (a > b) return 1;
+    if (atext < btext) return -1;
+    if (atext > btext) return 1;
     return 0;
   }
 }

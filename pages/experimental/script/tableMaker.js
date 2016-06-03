@@ -49,7 +49,7 @@ function sortByDay() {
     } catch(e) {
       var btext = '0';      
     }
-    console.log('before: ', atext, btext);
+    // console.log('before: ', atext, btext);
 
     for (var i = 0, l = dayMap.length; i < l; i++) {
       atext = atext.replace(dayMap[i], String(i+1));
@@ -81,7 +81,7 @@ function sortByDay() {
     // } catch(e) {
     //   var btext = '0';
     // }
-    console.log('after: ', atext, btext);
+    // console.log('after: ', atext, btext);
     if (atext < btext) return -1;
     if (atext > btext) return 1;
     return 0;
@@ -225,7 +225,7 @@ function tableForBuddies(data, subjects) {
     prevDay = dayText;
   }
 
-  console.log('all done! Also, ultimateSorted: ', ultimateSorted);
+  // console.log('all done! Also, ultimateSorted: ', ultimateSorted);
   for (var i = 0, l = ultimateSorted.length; i < l; i++) {
     table.appendChild(ultimateSorted[i]);
   }

@@ -5,7 +5,7 @@ String.prototype.isClassName = function() {
 };
 
 String.prototype.startsNewSection = function() {
-  return this.match(/\d{2,3}-/g) || false;
+  return this.match(/\d{2,4}-/g) || false;
 };
 
 String.prototype.extractTime = function() {

@@ -51,11 +51,11 @@ function sortByDay() {
     }
 
     for (var i = 0, l = dayMap.length; i < l; i++) {
-      atext = atext.replace(dayMap[i], i+1);
-      btext = btext.replace(dayMap[i], i+1);
+      atext = atext.replace(dayMap[i], String(i+1));
+      btext = btext.replace(dayMap[i], String(i+1));
 
-      if (i >= atext.length) atext = atext + '0';
-      if (i >= btext.length) btext = atext + '0';
+      if (i >= atext.length) atext = atext.concat('0');
+      if (i >= btext.length) btext = atext.concat('0');
     }
 
     // try {

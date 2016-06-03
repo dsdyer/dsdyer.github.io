@@ -38,7 +38,7 @@ for (var i = 0, l = matches.length; i < l; i++) {
     class_num = matches[i].match(/\d{2,4}/g)[0];
     class_list.push(matches[i]);
   } else {
-      if (matches[i].match(/[\n\r]/g)) {
+      if (matches[i].match(/\b-\b/g)) {
         class_list.push(class_num.trim() + '-' + matches[i].slice(0, matches[i].indexOf('-')) + " ");
     } else {
       class_list.push(matches[i].replace("MXM - ", ""));

@@ -39,16 +39,16 @@ function sortByDay() {
 
   return function(a, b) {
 
-    // try {
+    try {
       var atext = dayMap[a.getElementsByClassName('days')[0].textContent.slice(0, 2)];
-    // } catch(e) {
-      // var atext = '0';
-    // }
-    // try {
+    } catch(e) {
+      var atext = '0';
+    }
+    try {
       var btext = dayMap[b.getElementsByClassName('days')[0].textContent.slice(0, 2)];
-    // } catch(e) {
-    //   var btext = '0';
-    // }
+    } catch(e) {
+      var btext = '0';
+    }
     return atext-btext;
   };
 };

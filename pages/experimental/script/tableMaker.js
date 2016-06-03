@@ -192,7 +192,7 @@ function tableForBuddies(data, subjects) {
     oneDay.push(row)
     if (i === l - 1) {
       // oneDay.sort(sortByDays());
-      // oneDay.sort(sortByTime());
+      oneDay.sort(sortByTime());
       ultimateSorted = ultimateSorted.concat(oneDay);
     }
     prevDay = dayText;

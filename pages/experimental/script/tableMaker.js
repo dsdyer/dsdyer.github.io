@@ -78,6 +78,9 @@ function sortByDay() {
     // } catch(e) {
     //   var btext = '0';
     // }
+    console.log('sorting:\n');
+    console.log('atext: ', atext);
+    console.log('btext: ', btext);
     if (atext < btext) return -1;
     if (atext > btext) return 1;
     return 0;

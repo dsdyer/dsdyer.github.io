@@ -65,20 +65,20 @@ function sortByDay() {
   };
 };
 
-function sortByDays() {
-  return function(a, b) {
-    var atext = a.getElementsByClassName('days')[0].textContent.toLowerCase();
-    var btext = b.getElementsByClassName('days')[0].textContent.toLowerCase();
+// function sortByDays() {
+//   return function(a, b) {
+//     var atext = a.getElementsByClassName('days')[0].textContent.toLowerCase();
+//     var btext = b.getElementsByClassName('days')[0].textContent.toLowerCase();
 
-    console.log('sorting by DAYS');
-    console.log('atext: ', atext);
-    console.log('btext: ', btext);
+//     console.log('sorting by DAYS');
+//     console.log('atext: ', atext);
+//     console.log('btext: ', btext);
 
-    if (atext < btext) return -1;
-    if (atext > btext) return 1;
-    return 0;
-  }
-}
+//     if (atext < btext) return -1;
+//     if (atext > btext) return 1;
+//     return 0;
+//   }
+// }
 
 function sortByTime() {
   return function(a, b) {
@@ -182,14 +182,14 @@ function tableForBuddies(data, subjects) {
   }
 
     if ((prevDay && prevDay !== dayText)) {
-      oneDay.sort(sortByDays());
+      // oneDay.sort(sortByDays());
       // oneDay.sort(sortByTime());
       ultimateSorted = ultimateSorted.concat(oneDay);
       oneDay = [];
     }
     oneDay.push(row)
     if (i === l - 1) {
-      oneDay.sort(sortByDays());
+      // oneDay.sort(sortByDays());
       // oneDay.sort(sortByTime());
       ultimateSorted = ultimateSorted.concat(oneDay);
     }

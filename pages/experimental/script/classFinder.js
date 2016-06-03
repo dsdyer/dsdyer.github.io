@@ -20,7 +20,7 @@ for (var i = 0, len = elems.length; i < len; i++) {
     }
   }
   if (item.id && item.id.indexOf("MTG_") === 0) {
-    if (item.textContent.trim().match(/\n\n/g) || item.textContent.trim().match(/\d{5}/g) || item.textContent.trim().match(/\2016/g)) {
+    if (item.textContent.trim().match(/\n\n/g) || item.textContent.trim().match(/\d{5}/g) || item.textContent.trim().match(/2016/g)) {
       continue;
     } else {
       if (item.textContent.trim() !== matches[matches.length - 1].trim()) {

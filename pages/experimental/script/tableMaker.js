@@ -138,11 +138,12 @@ function tableForBuddies(data, subjects) {
 
   for (var i = 0, l = classstring.length; i < l; i++) {
     if (classstring[i].isClassName()) {
-      console.log(classstring[i]);
       if (subjects && subjects.indexOf(classstring[i].match(/[A-Z]*\s?[A-Z]+/)[0]) === -1) {
         var nextClassIndex = classstring.findNextClassIndex(i) || i + 1;
         i = nextClassIndex - 1;
         continue;
+      } else {
+        console.log(classstring[i]);
       }
 
       tablerow = document.createElement('tr');

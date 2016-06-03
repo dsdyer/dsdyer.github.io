@@ -151,7 +151,7 @@ function tableForBuddies(data, subjects) {
     try {
       var dayText = row.getElementsByClassName('days')[0].textContent.slice(0, 2);
   } catch(e) {
-    console.log(row.getElementsByClassName('days'));
+    console.log(row);
   }
 
     if ((prevDay && prevDay !== dayText)) {

@@ -39,21 +39,23 @@ function sortByDay() {
 
   return function(a, b) {
     try {
-      var atext = a.getElementsByClassName('days')[0].textContent;
+      var atext = a.getElementsByClassName('days')[0].textContent.trim();
     } catch(e) {
       var atext = '0';
     }
 
     try {
-      var btext = b.getElementsByClassName('days')[0].textContent;  
+      var btext = b.getElementsByClassName('days')[0].textContent.trim();  
     } catch(e) {
       var btext = '0';      
     }
 
-    for (var i = 0, l = dayMap.length; i < l; i++) {
-      atext = atext.replace(dayMap[i], String(i+1));
-      btext = btext.replace(dayMap[i], String(i+1));
+    for (var i = 1, l = dayMap.length; i <= l; i++) {
+      atext = atext.replace(dayMap[i], String(i));
+      btext = btext.replace(dayMap[i], String(i));
+    }
 
+    for (var i = 0, l = dayMap.length; i < l; i++) {
       if (i >= atext.length) atext = atext.concat('0');
       if (i >= btext.length) btext = atext.concat('0');
     }

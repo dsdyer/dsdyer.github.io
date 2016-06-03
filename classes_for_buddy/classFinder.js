@@ -1,10 +1,8 @@
-// unrelated: https://leapfrogonline.attask-ondemand.com/attask/api-unsupported/timesheet/?id=566d199200727d76ab12bce7431d4e63&fields=hours&method=get&username=ddyer@leapfrogonline.com&password=
-
 var elems = document.getElementsByTagName("*"), item;
 var matches = [];
 
 String.prototype.isClassName = function() {
-  return this.match(/[A-Z]*\s*[A-Z]+\s+\d{2,4}[^\s]*\s\-\s[\w\d\s.]+/g) || false;
+  return this.match(/[A-Z]*\s*[A-Z]+\s+\d{2,3}/g) || false;
 };
 
 for (var i = 0, len = elems.length; i < len; i++) {
@@ -45,5 +43,5 @@ for (var i = 0, l = matches.length; i < l; i++) {
   }
 }
 
-var output = class_list.join(',');
+class_list.join(',');
 

@@ -38,7 +38,7 @@ for (var i = 0, l = matches.length; i < l; i++) {
     class_num = matches[i].match(/\d{2,4}/g)[0];
     class_list.push(matches[i]);
   } else {
-      if (matches[i].match(/\b-\b/g)) {
+      if (matches[i].match(/\b-\W{2,}/g)) {
         console.log('i is: ', i);
         console.log('the match is: ', matches[i]);
         class_list.push(class_num.trim() + '-' + matches[i].slice(0, matches[i].indexOf('-')) + " ");

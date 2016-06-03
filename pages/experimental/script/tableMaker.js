@@ -155,7 +155,9 @@ function tableForBuddies(data, subjects) {
   }
 
     if ((prevDay && prevDay !== dayText)) {
+      console.log('unsorted: ', oneDay);
       oneDay.sort();
+      console.log('sorted: ', oneDay);
       oneDay.sort(sortByTime());
       ultimateSorted = ultimateSorted.concat(oneDay);
       console.log('prevDay && prevDay !== dayText. Also, ultimateSorted: ', ultimateSorted);

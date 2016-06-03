@@ -176,7 +176,7 @@ function tableForBuddies(data, subjects) {
     }
     var row = tablerows[i];
     try {
-      var dayText = row.getElementsByClassName('days')[0].textContent.slice(0, 2);
+      var dayText = row.getElementsByClassName('days')[0].textContent;
   } catch(e) {
     console.log(row);
   }

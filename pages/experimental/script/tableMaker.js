@@ -28,37 +28,47 @@ function findNextClassName(string) {
 };
 
 function sortByDay() {
-  //   var dayMap = {
-  //     'Mo': 1,
-  //     'Tu': 2,
-  //     'We': 3,
-  //     'Th': 4,
-  //     'Fr': 5,
-  //     'Sa': 6
-  // }
+  var dayMap = [
+    'Mo',
+    'Tu',
+    'We',
+    'Th',
+    'Fr',
+    'Sa'
+  ];
 
   return function(a, b) {
+    var atext = a.getElementsByClassName('days')[0].textContent;
+    var btext = b.getElementsByClassName('days')[0].textContent;
 
-    try {
-      var atext = a.getElementsByClassName('days')[0].textContent.replace('Mo', '1')
-                                                                 .replace('Tu', '2')
-                                                                 .replace('We', '3')
-                                                                 .replace('Th', '4')
-                                                                 .replace('Fr', '5')
-                                                                 .replace('Sa', '6');
-    } catch(e) {
-      var atext = '0';
+    for (var i = 0, l = dayMap.length; i < l; i++) {
+      atext = atext.replace(dayMap[i], i+1);
+      btext = btext.replace(dayMap[i], i+1);
+
+      if (i >= atext.length) atext = atext + '0';
+      if (i >= btext.length) btext = atext + '0';
     }
-    try {
-      var btext = b.getElementsByClassName('days')[0].textContent.replace('Mo', '1')
-                                                                 .replace('Tu', '2')
-                                                                 .replace('We', '3')
-                                                                 .replace('Th', '4')
-                                                                 .replace('Fr', '5')
-                                                                 .replace('Sa', '6');
-    } catch(e) {
-      var btext = '0';
-    }
+
+    // try {
+    //   var atext = a.getElementsByClassName('days')[0].textContent.replace('Mo', '1')
+    //                                                              .replace('Tu', '2')
+    //                                                              .replace('We', '3')
+    //                                                              .replace('Th', '4')
+    //                                                              .replace('Fr', '5')
+    //                                                              .replace('Sa', '6');
+    // } catch(e) {
+    //   var atext = '0';
+    // }
+    // try {
+    //   var btext = b.getElementsByClassName('days')[0].textContent.replace('Mo', '1')
+    //                                                              .replace('Tu', '2')
+    //                                                              .replace('We', '3')
+    //                                                              .replace('Th', '4')
+    //                                                              .replace('Fr', '5')
+    //                                                              .replace('Sa', '6');
+    // } catch(e) {
+    //   var btext = '0';
+    // }
     if (atext < btext) return -1;
     if (atext > btext) return 1;
     return 0;

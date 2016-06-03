@@ -35,7 +35,7 @@ var class_num = '';
 
 for (var i = 0, l = matches.length; i < l; i++) {
   if (matches[i].isClassName()) {
-    class_num = matches[i].match(/\d{2,3}/g)[0];
+    class_num = matches[i].match(/\d{2,4}/g)[0];
     class_list.push(matches[i]);
   } else {
       if (matches[i].match(/[\n\r]/g)) {

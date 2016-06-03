@@ -49,6 +49,7 @@ function sortByDay() {
     } catch(e) {
       var btext = '0';      
     }
+    console.log('before: ', atext, btext);
 
     for (var i = 0, l = dayMap.length; i < l; i++) {
       atext = atext.replace(dayMap[i], String(i+1));
@@ -80,9 +81,7 @@ function sortByDay() {
     // } catch(e) {
     //   var btext = '0';
     // }
-    console.log('sorting:\n');
-    console.log('atext: ', atext);
-    console.log('btext: ', btext);
+    console.log('after: ', atext, btext);
     if (atext < btext) return -1;
     if (atext > btext) return 1;
     return 0;

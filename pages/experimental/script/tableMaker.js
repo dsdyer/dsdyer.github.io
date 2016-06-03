@@ -206,8 +206,8 @@ function tableForBuddies(data, subjects) {
     if ((prevDay && prevDay !== dayText)) {
       // oneDay.sort(sortByDays());
       oneDay.sort(sortByTime());
-      console.log('prevDay: ', prevDay);
-      console.log('dayText: ', dayText);
+      // console.log('prevDay: ', prevDay);
+      // console.log('dayText: ', dayText);
       ultimateSorted = ultimateSorted.concat(oneDay);
       oneDay = [];
     }

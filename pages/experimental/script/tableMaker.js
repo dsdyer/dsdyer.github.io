@@ -58,6 +58,10 @@ function sortByDays() {
     var atext = a.getElementsByClassName('days')[0].textContent.toLowerCase();
     var btext = b.getElementsByClassName('days')[0].textContent.toLowerCase();
 
+    console.log('sorting by DAYS');
+    console.log('a: ', a);
+    console.log('b: ', b);
+
     if (a < b) return -1;
     if (a > b) return 1;
     return 0;
@@ -166,17 +170,15 @@ function tableForBuddies(data, subjects) {
   }
 
     if ((prevDay && prevDay !== dayText)) {
-      console.log('unsorted: ', oneDay);
       oneDay.sort(sortByDays());
-      console.log('sorted: ', oneDay);
-      oneDay.sort(sortByTime());
+      // oneDay.sort(sortByTime());
       ultimateSorted = ultimateSorted.concat(oneDay);
-      console.log('prevDay && prevDay !== dayText. Also, ultimateSorted: ', ultimateSorted);
       oneDay = [];
     }
     oneDay.push(row)
     if (i === l - 1) {
-      oneDay.sort(sortByTime());
+      oneDay.sort(sortByDays());
+      // oneDay.sort(sortByTime());
       ultimateSorted = ultimateSorted.concat(oneDay);
     }
     prevDay = dayText;

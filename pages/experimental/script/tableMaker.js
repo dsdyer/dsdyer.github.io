@@ -55,7 +55,6 @@ function sortByDay() {
 
 function sortByTime() {
   return function(a, b) {
-    console.log('sorting by time');
     var atime = convertTo24Hour(a.getElementsByClassName('datetime')[0].textContent.extractTime());
     var btime = convertTo24Hour(b.getElementsByClassName('datetime')[0].textContent.extractTime());
     return new Date('2016-1-1 ' + atime) - new Date('2016-1-1 ' + btime);
@@ -152,9 +151,10 @@ function tableForBuddies(data, subjects) {
     var dayText = row.getElementsByClassName('days')[0].textContent.slice(0, 2);
 
     if ((prevDay && prevDay !== dayText)) {
+      oneDay.sort();
       oneDay.sort(sortByTime());
       ultimateSorted = ultimateSorted.concat(oneDay);
-      console.log(ultimateSorted);
+      console.log('prevDay && prevDay !== dayText. Also, ultimateSorted: ', ultimateSorted);
       oneDay = [];
     }
     oneDay.push(row)
@@ -165,7 +165,7 @@ function tableForBuddies(data, subjects) {
     prevDay = dayText;
   }
 
-  console.log(ultimateSorted);
+  console.log('all done! Also, ultimateSorted: ', ultimateSorted);
   for (var i = 0, l = ultimateSorted.length; i < l; i++) {
     table.appendChild(ultimateSorted[i]);
   }

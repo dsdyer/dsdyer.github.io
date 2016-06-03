@@ -50,9 +50,9 @@ function sortByDay() {
       var btext = '0';      
     }
 
-    for (var i = 1, l = dayMap.length; i <= l; i++) {
-      atext = atext.replace(dayMap[i], String(i));
-      btext = btext.replace(dayMap[i], String(i));
+    for (var i = 0, l = dayMap.length; i < l; i++) {
+      atext = atext.replace(dayMap[i], String(i+1));
+      btext = btext.replace(dayMap[i], String(i+1));
     }
 
     for (var i = 0, l = dayMap.length; i < l; i++) {

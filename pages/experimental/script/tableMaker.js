@@ -28,28 +28,40 @@ function findNextClassName(string) {
 };
 
 function sortByDay() {
-    var dayMap = {
-      'Mo': 1,
-      'Tu': 2,
-      'We': 3,
-      'Th': 4,
-      'Fr': 5,
-      'Sa': 6
-  }
+  //   var dayMap = {
+  //     'Mo': 1,
+  //     'Tu': 2,
+  //     'We': 3,
+  //     'Th': 4,
+  //     'Fr': 5,
+  //     'Sa': 6
+  // }
 
   return function(a, b) {
 
     try {
-      var atext = dayMap[a.getElementsByClassName('days')[0].textContent.slice(0, 2)];
+      var atext = a.getElementsByClassName('days')[0].textContent.replace('Mo', '1')
+                                                                 .replace('Tu', '2')
+                                                                 .replace('We', '3')
+                                                                 .replace('Th', '4')
+                                                                 .replace('Fr', '5')
+                                                                 .replace('Sa', '6');
     } catch(e) {
       var atext = '0';
     }
     try {
-      var btext = dayMap[b.getElementsByClassName('days')[0].textContent.slice(0, 2)];
+      var btext = b.getElementsByClassName('days')[0].textContent.replace('Mo', '1')
+                                                                 .replace('Tu', '2')
+                                                                 .replace('We', '3')
+                                                                 .replace('Th', '4')
+                                                                 .replace('Fr', '5')
+                                                                 .replace('Sa', '6');
     } catch(e) {
       var btext = '0';
     }
-    return atext-btext;
+    if (atext < btext) return -1;
+    if (atext > btext) return 1;
+    return 0;
   };
 };
 

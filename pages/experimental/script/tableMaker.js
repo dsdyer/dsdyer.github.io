@@ -53,6 +53,17 @@ function sortByDay() {
   };
 };
 
+function sortByDays() {
+  return function(a, b) {
+    var atext = a.getElementsByClassName('days')[0].textContent.toLowerCase();
+    var btext = b.getElementsByClassName('days')[0].textContent.toLowerCase();
+
+    if (a < b) return -1;
+    if (a > b) return 1;
+    return 0;
+  }
+}
+
 function sortByTime() {
   return function(a, b) {
     var atime = convertTo24Hour(a.getElementsByClassName('datetime')[0].textContent.extractTime());
@@ -156,7 +167,7 @@ function tableForBuddies(data, subjects) {
 
     if ((prevDay && prevDay !== dayText)) {
       console.log('unsorted: ', oneDay);
-      oneDay.sort();
+      oneDay.sort(sortByDays());
       console.log('sorted: ', oneDay);
       oneDay.sort(sortByTime());
       ultimateSorted = ultimateSorted.concat(oneDay);

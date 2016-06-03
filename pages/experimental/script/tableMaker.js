@@ -236,9 +236,9 @@ document.body.onload = function() {
   });
 
   window.addEventListener("message", function(e) {
+    window.opener.postMessage(true, '*');
     tableForBuddies(e.data, undefined);
     dayChooser.style.display = 'block';
-    window.opener.postMessage(true, '*');
   }, false);
 
 

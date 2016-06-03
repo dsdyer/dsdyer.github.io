@@ -58,7 +58,7 @@ function sortByDay() {
 
     for (var i = 0, l = dayMap.length; i < l; i++) {
       if (i >= atext.length) atext = atext.concat('0');
-      if (i >= btext.length) btext = atext.concat('0');
+      if (i >= btext.length) btext = btext.concat('0');
     }
 
     // try {

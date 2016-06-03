@@ -286,7 +286,7 @@ document.body.onload = function() {
     tablerows = [];
     for (var i = 0, l = form.elements.length; i < l; i++) {
       if (form.elements[i].checked) {
-        subjects.push(form.elements[i].id);
+        subjects.push(form.elements[i].id.replace('_', ' '));
       }
     }
     rows = tableForBuddies(undefined, subjects);

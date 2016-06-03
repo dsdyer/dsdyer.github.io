@@ -38,8 +38,17 @@ function sortByDay() {
   ];
 
   return function(a, b) {
-    var atext = a.getElementsByClassName('days')[0].textContent;
-    var btext = b.getElementsByClassName('days')[0].textContent;
+    try {
+      var atext = a.getElementsByClassName('days')[0].textContent;
+    } catch(e) {
+      var atext = '0';
+    }
+
+    try {
+      var btext = b.getElementsByClassName('days')[0].textContent;  
+    } catch(e) {
+      var btext = '0';      
+    }
 
     for (var i = 0, l = dayMap.length; i < l; i++) {
       atext = atext.replace(dayMap[i], i+1);

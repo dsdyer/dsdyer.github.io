@@ -50,6 +50,10 @@ for (var i = 0, l = matches.length; i < l; i++) {
 
 var output = class_list.join(',');
 
+console.log('output above: ', output);
+console.log('class_list above: ', class_list.join(','));
+
+
 var url = "https://dsdyer.github.io/pages/experimental/experimental.html";
 var w = window.open(url, 'target=_blank');
 
@@ -63,10 +67,10 @@ var count = 0;
 
 var sendMsg = function() {
   if (count > 500) window.clearInterval(sender);
-  console.log('count: ', count);
-    if (output) {
-      console.log('output is true: ', output);
-      w.postMessage(output, '*');
+  console.log('class_list below: ', class_list.join(','));
+    if (class_list) {
+      console.log('class_list class_list is true: ', class_list.join(','));
+      w.postMessage(class_list.join(), '*');
     }
     count++;
 };

@@ -139,8 +139,10 @@ function tableForBuddies(data, subjects) {
   for (var i = 0, l = classstring.length; i < l; i++) {
     if (classstring[i].isClassName()) {
       if (subjects && subjects.indexOf(classstring[i].match(/[A-Z]*\s?[A-Z]+/)[0]) === -1) {
-        var nextClassIndex = classstring.findNextClassIndex(i) || i + 1;
-        i = nextClassIndex - 1;
+        var nextClassIndex = classstring.findNextClassIndex(i); // if we're on the last subject, this returns undefined
+        if (typeof nextClassIndex !== 'number') break;
+        
+        i = nextClassIndex - 1; // i will be advanced by the loop, so set it to the index before the next class starts
         continue;
       } else {
         console.log('class subject found in subjects: ', classstring[i]);

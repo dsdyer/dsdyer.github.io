@@ -66,7 +66,7 @@ var sendMsg = function() {
     count++;
 };
 
-var sender = window.setInterval(sendMsg, 10);
+var sender = window.setInterval(sendMsg, 100);
 
 window.addEventListener("message", function(e) {
   window.clearInterval(sender);

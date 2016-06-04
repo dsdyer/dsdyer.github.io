@@ -88,21 +88,6 @@ function sortByDay() {
   };
 };
 
-// function sortByDays() {
-//   return function(a, b) {
-//     var atext = a.getElementsByClassName('days')[0].textContent.toLowerCase();
-//     var btext = b.getElementsByClassName('days')[0].textContent.toLowerCase();
-
-//     console.log('sorting by DAYS');
-//     console.log('atext: ', atext);
-//     console.log('btext: ', btext);
-
-//     if (atext < btext) return -1;
-//     if (atext > btext) return 1;
-//     return 0;
-//   }
-// }
-
 function sortByTime() {
   return function(a, b) {
     var atime = convertTo24Hour(a.getElementsByClassName('datetime')[0].textContent.extractTime());
@@ -141,7 +126,7 @@ function tableForBuddies(data, subjects) {
       if (subjects && subjects.indexOf(classstring[i].match(/[A-Z]*\s?[A-Z]+/)[0]) === -1) {
         var nextClassIndex = classstring.findNextClassIndex(i); // if we're on the last subject, this returns undefined
         if (typeof nextClassIndex !== 'number') break;
-        
+
         i = nextClassIndex - 1; // i will be advanced by the loop, so set it to the index before the next class starts
         continue;
       } else {

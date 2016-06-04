@@ -1,6 +1,8 @@
 // unrelated: https://leapfrogonline.attask-ondemand.com/attask/api-unsupported/timesheet/?id=566d199200727d76ab12bce7431d4e63&fields=hours&method=get&username=ddyer@leapfrogonline.com&password=
 // related: javascript:(function(){document.body.appendChild(document.createElement('script'‌​)).src='http://dsdyer.github.io/pages/experimental/script/classFinder.js';})();
 
+console.log('this.frameElement: ', this.frameElement);
+
 var elems = document.getElementsByTagName("*"), item;
 var matches = [];
 
@@ -60,11 +62,6 @@ var w = window.open(url, 'target=_blank');
 
 var done = false;
 var count = 0;
-
-// THIS IS THAT SCOPING THING THAT EXPEDIA KEPT TESTING YOU ON
-// YOU KNOW THIS YOU IDIOT
-
-
 
 var sendMsg = function() {
   if (count > 500) window.clearInterval(sender);

@@ -143,7 +143,7 @@ function tableForBuddies(data, subjects) {
         i = nextClassIndex - 1;
         continue;
       } else {
-        console.log(classstring[i]);
+        console.log('class subject found in subjects: ', classstring[i]);
       }
 
       tablerow = document.createElement('tr');

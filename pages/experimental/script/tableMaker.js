@@ -304,7 +304,6 @@ document.body.onload = function() {
     dayChooser.style.display = 'block';
   }, false);
 
-
   for (var i = 0, l = days.length; i < l; i++) {
     days[i].addEventListener('change', function(elem) {
         if (this.checked) {

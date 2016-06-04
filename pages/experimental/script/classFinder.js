@@ -58,7 +58,11 @@ var count = 0;
 
 var sendMsg = function() {
   if (count > 500) window.clearInterval(sender);
-    w.postMessage(output, '*');
+  console.log('output: ', output);
+    if (output) {
+      console.log('output is true: ', output);
+      w.postMessage(output, '*');
+    }
     count++;
 };
 

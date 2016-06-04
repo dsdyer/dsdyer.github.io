@@ -1,7 +1,7 @@
 // unrelated: https://leapfrogonline.attask-ondemand.com/attask/api-unsupported/timesheet/?id=566d199200727d76ab12bce7431d4e63&fields=hours&method=get&username=ddyer@leapfrogonline.com&password=
 // related: javascript:(function(){document.body.appendChild(document.createElement('script'‌​)).src='http://dsdyer.github.io/pages/experimental/script/classFinder.js';})();
 
-console.log('this.frameElement: ', window.frames);
+console.log('this.frameElement: ', window.frames["TargetContent"]);
 
 var elems = document.getElementsByTagName("*"), item;
 var matches = [];

@@ -56,9 +56,14 @@ var w = window.open(url, 'target=_blank');
 var done = false;
 var count = 0;
 
+// THIS IS THAT SCOPING THING THAT EXPEDIA KEPT TESTING YOU ON
+// YOU KNOW THIS YOU IDIOT
+
+
+
 var sendMsg = function() {
   if (count > 500) window.clearInterval(sender);
-  console.log('output: ', output);
+  console.log('count: ', count);
     if (output) {
       console.log('output is true: ', output);
       w.postMessage(output, '*');

@@ -90,9 +90,9 @@ function convertTo24Hour(time) {
   return time.replace(/(am|pm)/i, '');
 }
 
-
+// Actually does the thing. For buddies.
 function tableForBuddies(data, subjects) {
-  table.innerHTML = '';
+  table.innerHTML = ''; // Delete the previous table if there is one
   
   console.log('data in tableForBuddies: ', data); // the data we receive from the search page
 
@@ -106,33 +106,80 @@ function tableForBuddies(data, subjects) {
 
   var classstring = data.split(',');    // Funny story: classstring is an array, not a string!
                                         // I probably meant to change that eventually.
+                                        // .split() is a method that runs on a string (of text). It takes a single 
+                                        // typewriter character and splits the string into an array (list of items),
+                                        // starting a new item every time that character appears.
+
+  // So the string 'ABE GED  103 - ABE Reading Beg. Level,103-MWAB ,MoTuWeTh 9:00AM - 10:50AM ,MX Bldg 2 - Rm 115 ,Nashid Baaith'
+  // Becomes the array:  [ 'ABE GED  103 - ABE Reading Beg. Level',
+  //                       '103-MWAB ',
+  //                       'MoTuWeTh 9:00AM - 10:50AM ',
+  //                       'MX Bldg 2 - Rm 115 ',
+  //                       'Nashid Baaith' ]
+  // 
+  // And so on for a million classes...
+
   var tablerow;
   var tableitem;
   var currentclass;
 
+
   for (var i = 0, l = classstring.length; i < l; i++) {
-    if (classstring[i].isClassName()) {                  
+
+  // A "for" loop has three statements, separated by semicolons:
+    // var i = 0, l = classstring.length; Creates two variables: i is the number of the
+      // current item in the classstring array, starting at 0; l is the length of the array
+
+    // i < l; "i is less than l" is an assertion made every time the loop runs. As long as it
+      // remains true, the code between the { } will run again. After the last item i will equal l,
+      // so the statement is false and the loop's code is skipped.
+
+    // i++; Is shorthand for "i = i + 1". The third statement runs at the end of the loop's code,
+      // every time. So the first time, references to classstring[i] point to the first item in 
+      // classstring (we ALWAYS count from 0 in programming, if you start at 1 people will ask if you
+      // have a fever). The third statement increments i, so second time references to classstring[i]
+      // point to the second item, or classstring[1]
+
+    if (classstring[i].isClassName()) {
+      // If we're dealing with the start of a new class...                  
       if (subjects && subjects.indexOf(classstring[i].match(/[A-Z]*\s?[A-Z]+/)[0]) === -1) {
-        var nextClassIndex = classstring.findNextClassIndex(i) || i + 1;
-        i = nextClassIndex - 1;
-        continue;
+        // If subjects is defined, we're using the checkboxes. If the name of the class'
+        // subject doesn't match one of the checked boxes, we use that .findNextClassIndex()
+        // method we added to Arrays to find which element of classstring starts the next new
+        // class. && means "and"
+
+        var nextClassIndex = classstring.findNextClassIndex(i) || i + 1; // || means "or"
+        i = nextClassIndex - 1; // we set i to the index before the next class string because 
+                                // the third loop statement will i by 1
+        continue; // the "continue" statement skips the rest of the code in its loop, but doesn't break
+                  // out of the loop. Effectively it jumps us to the } that matches the { on line 127
       } else {
         // Do nothing!
+
+        // The "if" on line 145 has two statements joined by an "and". That means BOTH must be true for
+        // code between the if's { } brackets to run. the first statements asserts that "subjects" exist,
+        // the second that the letters part of classstring[i] doesn't match any item in subjects. If either
+        // assertion fails, we run code in the else{} block instead
       }
 
-      tablerow = document.createElement('tr');
-      tableitem = tablerow.appendChild(document.createElement('th'));
-      tableitem.textContent = classstring[i];
-      tableitem.colSpan = 5;
-      tablerow.className = 'class-name';
-      tablerows.push(tablerow);
 
-      currentclass = classstring[i].match(/[A-Z]*\s?[A-Z]+\s+\d{2,4}[^\s]*/)[0];
+      // All of this was used to separate the rows by class name, before we started mixing classes together
+      // and sorting them by date. Not deleting it for now cause maybe we'll want to do that again someday.
+      // 
+      // tablerow = document.createElement('tr');
+
+      // tableitem = tablerow.appendChild(document.createElement('th'));
+      // tableitem.textContent = classstring[i];
+      // tableitem.colSpan = 5;
+      // tablerow.className = 'class-name';
+      // tablerows.push(tablerow);
+
+      // currentclass = classstring[i].match(/[A-Z]*\s?[A-Z]+\s+\d{2,4}[^\s]*/)[0];
       continue;
     }
 
     if (classstring[i].startsNewSection()) {
-      tablerow = document.createElement('tr');
+      tablerow = document.createElement('tr'); // Stephie knows how to count these!
       tablerows.push(tablerow);
 
       tableitem = tablerow.appendChild(document.createElement('td'));

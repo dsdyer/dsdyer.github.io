@@ -163,18 +163,20 @@ function tableForBuddies(data, subjects) {
       }
 
 
-      // All of this was used to separate the rows by class name, before we started mixing classes together
-      // and sorting them by date. Not deleting it for now cause maybe we'll want to do that again someday.
-      // 
+
       // tablerow = document.createElement('tr');
+
+      // This was used to separate the rows by class name, before we started mixing classes together
+      // and sorting them by date. Not deleting it for now cause maybe we'll want to do that again someday.
 
       // tableitem = tablerow.appendChild(document.createElement('th'));
       // tableitem.textContent = classstring[i];
       // tableitem.colSpan = 5;
+      
       // tablerow.className = 'class-name';
       // tablerows.push(tablerow);
 
-      // currentclass = classstring[i].match(/[A-Z]*\s?[A-Z]+\s+\d{2,4}[^\s]*/)[0];
+      currentclass = classstring[i].match(/[A-Z]*\s?[A-Z]+\s+\d{2,4}[^\s]*/)[0];
       continue;
     }
 

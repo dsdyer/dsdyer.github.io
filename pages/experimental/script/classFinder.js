@@ -7,7 +7,7 @@ var elems = document.getElementsByTagName("*"), item;
 var matches = [];
 
 String.prototype.isClassName = function() {
-  return this.match(/[A-Z]*\s*[A-Z]+\d{2,4}\s+\d{2,4}[^\s]*\s\-\s[\w\d\s.]+/g) || false;
+  return this.match(/[A-Z]*\s*[A-Z]+\d{0,3}\s+\d{2,4}[^\s]*\s\-\s[\w\d\s.]+/g) || false;
 };
 
 for (var i = 0, len = elems.length; i < len; i++) {

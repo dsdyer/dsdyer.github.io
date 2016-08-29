@@ -1,15 +1,75 @@
-// Let's make a new object to handle class sections, which is what I should have done
-// in the first place.
+// Once tested, these will go into the ClassSection object
 
-function Section(array) {
-  // this.prototype = new;
-  this._sourceArray = array;
+var _removeDuplicates = function(string) {
+  if (string.indexOf('\n') !== -1) {
+    var _arr = string.trim().split('\n');
+    if (_arr[0] === _arr[1]) return _arr[0];
+    return _arr;
+  }
+  return string;
+};
+
+var _resolveLocation = function(location) {
+  var l = location.replace(/MXM\s\-\s/gi, '');
+  l = _removeDuplicates(l);
+  if (Array.isArray(l)) return l.join('<br>');
+  return l;
+};
+
+var _resolveDateTime = function(datetime) {
+  // Working:
+  // var dt = datetime.match(/(^(?:[A-Z][a-z])+\s.+[A|P]M.+?[A|P]M)?((?:[A-Z][a-z])+?.*$)/);
+  
+  // Better:
+  var dt = datetime.match(/(?:[A-Z][a-z])+\s.+?[A|P]M.+?[A|P]M/g);
+
+  if (dt.length === 1) return dt[0];
+
+  var day0 = dt[0].match(/^[a-z]+\s/i);
+  var day1 = dt[1].match(/^[a-z]+\s/i);
+
+  if (day0 === day1) {
+    // days are the same, return day0 plus the two times
+  }
+
+  // days are different, concat them and return that plus the times
+
+  return dt;
+} 
+/////////////////
+
+function ClassSection(a, b, c, d, e) {
+  this.course = a;
+  this.section = b;
+  this.datetime = c;
+  this.location = d.replace(/MXM\s\-\s/gi, '');
+  this.instructor = e;
+
+  this._resolveDateTime = function(datetime) {
+    var dt = datetime.split('\n');
+  };
+
+  this._resolveLocation = function(location) {
+    return _removeDuplicates(location.replace(/MXM\s\-\s/gi, ''));
+  };
+
+  this._resolveInstructor = function(instructor) {
+    return _removeDuplicates(instructor);
+  };
+
+  this._removeDuplicates = function(string) {
+    if (string.indexOf('\n') !== -1) {
+      var _arr = string.trim().split('\n');
+      if (_arr[0] === _arr[1]) return _arr[0];
+      return _arr.join('\n');
+    }
+    return string;
+  };
 }
-
-Section.prototype = new String;
 
 // Extending basic javascript objects to know some things about the subject/class
 // names and date/time formatting used on the ccc class search site.
+// Holding off on fixing some of this until I update to ES6 because holy shit
 
 String.prototype.isClassName = function() {
   // console.log(this);

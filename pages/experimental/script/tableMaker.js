@@ -141,11 +141,13 @@ function tableForBuddies(data, subjects) {
     if (datebox.length) {
       datebox = datebox[0];
       var day = document.createElement("td");
-      console.log(_resolveDateTime(datebox.textContent));
-      day.textContent = datebox.textContent.match(/^[a-z]+\s/gi);
+      console.log('datebox.textContent: ', datebox.textContent);
+      console.log('_resolveDateTime(datebox.textContent): ', _resolveDateTime(datebox.textContent));
+      datebox.textContent = _resolveDateTime(datebox.textContent);
+      day.innerHTML = datebox.textContent.match(/^[a-z]+\s/gi);
       day.className = "days";
       day.style["text-align"] = "center";
-      datebox.textContent = datebox.textContent.match(/\s.*$/gi);
+      datebox.innerHTML = datebox.textContent.match(/\s.*\n?.*$/gi);
       tablerows[i].insertBefore(day, datebox);
     }
   }

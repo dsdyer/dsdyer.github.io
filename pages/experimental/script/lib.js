@@ -22,19 +22,26 @@ var _resolveDateTime = function(datetime) {
   
   // Better:
   var dt = datetime.match(/(?:[A-Z][a-z])+\s.+?[A|P]M.+?[A|P]M/g);
-
+  console.log('dt: ', dt);
   if (dt.length === 1) return dt[0];
 
-  var day0 = dt[0].match(/^[a-z]+\s/i);
-  var day1 = dt[1].match(/^[a-z]+\s/i);
+  var day0 = dt[0].match(/^[A-Z][a-z]+\s/i)[0].trim();
+  var day1 = dt[1].match(/^[A-Z][a-z]+\s/i)[0].trim();
+  var time0 = dt[0].replace(day0, '').trim();
+  var time1 = dt[1].replace(day1, '').trim();
 
-  if (day0 === day1) {
+  if (day0 === day1) return day0 + ' ' + time0 + '<br>' + time1;
     // days are the same, return day0 plus the two times
-  }
+    // console.log('day0: ', day0);
+    // console.log('day1: ', day1);
+    // console.log('times: ', times);
+
+
+  if (time0 === time1) return day0 + day1 + ' ' + time0;
 
   // days are different, concat them and return that plus the times
 
-  return dt;
+  return day0 + day1 + ' ' + time0 + '<br>' + time1;
 } 
 /////////////////
 

@@ -31,7 +31,7 @@ export default class Game {
       return false;
       }
 
-    console.log('COLLISION: ', ship, ' and ', weapon, ' have collided!');
+    // console.log('COLLISION: ', ship, ' and ', weapon, ' have collided!');
     return true;
   }
 

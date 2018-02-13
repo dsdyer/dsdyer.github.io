@@ -8,6 +8,7 @@ export default class Pellet {
     this.horizontal = props.horizontal;
     this.vertical = props.vertical;
     this.speed = props.speed;
+    this.direction = props.direction || 'Up';
     this.size = props.size || 1; // TODO: Use es6 default object syntax.
 
     this.elem.style.left = this.horizontal;
@@ -21,17 +22,21 @@ export default class Pellet {
   move() {
     var int = window.setInterval((function(x) {
       return function() {
-        x.vertical = x.vertical + 1;
+        if (x.direction === 'Up') {
+          x.vertical = x.vertical + 1;
+        } else if (x.direction === 'Down') {
+          x.vertical = x.vertical - 1;
+        }
+
         x.elem.style.bottom = x.vertical;
   
-        if (x.elem && x.vertical > 510) {
+        if (x.elem && (x.vertical > 500)) {
           window.clearInterval(int);
 
           // DEBUGGERY!!! Removing pellet from debugGame
           const pfa = window.debugGame.playerFire;
           const iox = window.debugGame.playerFire.indexOf(x);
 
-          // pfa.splice(iox, 1, null);
 
           pfa.splice(iox, 1);
 

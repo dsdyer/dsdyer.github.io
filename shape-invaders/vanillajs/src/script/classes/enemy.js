@@ -1,7 +1,19 @@
 import Ship from './ship.js'
+import Pellet from './pellet.js'
 
 'use strict';
+function shoot(props) {
+  // alert(debugGame.invaders);
+  // player.weaponCharged = false;
+  var pellet = new Pellet(props);
+  game.appendChild(pellet.elem);
 
+  // window.setTimeout(function() {
+  //   player.weaponCharged = true;
+  // }, 1500);
+
+  return pellet;
+}
 export default class Enemy extends Ship {
   constructor(props) {
     super(props);
@@ -20,6 +32,11 @@ export default class Enemy extends Ship {
             if (!x.elem || !x.elem.offsetWidth) {
               return
             };
+
+            if (Math.random() < .02) {
+              x.shoot();
+              return;
+            }
 
             if (x.moveRandomly && Math.random() < x.moveRandomly) {
               x.movingRight = !x.movingRight;
@@ -53,6 +70,21 @@ export default class Enemy extends Ship {
     
         })(this), this.speed);
   }
+
+  shoot() {
+    // console.log('this.height: ', this.elem.offsetHeight);
+    var p = shoot({
+      horizontal: 24 + this.positionLeft - Math.floor(3 / 2), // todo, obvs
+      vertical: 500 - this.positionVertical - 50,
+      size: 3,
+      speed: 5,
+      direction: 'Down'
+    });
+    
+    window.debugGame.invaderFire.push(p);
+  }
+
+
 
   move(cb) {
     if (this.movingRight) {

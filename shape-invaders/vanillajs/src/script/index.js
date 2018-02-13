@@ -5,21 +5,22 @@ import Enemy from './classes/enemy.js'
 import Pellet from './classes/pellet.js'
 
 'use strict';
+window.debugGame = new Game({});
 
 // debug settings
 var speed = 10; // Player ship speed (currently broken)
 var fps = 60;
 
 const refreshRate = 1000 / fps || 16;
-const player = new Player({speed: speed});
+var player = new Player({speed: speed});
 const p_elem = player.render();
 const p_display = document.getElementById('player');
 const game = document.getElementById('game');
 
-const enemy = new Enemy({speed: 30, positionLeft: 20, moveRandomly: .01});
+const enemy = new Enemy({speed: 30, positionLeft: 20});
 const e_elem = enemy.render();
 
-const enemy2 = new Enemy({speed: 30, positionLeft: 730, positionVertical: 110, moveRandomly: .01});
+const enemy2 = new Enemy({speed: 30, positionLeft: 730, positionVertical: 110});
 const e2_elem = enemy2.render();
 
 const enemy3 = new Enemy({speed: 100, positionLeft: 20, positionVertical: 180});
@@ -37,18 +38,18 @@ game.appendChild(e4_elem);
 
 p_display.textContent = player.positionLeft;
 
-window.debugGame = new Game({});
 
 function shoot(props) {
   // alert(debugGame.invaders);
-  player.weaponCharged = false;
+  // player.weaponCharged = false;
   var pellet = new Pellet(props);
-  debugGame.playerFire.push(pellet);
   game.appendChild(pellet.elem);
 
-  window.setTimeout(function() {
-    player.weaponCharged = true;
-  }, 1500);
+  // window.setTimeout(function() {
+  //   player.weaponCharged = true;
+  // }, 1500);
+
+  return pellet;
 }
 // ////////////
 
@@ -66,12 +67,21 @@ function playGame() {
       // window.addEventListener('keydown', function(e) {
 
           if (keyStates[32] && player.weaponCharged) {
-            shoot({
+
+            player.weaponCharged = false;
+
+            var p = shoot({
               horizontal: 24 + debugGame.player.positionLeft - Math.floor(3 / 2), // todo, obvs
               vertical: 70,
               size: 3,
               speed: 5
             });
+
+            debugGame.playerFire.push(p);
+
+            window.setTimeout(function() {
+              player.weaponCharged = true;
+            }, 1500);
           }
 
           // console.log('window.movingRight: ', window.movingRight);
@@ -148,6 +158,15 @@ function playGame() {
               }
             }
           }
+
+          //**** CHECK FOR COLLISIONS //****
+          for (let y of debugGame.invaderFire) {
+            if (y && y.elem && debugGame.detectCollisions(y.elem, player.elem)) {
+              window.clearInterval(int);
+              console.log('You died!');
+              return;
+          }
+        }
         // });
       }
 

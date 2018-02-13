@@ -3,15 +3,9 @@ import Pellet from './pellet.js'
 
 'use strict';
 function shoot(props) {
-  // alert(debugGame.invaders);
-  // player.weaponCharged = false;
   var pellet = new Pellet(props);
+  
   game.appendChild(pellet.elem);
-
-  // window.setTimeout(function() {
-  //   player.weaponCharged = true;
-  // }, 1500);
-
   return pellet;
 }
 export default class Enemy extends Ship {
@@ -72,7 +66,6 @@ export default class Enemy extends Ship {
   }
 
   shoot() {
-    // console.log('this.height: ', this.elem.offsetHeight);
     var p = shoot({
       horizontal: 24 + this.positionLeft - Math.floor(3 / 2), // todo, obvs
       vertical: 500 - this.positionVertical - 50,

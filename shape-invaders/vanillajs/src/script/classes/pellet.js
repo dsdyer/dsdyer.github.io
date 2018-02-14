@@ -1,15 +1,18 @@
+import ShapeInvadersObject from './shape-invaders-object.js'
+
 'use strict';
 
-export default class Pellet {
-  constructor(props) {
-    this.elem = document.createElement('div');
+export default class Pellet extends ShapeInvadersObject {
+  constructor(options) {
+    super(options);
     this.elem.classList.add('pellet');
+    this.elem.gameObj = this;
 
-    this.horizontal = props.horizontal;
-    this.vertical = props.vertical;
-    this.speed = props.speed;
-    this.direction = props.direction || 'Up';
-    this.size = props.size || 1; // TODO: Use es6 default object syntax.
+    this.horizontal = options.horizontal;
+    this.vertical = options.vertical;
+    this.speed = options.speed;
+    this.direction = options.direction || 'Up';
+    this.size = options.size || 1; // TODO: Use es6 default object syntax.
 
     this.elem.style.left = this.horizontal;
     this.elem.style.bottom = this.vertical;
@@ -22,28 +25,43 @@ export default class Pellet {
   move() {
     var int = window.setInterval((function(x) {
       return function() {
-        if (x.direction === 'Up') {
-          x.vertical = x.vertical + 1;
-        } else if (x.direction === 'Down') {
-          x.vertical = x.vertical - 1;
-        }
+        // if (x.direction === 'Up') {
+        //   x.vertical = x.vertical + 1;
+        // } else if (x.direction === 'Down') {
+        //   x.vertical = x.vertical - 1;
+        // }
 
-        x.elem.style.bottom = x.vertical;
+        // x.elem.style.bottom = x.vertical;
   
-        if (x.elem && (x.vertical > 500)) {
-          window.clearInterval(int);
+        // if (x.elem && (x.vertical > 500)) {
+        //   window.clearInterval(int);
 
-          // DEBUGGERY!!! Removing pellet from debugGame
-          const pfa = window.debugGame.playerFire;
-          const iox = window.debugGame.playerFire.indexOf(x);
+        //   // DEBUGGERY!!! Removing pellet from debugGame
+        //   // const pfa = window.debugGame.playerFire;
+        //   // const iox = window.debugGame.playerFire.indexOf(x);
 
 
-          pfa.splice(iox, 1);
+        //   // pfa.splice(iox, 1);
 
-          try {
-            x.elem.parentNode.removeChild(x.elem);
-          } catch(e) {}
-        }
+        //   try {
+        //     x.elem.parentNode.removeChild(x.elem);
+        //   } catch(e) {}
+
+        //   debugGame.playerFire = null;
+        // } else if (x.elem && (x.vertical < 0)) {
+        //     window.clearInterval(int);
+
+        //     // DEBUGGERY!!! Removing pellet from debugGame
+        //     const ifa = window.debugGame.invaderFire;
+        //     const iox = window.debugGame.invaderFire.indexOf(x);
+
+
+        //     ifa.splice(iox, 1);
+
+        //     try {
+        //       x.elem.parentNode.removeChild(x.elem);
+        //     } catch(e) {}
+        //   }
       }
     })(this), 10 - this.speed);
   }

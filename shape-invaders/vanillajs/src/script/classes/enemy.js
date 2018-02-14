@@ -2,22 +2,25 @@ import Ship from './ship.js'
 import Pellet from './pellet.js'
 
 'use strict';
-function shoot(props) {
-  var pellet = new Pellet(props);
-  
+function shoot(options) {
+  var pellet = new Pellet(options);
+
   game.appendChild(pellet.elem);
   return pellet;
 }
 export default class Enemy extends Ship {
-  constructor(props) {
-    super(props);
-    this.positionVertical = props.positionVertical || 50;
-    this.positionLeft = props.positionLeft || 65;
-    this.movingRight = props.movingRight || true;
-    this.moveRandomly = props.moveRandomly || false; // Change of changing direction
+  constructor(options) {
+    super(options);
+    this.positionVertical = options.positionVertical || 50;
+    this.positionLeft = options.positionLeft || 65;
+    this.movingRight = options.movingRight || true;
+    this.moveRandomly = options.moveRandomly || false; // Change of changing direction
 
-    this.distance = props.distance || 30; // Move 30px at a time
-    this.speed = props.speed || 300; // Move every .3 seconds
+    this.width = options.width || 50;
+    this.height = options.height || 50;
+
+    this.distance = options.distance || 30; // Move 30px at a time
+    this.speed = options.speed || 300; // Move every .3 seconds
 
     this.elem.classList.add('enemy');
 
@@ -27,7 +30,7 @@ export default class Enemy extends Ship {
               return
             };
 
-            if (Math.random() < .02) {
+            if (Math.random() < .01) {
               x.shoot();
               return;
             }
@@ -96,15 +99,15 @@ export default class Enemy extends Ship {
       x.positionVertical += x.elem.offsetHeight / 6;
       x.positionLeft += x.elem.offsetWidth / 6;
 
-      x.elem.style.height = x.elem.offsetHeight * 2 / 3;
-      x.elem.style.width = x.elem.offsetWidth * 2 / 3;
+      x.height = x.elem.offsetHeight * 2 / 3;
+      x.width = x.elem.offsetWidth * 2 / 3;
       x.render();
 
-      if (count < 3) {
-        console.log('exploding, count: ', count);
-        window.setTimeout(animation, 20, x, count + 1, cb);
-        return;
-      }
+      // if (count < 3) {
+      //   console.log('exploding, count: ', count);
+      //   window.setTimeout(animation, 20, x, count + 1, cb);
+      //   return;
+      // }
       cb();
       return;
     }
@@ -116,6 +119,8 @@ export default class Enemy extends Ship {
     super.render(cb);
     this.elem.style.top = this.positionVertical;
     this.elem.style.left = this.positionLeft;
+    this.elem.style.width = this.width;
+    this.elem.style.height = this.height;
 
     return this.elem;
   }

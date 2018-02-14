@@ -1,11 +1,15 @@
+import ShapeInvadersObject from './shape-invaders-object.js'
+
 'use strict';
 
-export default class Ship {
-  constructor(props) {
-    this.elem = document.createElement('div');
-    this.positionLeft = props.positionLeft || 20;
-    this.positionVertical = props.positionVertical || 423;
-    this.speed = props.speed || 1;
+export default class Ship extends ShapeInvadersObject {
+  constructor(options) {
+    super(options);
+    this.elem.gameObj = this;
+
+    this.positionLeft = options.positionLeft || 20;
+    this.positionVertical = options.positionVertical || 423;
+    this.speed = options.speed || 1;
     this.health = 1;
 
     this.elem.classList.add('ship');

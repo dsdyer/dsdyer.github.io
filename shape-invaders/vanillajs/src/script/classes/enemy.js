@@ -21,7 +21,6 @@ export default class Enemy extends Ship {
     this.fireRate = options.fireRate || .003;
 
     this.distance = options.distance || 30; // Move 30px at a time
-    this.speed = options.speed || 300; // Move every .3 seconds
 
     this.elem.classList.add('enemy');
   }

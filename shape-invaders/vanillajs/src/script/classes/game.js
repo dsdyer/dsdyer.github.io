@@ -29,7 +29,8 @@ export default class Game {
     this.fps = options.fps || 60;
     this.refreshRate = 1000 / fps;
 
-
+    this.shots = 0;
+    this.hits = 0;
     this.invaders = [];
     this.invaderFire = [];
     // this.invaderRows = [];
@@ -114,7 +115,7 @@ export default class Game {
     var int = window.setInterval((function(x, debugGame, player) {
       return function() {
           if (keyStates[32] && (debugGame.playerFire === null)) {
-
+            debugGame.shots++
             debugGame.playerFire = shoot({
               horizontal: (debugGame.player.elem.offsetWidth / 2) - 1 + debugGame.player.positionLeft - Math.floor(3 / 2), // todo, obvs
               vertical: 70,
@@ -227,14 +228,16 @@ export default class Game {
                   debugGame.invaders.splice(debugGame.invaders.indexOf(y), 1);
 
                   z.elem.parentNode.removeChild(z.elem);
-
+                  debugGame.hits++;
                   // debugGame.playerFire.splice(debugGame.playerFire.indexOf(z), 1);
                   debugGame.playerFire = null;
 
                   y.health--;
                   if (!debugGame.invaders.length) {
                     window.clearInterval(int);
-                    alert('You win!');
+                    alert('You win!\nShots fired: ' + debugGame.shots + 
+                          '\nInvaders Defeated: ' + debugGame.hits + 
+                          '\nAccuracy: ' + Math.floor(debugGame.hits / debugGame.shots * 100) + '%');
                   }
                   break;
                 }
@@ -248,7 +251,9 @@ export default class Game {
                 // window.alert('You Died!')
                 debugGame.elem.innerHTML = '';
                 window.location = window.location;
-                alert('You lose!');
+                alert('You lose!\nShots fired: ' + debugGame.shots + 
+                      '\nInvaders Defeated: ' + debugGame.hits + 
+                      '\nAccuracy: ' + Math.floor(debugGame.hits / debugGame.shots * 100) + '%');
               return;
           }
         }

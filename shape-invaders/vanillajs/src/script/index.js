@@ -1,8 +1,4 @@
 import Game from './classes/game.js'
-// import Ship from './classes/ship.js'
-// import Player from './classes/player.js'
-// import Enemy from './classes/enemy.js'
-// import Pellet from './classes/pellet.js'
 
 'use strict';
 
@@ -15,4 +11,3 @@ newGame.onclick = function(){
 
   debugGame.play();
 };
-// debugGame.play();

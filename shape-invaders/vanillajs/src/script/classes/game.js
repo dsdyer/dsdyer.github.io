@@ -185,7 +185,7 @@ export default class Game {
                 break;
               };
 
-              if (Math.random() < .002) {
+              if (Math.random() < .01) {
                 y.shoot();
                 // return;
               }
@@ -242,18 +242,8 @@ export default class Game {
             }
           // }
 
-          // if (x.moveRandomly && Math.random() < x.moveRandomly) {
-          //   x.movingRight = !x.movingRight;
-          // } 
-
-
-          // } else {
-          //   window.clearInterval(int);
-          // }
-          // return;
-
           //**** CHECK FOR COLLISIONS //****
-          for (let y of debugGame.invaderFire) {
+          for (let y of debugGame.invaderFire.concat(debugGame.invaders)) {
             if (y && y.elem && debugGame.detectCollisions(y.elem, player.elem)) {
                 // window.alert('You Died!')
                 debugGame.elem.innerHTML = '';

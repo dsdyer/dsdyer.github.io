@@ -109,7 +109,7 @@ export default class Game {
     game.appendChild(p_elem);
 
     debugGame.player = player;
-    debugGame.invadeSpace({width: 70, height: 70, distance: 1}, 2, 2)
+    debugGame.invadeSpace({width: 25, height: 25, distance: 1}, 15, 3)
 
     var int = window.setInterval((function(x, debugGame, player) {
       return function() {
@@ -185,7 +185,7 @@ export default class Game {
                 break;
               };
 
-              if (Math.random() < .01) {
+              if (Math.random() < y.fireRate) {
                 y.shoot();
                 // return;
               }

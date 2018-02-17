@@ -18,6 +18,7 @@ export default class Enemy extends Ship {
 
     this.width = options.width || 50;
     this.height = options.height || 50;
+    this.fireRate = options.fireRate || .003;
 
     this.distance = options.distance || 30; // Move 30px at a time
     this.speed = options.speed || 300; // Move every .3 seconds
@@ -58,11 +59,11 @@ export default class Enemy extends Ship {
       x.width = x.elem.offsetWidth * 2 / 3;
       x.render();
 
-      // if (count < 3) {
-      //   console.log('exploding, count: ', count);
-      //   window.setTimeout(animation, 20, x, count + 1, cb);
-      //   return;
-      // }
+      if (count < 3) {
+        console.log('exploding, count: ', count);
+        window.setTimeout(animation, 20, x, count + 1, cb);
+        return;
+      }
       cb();
       return;
     }

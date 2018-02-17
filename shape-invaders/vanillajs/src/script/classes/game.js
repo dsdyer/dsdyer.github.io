@@ -65,7 +65,7 @@ export default class Game {
     // In: object containing Enemy data and number of columns and rows
     // Out: list of Enemy objects
     const gameWidth = 700;
-    const gameHeight = 125;
+    const gameHeight = 225;
 
     const colWidth = gameWidth / cols;
     const rowHeight = gameHeight / rows;
@@ -109,7 +109,7 @@ export default class Game {
     game.appendChild(p_elem);
 
     debugGame.player = player;
-    debugGame.invadeSpace({width: 40, height: 40, distance: 1}, 6, 2)
+    debugGame.invadeSpace({width: 70, height: 70, distance: 1}, 2, 2)
 
     var int = window.setInterval((function(x, debugGame, player) {
       return function() {

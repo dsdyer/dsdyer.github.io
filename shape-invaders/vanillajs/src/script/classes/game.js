@@ -109,7 +109,7 @@ export default class Game {
     game.appendChild(p_elem);
 
     debugGame.player = player;
-    debugGame.invadeSpace({width: 20, height: 20, distance: 1}, 10, 3)
+    debugGame.invadeSpace({width: 40, height: 40, distance: 1}, 6, 2)
 
     var int = window.setInterval((function(x, debugGame, player) {
       return function() {

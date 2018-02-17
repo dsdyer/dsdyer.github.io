@@ -12,23 +12,6 @@ const refreshRate = 1000 / fps || 16;
 
 const game = document.getElementById('game');
 
-// const enemy = new Enemy({speed: 30, positionLeft: 20});
-// const e_elem = enemy.render();
-
-// const enemy2 = new Enemy({speed: 30, positionLeft: 730, positionVertical: 110});
-// const e2_elem = enemy2.render();
-
-// const enemy3 = new Enemy({speed: 100, positionLeft: 20, positionVertical: 180});
-// const e3_elem = enemy3.render();
-
-// const enemy4 = new Enemy({speed: 100, positionLeft: 730, positionVertical: 250});
-// const e4_elem = enemy4.render();
-
-// OTHER DEBUG JUNK. TODO: Fix this
-// game.appendChild(e_elem);
-// game.appendChild(e2_elem);
-// game.appendChild(e3_elem);
-// game.appendChild(e4_elem);
 const p_display = document.getElementById('player');
 
 p_display.textContent = player.positionLeft;
@@ -49,6 +32,7 @@ export default class Game {
 
     this.invaders = [];
     this.invaderFire = [];
+    // this.invaderRows = [];
     this.player = new Player({speed: 1});
     this.playerFire = null;
   }
@@ -80,8 +64,8 @@ export default class Game {
   invadeSpace(enemyOptions, cols, rows) {
     // In: object containing Enemy data and number of columns and rows
     // Out: list of Enemy objects
-    const gameWidth = 800;
-    const gameHeight = 225;
+    const gameWidth = 700;
+    const gameHeight = 125;
 
     const colWidth = gameWidth / cols;
     const rowHeight = gameHeight / rows;
@@ -93,17 +77,19 @@ export default class Game {
     let posVert = 20;
 
     for (var i = 0, il = rows; i < il; i++) {
+      // let invaderRow = [];
       for (var j = 0, jl = cols; j < jl; j++) {
         let invader = new Enemy({ width: invaderWidth, 
                                   height: invaderHeight, 
                                   positionLeft: posLeft + (colWidth * j), 
                                   positionVertical: posVert + (rowHeight * i),
-                                  distance: 20
+                                  distance: enemyOptions.distance
                                 });
         this.invaders.push(invader);
         this.elem.appendChild(invader.elem);
         invader.render();
       }
+      // this.invaders.push(invaderRow);
     }
   }
 
@@ -123,38 +109,18 @@ export default class Game {
     game.appendChild(p_elem);
 
     debugGame.player = player;
-    // debugGame.invaders.push(enemy);
-    // debugGame.invaders.push(enemy2);
-    // debugGame.invaders.push(enemy3);
-    // debugGame.invaders.push(enemy4);
-
-    // game.appendChild(p_elem);
-    // game.appendChild(e_elem);
-    // game.appendChild(e2_elem);
-    // game.appendChild(e3_elem);
-    // game.appendChild(e4_elem);
-
-    debugGame.invadeSpace({width: 20, height: 20}, 20, 8)
+    debugGame.invadeSpace({width: 20, height: 20, distance: 1}, 10, 3)
 
     var int = window.setInterval((function(x, debugGame, player) {
       return function() {
           if (keyStates[32] && (debugGame.playerFire === null)) {
 
-            // player.weaponCharged = false;
-
-            let p = shoot({
-              horizontal: 24 + debugGame.player.positionLeft - Math.floor(3 / 2), // todo, obvs
+            debugGame.playerFire = shoot({
+              horizontal: (debugGame.player.elem.offsetWidth / 2) - 1 + debugGame.player.positionLeft - Math.floor(3 / 2), // todo, obvs
               vertical: 70,
               size: 3,
               speed: 5
             });
-
-            // debugGame.playerFire.push(p);
-            debugGame.playerFire = p;
-
-            // window.setTimeout(function() {
-            //   player.weaponCharged = true;
-            // }, 1500);
           }
           if (keyStates[37]) {
             player.moveLeft();
@@ -211,30 +177,80 @@ export default class Game {
           }
           p_display.textContent = player.positionLeft;
 
-          //**** CHECK FOR COLLISIONS //****
-          for (let y of debugGame.invaders) {
-            // for (let z of debugGame.playerFire) {
-              let z = debugGame.playerFire;
+          // for (let r of debugGame.invaders) {
+            for (let y of debugGame.invaders) {
 
-              if (y && z && y.elem && z.elem && debugGame.detectCollisions(y.elem, z.elem)) {
-                
-                debugGame.explode(y);
-                debugGame.invaders.splice(debugGame.invaders.indexOf(y), 1);
-
-                z.elem.parentNode.removeChild(z.elem);
-
-                // debugGame.playerFire.splice(debugGame.playerFire.indexOf(z), 1);
-                debugGame.playerFire = null;
-
-                y.health--;
-                if (!debugGame.invaders.length) {
-                  window.clearInterval(int);
-                  alert('You win!');
-                }
+              // ENEMY MOVEMENT
+              if (!y.elem || !y.elem.offsetWidth) {
                 break;
+              };
+
+              if (Math.random() < .002) {
+                y.shoot();
+                // return;
               }
-            // }
-          }
+
+              if (y.movingRight) {
+                if (y.positionLeft + y.elem.offsetWidth < 799) {
+                  y.move();
+                  // return;
+                } else {
+                  for (let y of debugGame.invaders) {
+                    y.positionVertical += 10;
+                    y.movingRight = !y.movingRight;
+                  }
+                  y.move();
+                  // return;
+                }
+              } else if (!y.movingRight) {
+                  if (y.positionLeft > 1) {
+                    y.move();
+                    // return;
+                  } else {
+                      for (let y of debugGame.invaders) {
+                        y.positionVertical += 10;
+                        y.movingRight = !y.movingRight;
+
+                      }
+                      // y.movingRight = !y.movingRight;
+                      y.move();
+                      // return;
+                  }
+                }
+
+          //**** CHECK FOR COLLISIONS //****
+                let z = debugGame.playerFire;
+
+                if (y && z && y.elem && z.elem && debugGame.detectCollisions(y.elem, z.elem)) {
+                  
+                  debugGame.explode(y);
+                  debugGame.invaders.splice(debugGame.invaders.indexOf(y), 1);
+
+                  z.elem.parentNode.removeChild(z.elem);
+
+                  // debugGame.playerFire.splice(debugGame.playerFire.indexOf(z), 1);
+                  debugGame.playerFire = null;
+
+                  y.health--;
+                  if (!debugGame.invaders.length) {
+                    window.clearInterval(int);
+                    alert('You win!');
+                  }
+                  break;
+                }
+              // }
+            }
+          // }
+
+          // if (x.moveRandomly && Math.random() < x.moveRandomly) {
+          //   x.movingRight = !x.movingRight;
+          // } 
+
+
+          // } else {
+          //   window.clearInterval(int);
+          // }
+          // return;
 
           //**** CHECK FOR COLLISIONS //****
           for (let y of debugGame.invaderFire) {
@@ -242,7 +258,7 @@ export default class Game {
                 // window.alert('You Died!')
                 debugGame.elem.innerHTML = '';
                 window.location = window.location;
-                console.log('You\'re hit.');
+                alert('You lose!');
               return;
           }
         }

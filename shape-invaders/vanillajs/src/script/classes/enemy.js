@@ -23,49 +23,6 @@ export default class Enemy extends Ship {
     this.speed = options.speed || 300; // Move every .3 seconds
 
     this.elem.classList.add('enemy');
-
-    var int = window.setInterval((function(x) {
-          return function() {
-            if (!x.elem || !x.elem.offsetWidth) {
-              return
-            };
-
-            if (Math.random() < .01) {
-              x.shoot();
-              return;
-            }
-
-            if (x.moveRandomly && Math.random() < x.moveRandomly) {
-              x.movingRight = !x.movingRight;
-            } 
-
-
-            if (x.movingRight) {
-              if (x.positionLeft + x.elem.offsetWidth < 730) {
-                x.move();
-                return;
-              } else {
-                x.movingRight = !x.movingRight;
-                x.move();
-                return;
-              }
-            } else if (!x.movingRight) {
-                if (x.positionLeft > 20) {
-                  x.move();
-                  return;
-                } else {
-                    x.movingRight = !x.movingRight;
-                    x.move();
-                    return;
-                }
-
-            } else {
-              window.clearInterval(int);
-            }
-            return;
-          }
-    
-        })(this), this.speed);
   }
 
   shoot() {
@@ -79,8 +36,6 @@ export default class Enemy extends Ship {
     
     window.debugGame.invaderFire.push(p);
   }
-
-
 
   move(cb) {
     if (this.movingRight) {

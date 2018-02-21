@@ -18,7 +18,7 @@ export default class Enemy extends Ship {
 
     this.width = options.width || 50;
     this.height = options.height || 50;
-    this.fireRate = options.fireRate || .003;
+    this.fireRate = options.fireRate || 0;
 
     this.distance = options.distance || 30; // Move 30px at a time
 
@@ -33,8 +33,7 @@ export default class Enemy extends Ship {
       speed: 5,
       direction: 'Down'
     });
-    
-    window.debugGame.invaderFire.push(p);
+    return p;
   }
 
   move(cb) {

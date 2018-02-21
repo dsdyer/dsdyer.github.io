@@ -6,7 +6,7 @@ export default class Pellet extends ShapeInvadersObject {
   constructor(options) {
     super(options);
     this.elem.classList.add('pellet');
-    this.elem.gameObj = this;
+    // this.elem.gameObj = this;
 
     this.horizontal = options.horizontal;
     this.vertical = options.vertical;

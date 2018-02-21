@@ -21,17 +21,6 @@ export default class Ship extends ShapeInvadersObject {
     window.setTimeout(cb, 1000);
   }
 
-// todo: deal with magic numbers
-  // moveLeft() {
-  //   this.positionLeft = Math.max(this.positionLeft - this.speed, 0);
-  //   this.render();
-  // }
-
-  // moveRight() {
-  //   this.positionLeft = Math.min(this.positionLeft + this.speed, 800 - this.elem.offsetWidth);
-  //   this.render();
-  // }
-
   render(cb) {
     this.elem.style.left = this.positionLeft;
     this.elem.style.top = this.positionVertical;

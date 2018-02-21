@@ -5,7 +5,9 @@ import Enemy from './enemy.js'
 import Pellet from './pellet.js'
 'use strict';
 
-var speed = 10; // Player ship speed (currently broken)
+var speed = 5; // Player ship speed
+var playerFireSpeed = 5;
+var invaderFireSpeed = 3;
 var fps = 60;
 
 const refreshRate = 1000 / fps || 16;
@@ -33,7 +35,6 @@ export default class Game {
     this.hits = 0;
     this.invaders = [];
     this.invaderFire = [];
-    // this.invaderRows = [];
     this.player = new Player({speed: 1});
     this.playerFire = null;
   }
@@ -63,8 +64,6 @@ export default class Game {
   }
 
   invadeSpace(enemyOptions, cols, rows) {
-    // In: object containing Enemy data and number of columns and rows
-    // Out: list of Enemy objects
     const gameWidth = 700;
     const gameHeight = 225;
 
@@ -78,7 +77,6 @@ export default class Game {
     let posVert = 20;
 
     for (var i = 0, il = rows; i < il; i++) {
-      // let invaderRow = [];
       for (var j = 0, jl = cols; j < jl; j++) {
         let invader = new Enemy({ width: invaderWidth, 
                                   height: invaderHeight, 
@@ -90,12 +88,12 @@ export default class Game {
         this.elem.appendChild(invader.elem);
         invader.render();
       }
-      // this.invaders.push(invaderRow);
     }
   }
 
   explode(obj) {
-    obj.explosionEffect(this.remove(obj));
+    obj.explosionEffect()
+       .then(this.remove(obj));
   }
 
   remove(obj) {
@@ -125,7 +123,6 @@ export default class Game {
           }
           if (keyStates[37]) {
             player.moveLeft();
-
           }
           if (keyStates[39]) {
             player.moveRight();
@@ -133,41 +130,26 @@ export default class Game {
 
           // MOVE PELLETS
           for (x of debugGame.invaderFire.concat(debugGame.playerFire)) {
-            // console.log('x: ', x);
             if (x && x.elem) {
               if (x.direction === 'Up') {
-                x.vertical = x.vertical + 4;
-                // console.log('pellet moving up');
+                x.vertical = x.vertical + playerFireSpeed;
               } else if (x.direction === 'Down') {
-                x.vertical = x.vertical - 3;
-                // console.log('pellet moving down');
+                x.vertical = x.vertical - invaderFireSpeed;
               }
 
               x.elem.style.bottom = x.vertical;
         
               if (x.elem && (x.vertical > 500)) {
-                // window.clearInterval(int);
-
-                // DEBUGGERY!!! Removing pellet from debugGame
-                // const pfa = window.debugGame.playerFire;
-                // const iox = window.debugGame.playerFire.indexOf(x);
-
-
-                // pfa.splice(iox, 1);
-
                 try {
                   x.elem.parentNode.removeChild(x.elem);
                 } catch(e) {}
 
                 debugGame.playerFire = null;
               } else if (x.elem && (x.vertical < 0)) {
-                // window.clearInterval(int);
 
                 // DEBUGGERY!!! Removing pellet from debugGame
                 const ifa = window.debugGame.invaderFire;
                 const iox = window.debugGame.invaderFire.indexOf(x);
-
-
                 ifa.splice(iox, 1);
 
                 try {
@@ -176,74 +158,61 @@ export default class Game {
               }
             }
           }
-          p_display.textContent = player.positionLeft;
 
-          // for (let r of debugGame.invaders) {
-            for (let y of debugGame.invaders) {
+          for (let y of debugGame.invaders) {
+            // ENEMY MOVEMENT
+            if (!y.elem || !y.elem.offsetWidth) {
+              break;
+            };
 
-              // ENEMY MOVEMENT
-              if (!y.elem || !y.elem.offsetWidth) {
-                break;
-              };
-
-              if (Math.random() < y.fireRate) {
-                y.shoot();
-                // return;
-              }
-
-              if (y.movingRight) {
-                if (y.positionLeft + y.elem.offsetWidth < 799) {
-                  y.move();
-                  // return;
-                } else {
-                  for (let y of debugGame.invaders) {
-                    y.positionVertical += 10;
-                    y.movingRight = !y.movingRight;
-                  }
-                  y.move();
-                  // return;
-                }
-              } else if (!y.movingRight) {
-                  if (y.positionLeft > 1) {
-                    y.move();
-                    // return;
-                  } else {
-                      for (let y of debugGame.invaders) {
-                        y.positionVertical += 10;
-                        y.movingRight = !y.movingRight;
-
-                      }
-                      // y.movingRight = !y.movingRight;
-                      y.move();
-                      // return;
-                  }
-                }
-
-          //**** CHECK FOR COLLISIONS //****
-                let z = debugGame.playerFire;
-
-                if (y && z && y.elem && z.elem && debugGame.detectCollisions(y.elem, z.elem)) {
-                  
-                  debugGame.explode(y);
-                  debugGame.invaders.splice(debugGame.invaders.indexOf(y), 1);
-
-                  z.elem.parentNode.removeChild(z.elem);
-                  debugGame.hits++;
-                  // debugGame.playerFire.splice(debugGame.playerFire.indexOf(z), 1);
-                  debugGame.playerFire = null;
-
-                  y.health--;
-                  if (!debugGame.invaders.length) {
-                    window.clearInterval(int);
-                    alert('You win!\nShots fired: ' + debugGame.shots + 
-                          '\nInvaders Defeated: ' + debugGame.hits + 
-                          '\nAccuracy: ' + Math.floor(debugGame.hits / debugGame.shots * 100) + '%');
-                  }
-                  break;
-                }
-              // }
+            if (Math.random() < y.fireRate) {
+              y.shoot();
             }
-          // }
+
+            if (y.movingRight) {
+              if (y.positionLeft + y.elem.offsetWidth < 799) {
+                y.move();
+              } else {
+                for (let y of debugGame.invaders) {
+                  y.positionVertical += 10;
+                  y.movingRight = !y.movingRight;
+                }
+                y.move();
+              }
+            } else if (!y.movingRight) {
+                if (y.positionLeft > 1) {
+                  y.move();
+                } else {
+                    for (let y of debugGame.invaders) {
+                      y.positionVertical += 10;
+                      y.movingRight = !y.movingRight;
+                    }
+                    y.move();
+                  }
+                }
+
+        //**** CHECK FOR COLLISIONS //****
+              let z = debugGame.playerFire;
+
+              if (y && z && y.elem && z.elem && debugGame.detectCollisions(y.elem, z.elem)) {
+                
+                debugGame.explode(y);
+                debugGame.invaders.splice(debugGame.invaders.indexOf(y), 1);
+
+                z.elem.parentNode.removeChild(z.elem);
+                debugGame.hits++;
+                debugGame.playerFire = null;
+
+                y.health--;
+                if (!debugGame.invaders.length) {
+                  window.clearInterval(int);
+                  alert('You win!\nShots fired: ' + debugGame.shots + 
+                        '\nInvaders Defeated: ' + debugGame.hits + 
+                        '\nAccuracy: ' + Math.floor(((debugGame.hits / debugGame.shots) || 0) * 100) + '%');
+                }
+                break;
+              }
+          }
 
           //**** CHECK FOR COLLISIONS //****
           for (let y of debugGame.invaderFire.concat(debugGame.invaders)) {
@@ -253,7 +222,7 @@ export default class Game {
                 window.location = window.location;
                 alert('You lose!\nShots fired: ' + debugGame.shots + 
                       '\nInvaders Defeated: ' + debugGame.hits + 
-                      '\nAccuracy: ' + Math.floor(debugGame.hits / debugGame.shots * 100) + '%');
+                      '\nAccuracy: ' + Math.floor(((debugGame.hits / debugGame.shots) || 0) * 100) + '%');
               return;
           }
         }
@@ -261,8 +230,5 @@ export default class Game {
 
     })(this, debugGame, player), refreshRate);
     // **** **** ///////////////////////////////////
-    window.movingRight = false;
-    window.movingLeft = false;
-
   }
 }

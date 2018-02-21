@@ -46,28 +46,28 @@ export default class Enemy extends Ship {
     this.render(cb);
   }
 
-  explosionEffect(cb) {
-    this.distance = 0;
-    this.elem.classList.add('hit');
+  explosionEffect() {
+    return new Promise((resolve, reject) => {
+      this.distance = 0;
+      this.elem.classList.add('hit');
 
-    function animation(x, count, cb) {
-      x.positionVertical += x.elem.offsetHeight / 6;
-      x.positionLeft += x.elem.offsetWidth / 6;
+      function animation(x, count) {
+        x.positionVertical += x.elem.offsetHeight / 6;
+        x.positionLeft += x.elem.offsetWidth / 6;
 
-      x.height = x.elem.offsetHeight * 2 / 3;
-      x.width = x.elem.offsetWidth * 2 / 3;
-      x.render();
+        x.height = x.elem.offsetHeight * 2 / 3;
+        x.width = x.elem.offsetWidth * 2 / 3;
+        x.render();
 
-      if (count < 3) {
-        console.log('exploding, count: ', count);
-        window.setTimeout(animation, 20, x, count + 1, cb);
-        return;
+        if (count < 3) {
+          window.setTimeout(animation, 20, x, count + 1);
+          return;
+        }
+        resolve();
       }
-      cb();
-      return;
-    }
 
-    animation(this, 0, cb);
+      animation(this, 0);
+    });
   }
 
   render(cb) {

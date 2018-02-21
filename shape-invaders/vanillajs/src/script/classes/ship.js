@@ -19,19 +19,18 @@ export default class Ship extends ShapeInvadersObject {
   explosionEffect(cb) {
     this.elem.classList.add('hit');
     window.setTimeout(cb, 1000);
-    // cb();
   }
 
 // todo: deal with magic numbers
-  moveLeft() {
-    this.positionLeft = Math.max(this.positionLeft - 5, 20);
-    this.render();
-  }
+  // moveLeft() {
+  //   this.positionLeft = Math.max(this.positionLeft - this.speed, 0);
+  //   this.render();
+  // }
 
-  moveRight() {
-    this.positionLeft = Math.min(this.positionLeft + 5, 730);
-    this.render();
-  }
+  // moveRight() {
+  //   this.positionLeft = Math.min(this.positionLeft + this.speed, 800 - this.elem.offsetWidth);
+  //   this.render();
+  // }
 
   render(cb) {
     this.elem.style.left = this.positionLeft;

@@ -3,16 +3,16 @@ import Game from './classes/game.js'
 'use strict';
 
 // SETTINGS
-const enemyCols = 2;
-const enemyRows = 2;
+const enemyCols = 15;
+const enemyRows = 3;
 const enemyColHeight = 225;
 const enemyRowWidth = 700;
 // const enemyfireRate = 0;
 const enemySpecs = {
-  width: 60, 
-  height: 60, 
+  width: 25, 
+  height: 25, 
   distance: 1,
-  fireRate: .09
+  fireRate: .003
 };
 // ///////////
 

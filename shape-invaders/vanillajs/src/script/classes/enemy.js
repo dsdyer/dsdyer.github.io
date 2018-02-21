@@ -1,7 +1,6 @@
 import Ship from './ship.js'
 import Pellet from './pellet.js'
 
-'use strict';
 function shoot(options) {
   var pellet = new Pellet(options);
 

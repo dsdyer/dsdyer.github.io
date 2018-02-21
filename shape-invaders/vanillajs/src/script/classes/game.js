@@ -2,7 +2,6 @@ import Player from './player.js'
 import Ship from './ship.js'
 import Enemy from './enemy.js'
 import Pellet from './pellet.js'
-'use strict';
 
 var speed = 5; // Player ship speed
 var playerFireSpeed = 5;

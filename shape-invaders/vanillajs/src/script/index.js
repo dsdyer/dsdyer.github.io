@@ -1,7 +1,5 @@
 import Game from './classes/game.js'
 
-'use strict';
-
 // SETTINGS
 const enemyCols = 15;
 const enemyRows = 3;

@@ -1,7 +1,5 @@
 import ShapeInvadersObject from './shape-invaders-object.js'
 
-'use strict';
-
 export default class Ship extends ShapeInvadersObject {
   constructor(options) {
     super(options);

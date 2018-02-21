@@ -1,3 +1,8 @@
+// This class creates a JS object that has a <div/> element as a
+// property, and that element has a reference to the js object.
+// I thought I would need this to keep objects in the program
+// and on the screen linked to each other, but so far I haven't
+
 'use strict';
 
 export default class ShapeInvadersObject {

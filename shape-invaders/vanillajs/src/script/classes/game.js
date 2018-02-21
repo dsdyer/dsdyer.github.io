@@ -66,7 +66,6 @@ export default class Game {
   invadeSpace(enemyOptions, cols, rows) {
     const gameWidth = 700;
     const gameHeight = 225;
-
     const colWidth = gameWidth / cols;
     const rowHeight = gameHeight / rows;
 

@@ -2,9 +2,6 @@
 // property, and that element has a reference to the js object.
 // I thought I would need this to keep objects in the program
 // and on the screen linked to each other, but so far I haven't
-
-'use strict';
-
 export default class ObjectInSpace {
   constructor(options) {
     this.elem = this.elem || options.elem || document.createElement('div');

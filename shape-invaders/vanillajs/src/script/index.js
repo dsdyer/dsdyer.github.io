@@ -13,7 +13,7 @@ var options = { enemySpecs: {
                             },
                 cols: 15,
                 rows: 3,
-                colHeight: 335,
+                colHeight: 235,
                 rowWidth: 700,
                 html: gameEl
               };

@@ -6,8 +6,8 @@ var newGame = document.getElementById('newGame'),
 
 // SETTINGS
 var options = { enemySpecs: {
-                              width: 100, 
-                              height: 100, 
+                              width: 25, 
+                              height: 25, 
                               distance: 1,
                               fireRate: .003
                             },

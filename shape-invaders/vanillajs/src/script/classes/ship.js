@@ -1,6 +1,6 @@
-import ShapeInvadersObject from './shape-invaders-object.js'
+import ObjectInSpace from './object-in-space.js'
 
-export default class Ship extends ShapeInvadersObject {
+export default class Ship extends ObjectInSpace {
   constructor(options) {
     super(options);
     this.elem.gameObj = this;

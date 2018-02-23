@@ -1,4 +1,4 @@
-import ShapeInvadersObject from './shape-invaders-object.js'
+import ShapeInvadersObject from './object-in-space.js'
 
 export default class Pellet extends ShapeInvadersObject {
   constructor(options) {

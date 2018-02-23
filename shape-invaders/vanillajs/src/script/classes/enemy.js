@@ -58,7 +58,7 @@ export default class Enemy extends Ship {
         x.render();
 
         if (count < 3) {
-          window.setTimeout(animation, 20, x, count + 1);
+          window.setTimeout(animation, 50, x, count + 1);
           return;
         }
         resolve();

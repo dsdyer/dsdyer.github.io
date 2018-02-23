@@ -42,10 +42,6 @@ export default class Game {
   }
 
   detectCollisions(ship, weapon) {
-    // debugger;
-    // if (!ship || !weapon) {
-    //   return false;
-    // }
     const [s_x1, s_x2, s_y1, s_y2] = [ ship.offsetLeft,
                                        ship.offsetLeft + ship.offsetWidth,
                                        ship.offsetTop,

@@ -3,29 +3,29 @@ import ObjectInSpace from './object-in-space.js'
 export default class Ship extends ObjectInSpace {
   constructor(options) {
     super(options);
-    this.elem.gameObj = this;
 
-    this.positionLeft = options.positionLeft || 20;
-    this.positionVertical = options.positionVertical || 423;
-    this.speed = options.speed || 1;
+    // this.posX = options.posX || 20;
+    // this.posY = options.posY || 423;
+    // this.posY = options.posY || 423;
+    // this.posY = options.posY || 423;
     this.health = 1;
 
-    this.elem.classList.add('ship');
-    this.elem.style.left = this.positionLeft;
+    // this.elem.classList.add('ship');
+    // this.elem.style.left = this.positionLeft;
   }
 
-  explosionEffect(cb) {
-    this.elem.classList.add('hit');
-    window.setTimeout(cb, 1000);
-  }
+  // explosionEffect(cb) {
+  //   this.elem.classList.add('hit');
+  //   window.setTimeout(cb, 1000);
+  // }
 
-  render(cb) {
-    this.elem.style.left = this.positionLeft;
-    this.elem.style.top = this.positionVertical;
+  // render(cb) {
+  //   this.elem.style.left = this.positionLeft;
+  //   this.elem.style.top = this.positionVertical;
 
-    if (cb && typeof cb === "function") {
-      cb();
-    }
-    return this.elem;
-  }
+  //   if (cb && typeof cb === "function") {
+  //     cb();
+  //   }
+  //   return this.elem;
+  // }
 }

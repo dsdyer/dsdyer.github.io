@@ -1,3 +1,4 @@
+import ObjectInSpace from './object-in-space.js'
 import Player from './player.js'
 import Ship from './ship.js'
 import Enemy from './enemy.js'
@@ -9,9 +10,6 @@ var invaderFireSpeed = 3;
 var fps = 60;
 
 const refreshRate = 1000 / fps || 16;
-
-// const game = document.getElementById('game');
-
 const p_display = document.getElementById('player');
 
 p_display.textContent = player.positionLeft;
@@ -32,32 +30,33 @@ export default class Game {
     this.shots = 0;
     this.hits = 0;
     this.gameLoop = 0;
+    this.drawLoop = 0;
     this.invaders = [];
     this.invaderFire = [];
     this.player = new Player({speed: speed});
     this.playerFire = null;
 
-    this.elem.appendChild(this.player.render());
+    // this.elem.appendChild(this.player.render());
     this.invadeSpace(options.enemySpecs, options.cols, options.rows, options.colHeight, options.rowWidth);
   }
 
-  detectCollisions(ship, weapon) {
-    const [s_x1, s_x2, s_y1, s_y2] = [ ship.offsetLeft,
-                                       ship.offsetLeft + ship.offsetWidth,
-                                       ship.offsetTop,
-                                       ship.offsetTop + ship.offsetHeight
+  detectCollisions(a, b) {
+    const [a_x1, a_x2, a_y1, a_y2] = [ a.posX,
+                                       a.posX + a.width,
+                                       a.posY,
+                                       a.posY + a.height
                                      ];
 
-    const [w_x1, w_x2, w_y1, w_y2] = [ weapon.offsetLeft,
-                                       weapon.offsetLeft + weapon.offsetWidth,
-                                       weapon.offsetTop,
-                                       weapon.offsetTop + weapon.offsetHeight
+    const [b_x1, b_x2, b_y1, b_y2] = [ b.posX,
+                                       b.posX + b.width,
+                                       b.posY,
+                                       b.posY + b.height
                                      ];
 
-    if ((w_x2 <= s_x1) ||
-        (w_x1 >= s_x2) ||
-        (w_y1 >= s_y2) ||
-        (w_y2 <= s_y1)) {
+    if ((b_x2 <= a_x1) ||
+        (b_x1 >= a_x2) ||
+        (b_y1 >= a_y2) ||
+        (b_y2 <= a_y1)) {
       return false;
     }
     return true;
@@ -172,7 +171,13 @@ export default class Game {
             };
 
             if (Math.random() < y.fireRate) {
-              self.invaderFire.push(y.shoot());
+              self.invaderFire.push(shoot.call(self, {
+                                                    horizontal: 24 + y.positionLeft - Math.floor(3 / 2), // todo, obvs
+                                                    vertical: 500 - y.positionVertical - 50,
+                                                    size: 3,
+                                                    speed: 5,
+                                                    direction: 'Down'
+                                                  }));
             }
 
             if (y.movingRight) {

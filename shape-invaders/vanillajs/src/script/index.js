@@ -1,8 +1,8 @@
 import Game from './classes/game.js'
+import View from './classes/view.js'
 
 var newGame = document.getElementById('newGame'),
-    gameEl = document.getElementById('game'),
-    game;
+    gameEl = document.getElementById('gameArea');
 
 // SETTINGS
 var options = { enemySpecs: {
@@ -11,22 +11,26 @@ var options = { enemySpecs: {
                               distance: 1,
                               fireRate: .003
                             },
-                cols: 15,
-                rows: 3,
-                colHeight: 235,
-                rowWidth: 700,
+                cols: 8,
+                rows: 2,
+                colHeight: 150,
+                rowWidth: 500,
                 html: gameEl
               };
 
+window.game = new Game(options);
+window.view = new View(options);
 
 newGame.onclick = function(){
   window.keyStates = {};
   gameEl.innerHTML = '';
   try {
-    game.endGame();
+    window.game.endGame();
   } catch(e) {}
 
-  game = new Game(options);
+  window.game = new Game(options);
 
-  game.play();
+  window.game.play();
+  window.view = new View({invaders: game.invaders,
+                          player: game.player});
 };

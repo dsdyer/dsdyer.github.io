@@ -40,11 +40,11 @@ for (var i = 0, l = matches.length; i < l; i++) {
     class_list.push(matches[i]);
   } else {
       if (matches[i].match(/\b-[A-Z]{2,}/g)) {
-        console.log('i is: ', i);
-        console.log('the match is: ', matches[i]);
+        // console.log('i is: ', i);
+        // console.log('the match is: ', matches[i]);
         class_list.push(class_num.trim() + '-' + matches[i].slice(0, matches[i].indexOf('-')) + " ");
     } else {
-      console.log('pushing to class_list');
+      // console.log('pushing to class_list');
       class_list.push(matches[i].replace("MXM - ", ""));
     }
   }

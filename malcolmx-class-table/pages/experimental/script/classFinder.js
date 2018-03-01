@@ -66,7 +66,7 @@ var sendMsg = function() {
   if (count > 500) window.clearInterval(sender);
   console.log('class_list below: ', class_list.join(','));
     if (class_list) {
-      console.log('class_list class_list is true: ', class_list.join(','));
+      // console.log('class_list class_list is true: ', class_list.join(','));
       w.postMessage(class_list.join(), '*');
     }
     count++;

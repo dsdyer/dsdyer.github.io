@@ -18,12 +18,12 @@ var _resolveLocation = function(location) {
 
 var _resolveDateTime = function(datetime) {
   // Working:
-  // var dt = datetime.match(/(^(?:[A-Z][a-z])+\s.+[A|P]M.+?[A|P]M)?((?:[A-Z][a-z])+?.*$)/);
+  var dt = datetime.match(/(^(?:[A-Z][a-z])+\s.+[A|P]M.+?[A|P]M)?((?:[A-Z][a-z])+?.*$)/);
   
   // Better:
-  var dt = datetime.match(/(?:[A-Z][a-z])+\s.+?[A|P]M.+?[A|P]M/g);
+  // var dt = datetime.match(/(?:[A-Z][a-z])+\s.+?[A|P]M.+?[A|P]M/g);
   console.log('dt: ', dt);
-  if (dt.length === 1) return dt[0];
+  if (dt && dt.length === 1) return dt[0];
 
   var day0 = dt[0].match(/^[A-Z][a-z]+\s/i)[0].trim();
   var day1 = dt[1].match(/^[A-Z][a-z]+\s/i)[0].trim();

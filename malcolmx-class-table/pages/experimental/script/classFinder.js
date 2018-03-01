@@ -1,7 +1,6 @@
-// unrelated: https://leapfrogonline.attask-ondemand.com/attask/api-unsupported/timesheet/?id=566d199200727d76ab12bce7431d4e63&fields=hours&method=get&username=ddyer@leapfrogonline.com&password=
 // related: javascript:(function(){document.body.appendChild(document.createElement('script'‌​)).src='http://dsdyer.github.io/pages/experimental/script/classFinder.js';})();
 
-console.log('this.frameElement: ', window.frames["TargetContent"]);
+// console.log('this.frameElement: ', window.frames["TargetContent"]);
 
 var elems = document.getElementsByTagName("*"), item;
 var matches = [];
@@ -57,7 +56,7 @@ console.log('output above: ', output);
 console.log('class_list above: ', class_list.join(','));
 
 
-var url = "https://dsdyer.github.io/pages/experimental/experimental.html";
+var url = "https://dsdyer.github.io/malcolmx-class-table/pages/experimental/experimental.html";
 var w = window.open(url, 'target=_blank');
 
 var done = false;

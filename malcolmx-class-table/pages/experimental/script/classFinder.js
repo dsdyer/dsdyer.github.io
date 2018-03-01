@@ -52,8 +52,8 @@ for (var i = 0, l = matches.length; i < l; i++) {
 
 var output = class_list.join(',');
 
-console.log('output above: ', output);
-console.log('class_list above: ', class_list.join(','));
+// console.log('output above: ', output);
+// console.log('class_list above: ', class_list.join(','));
 
 
 var url = "https://dsdyer.github.io/malcolmx-class-table/pages/experimental/experimental.html";

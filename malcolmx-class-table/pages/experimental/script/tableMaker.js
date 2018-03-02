@@ -141,8 +141,8 @@ function tableForBuddies(data, subjects) {
     if (datebox.length) {
       datebox = datebox[0];
       var day = document.createElement("td");
-      console.log('datebox.textContent: ', datebox.textContent);
-      console.log('_resolveDateTime(datebox.textContent): ', _resolveDateTime(datebox.textContent));
+      // console.log('datebox.textContent: ', datebox.textContent);
+      // console.log('_resolveDateTime(datebox.textContent): ', _resolveDateTime(datebox.textContent));
       datebox.textContent = _resolveDateTime(datebox.textContent);
       day.innerHTML = datebox.textContent.match(/^[a-z]+\s/gi);
       day.className = "days";

@@ -3159,9 +3159,7 @@ background: url(/cs/ccccsprd/cache_855/PT_PORTAL_IC_CLOSE_SD_SWAN_1.gif) no-repe
 
 #popupMask, #popupMaskModal{position:absolute;z-index:200;top:0px;left:0px;opacity:.50;filter:alpha(opacity=50);background-color:transparent;background-color:#535353;background-image:none;background-repeat:repeat;display:none;} 
 
-
-
-.popupDragFrame{display:none;top:0;left:0;border:2px dotted;position:absolute;background-color:transparent;background-image:url(/cs/ccccsprd/cache_855/PT_PIXEL_1.gif);background-repeat:repeat;} 
+.popupDragFrame{display:none;top:0;left:0;border:2px dotted;position:absolute;background-color:transparent;background-image:url(./PT_PIXEL_1.gif);background-repeat:repeat;} 
 
 .popupShadowIE6{background:#353535;border:1px;left:5px;top:5px;position:absolute;z-index:250;filter:alpha(opacity=30);opacity:0.3;}
 
@@ -3844,7 +3842,7 @@ cursor:pointer;
 
 
 #ptrcTCSpacer {
-background-image: url(/cs/ccccsprd/cache_855/PT_PIXEL_1.gif);
+background-image: url(./PT_PIXEL_1.gif);
 height:7px;
 width:100%;
 }

@@ -63,7 +63,7 @@ var done = false;
 var count = 0;
 
 var sendMsg = function() {
-  if (count > 2) window.clearInterval(sender);
+  if (count > 500) window.clearInterval(sender);
   // console.log('class_list below: ', class_list.join(','));
     if (w && class_list) {
       // console.log('class_list class_list is true: ', class_list.join(','));
@@ -72,7 +72,7 @@ var sendMsg = function() {
     count++;
 };
 
-var sender = window.setInterval(sendMsg, 10000);
+var sender = window.setInterval(sendMsg, 100);
 
 window.addEventListener("message", function(e) {
   window.clearInterval(sender);

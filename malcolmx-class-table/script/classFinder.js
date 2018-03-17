@@ -1,4 +1,4 @@
-// related: javascript:(function(){document.body.appendChild(document.createElement('script'‌​)).src='http://dsdyer.github.io/pages/experimental/script/classFinder.js';})();
+// related: javascript:(function(){document.body.appendChild(document.createElement('script'‌​)).src='http://dsdyer.github.io/script/classFinder.js';})();
 
 // console.log('this.frameElement: ', window.frames["TargetContent"]);
 
@@ -56,7 +56,7 @@ var output = class_list.join(',');
 // console.log('class_list above: ', class_list.join(','));
 
 
-var url = "https://dsdyer.github.io/malcolmx-class-table/pages/experimental/experimental.html";
+var url = "https://dsdyer.github.io/malcolmx-class-table/experimental.html";
 var w = window.open(url, 'target=_blank');
 
 var done = false;

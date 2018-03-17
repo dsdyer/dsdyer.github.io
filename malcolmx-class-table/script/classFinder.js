@@ -56,7 +56,7 @@ var output = class_list.join(',');
 // console.log('class_list above: ', class_list.join(','));
 
 
-var url = "https://dsdyer.github.io/malcolmx-class-table/experimental.html";
+var url = "https://dsdyer.github.io/malcolmx-class-table/class_table.html";
 var w = window.open(url, 'target=_blank');
 
 var done = false;

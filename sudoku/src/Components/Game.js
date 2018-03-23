@@ -57,18 +57,23 @@ export default class Game extends React.Component {
       } else {
           this.preLoad = preLoad;
           const puzzle = preLoad.map(row => {
-          debugger;
+          // debugger;
 
             return row.map(square => {
               const locked = (square === 0) ? false : true;
               return {value: square, possible: [], ruledOut: [], editing: false, locked: locked};
             });
           });
+          const sudoku = new Sudoku(puzzle);
 
+          console.log('puzzle line 68: ', puzzle);
           this.state = {
             puzzle: puzzle,
-            sudoku: new Sudoku(puzzle)
+            sudoku: sudoku
           };
+          console.log('this.state.puzzle line 73: ', this.state.puzzle);
+          console.log('this.state.puzzle line 73: ', this.state.puzzle);
+          console.log('this line 75: ', this);
 
           // this.state = {
           //   puzzle: this.getCorrectSolution(puzzle)
@@ -84,7 +89,9 @@ export default class Game extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
     this.showCorrectSolution = this.showCorrectSolution.bind(this);
-    debugger;
+    // debugger;
+          console.log('this.state.puzzle line 91: ', this.state.puzzle);
+          console.log('this.state.sudoku line 91: ', this.state.sudoku);
   }
 
   componentWillMount() {

@@ -8,22 +8,22 @@ function unpack(array) {  // Returns a deep copy of a multi-dimensional array
 };
 
 export default class Sudoku {
-      constructor(puzzlea) {
-        // console.log('puzzlea: ', puzzlea);
-        this.puzzlea = unpack(puzzlea);
-        // console.log('this.puzzlea: ', this.puzzlea);
+      constructor(puzzle) {
+        // console.log('puzzle: ', puzzle);
+        this.puzzle = unpack(puzzle);
+        // console.log('this.puzzle: ', this.puzzle);
         this.rows = [];
         this.columns = [];
         this.boxes = [];
         this.blanks = [];
         this.pointer = 0;
 
-        // console.log(this.puzzlea);
+        // console.log(this.puzzle);
 
         for (let row = 0; row < 9; row++) {
-          this.rows[row] = puzzlea[row];
+          this.rows[row] = puzzle[row];
           for (let col = 0; col < 9; col++) {
-            const square = this.puzzlea[row][col];
+            const square = this.puzzle[row][col];
             const box  = this.findBox(row, col);
 
             this.columns[col] = this.columns[col] || [];
@@ -37,6 +37,7 @@ export default class Sudoku {
             };
           };
         };
+          console.log('this line 40: ', this);
       }
 
       findBox(row, col) {
@@ -51,7 +52,7 @@ export default class Sudoku {
                this.boxes[this.findBox(row, col)].indexOf(square) === -1;
       }
 
-      puzzleaIsValid() {
+      puzzleIsValid() {
         return this.rows.every(r => 
           r.every((x, i) => 
           !x || r.every((y, j) => 
@@ -69,7 +70,7 @@ export default class Sudoku {
       }
 
       updateSquare(y, x, new_value) {
-        this.puzzlea[y][x] = new_value;
+        this.puzzle[y][x] = new_value;
         this.columns[x][y] = new_value;
         this.rows[y][x] = new_value;
         this.boxes[this.findBox(y, x)][((y % 3) * 3) + (x % 3)] = new_value;
@@ -100,7 +101,7 @@ export default class Sudoku {
           if (test_value > 9) { // If we've tried all 9 numbers for this square
             a.updateSquare(row, col, 0); // Set it back to 0 (blank)
             a.pointer--; // And go back to the previous square
-            test_value = a.puzzlea[a.blanks[a.pointer][0]][a.blanks[a.pointer][1]] + 1;
+            test_value = a.puzzle[a.blanks[a.pointer][0]][a.blanks[a.pointer][1]] + 1;
             continue;
           }
 
@@ -116,6 +117,6 @@ export default class Sudoku {
             continue;
           }
         }
-        return a.puzzlea;
+        return a.puzzle;
       };
     };

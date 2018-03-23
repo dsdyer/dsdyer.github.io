@@ -37,7 +37,6 @@ export default class Sudoku {
             };
           };
         };
-          console.log('this line 40: ', this);
       }
 
       findBox(row, col) {

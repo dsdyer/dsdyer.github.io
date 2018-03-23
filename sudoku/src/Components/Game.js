@@ -65,15 +65,16 @@ export default class Game extends React.Component {
             });
           });
           const sudoku = new Sudoku(puzzle);
-
+// debugger;
           console.log('puzzle line 68: ', puzzle);
           this.state = {
             puzzle: puzzle,
             sudoku: sudoku
           };
-          console.log('this.state.puzzle line 73: ', this.state.puzzle);
-          console.log('this.state.puzzle line 73: ', this.state.puzzle);
-          console.log('this line 75: ', this);
+
+          console.log('this.state.puzzle line 74: ', this.state.puzzle);
+          console.log('this.state.sudoku line 75: ', this.state.sudoku);
+          console.log('this line 76: ', this);
 
           // this.state = {
           //   puzzle: this.getCorrectSolution(puzzle)
@@ -91,7 +92,7 @@ export default class Game extends React.Component {
     this.showCorrectSolution = this.showCorrectSolution.bind(this);
     // debugger;
           console.log('this.state.puzzle line 91: ', this.state.puzzle);
-          console.log('this.state.sudoku line 91: ', this.state.sudoku);
+          console.log('this.state.sudoku line 95: ', this.state.sudoku);
   }
 
   componentWillMount() {

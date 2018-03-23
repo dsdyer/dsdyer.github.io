@@ -16,7 +16,7 @@ h2 {
 h3 {
   text-align: center;
 }
-#buddytable {
+#mx_table {
   width: 100%;
 }
 th {
@@ -33,7 +33,7 @@ td {
   font-size: 1.5em;
 }
 form {
-  width: 500px;
+  width: 100%;
   margin: 0 auto;
   overflow: hidden;
 }

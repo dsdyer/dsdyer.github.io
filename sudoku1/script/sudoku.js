@@ -8,7 +8,6 @@ function arrayCleaner(array) {  // Returns a deep copy of a multi-dimensional ar
   return a;
 };
 
-
 class Puzzle {
   constructor(puzzle) {
     this.puzzle = arrayCleaner(puzzle);
@@ -65,7 +64,6 @@ class Puzzle {
   };
 };
 
-
 function sudoku(puzzle) {
   // Create a Puzzle object from the input array
   let a = new Puzzle(puzzle);
@@ -78,10 +76,6 @@ function sudoku(puzzle) {
   while (true) {
     sq_y = a.blanks[a.pointer][0];
     sq_x = a.blanks[a.pointer][1];
-
-    // console.log('\npointer: ' + a.pointer);
-    // console.log('\nsquareLoc: ' + a.blanks[[a.pointer]]);
-    // console.log('\ntrying: ' + test_value);
 
     if (test_value > 9) {
       a.updateSquare(sq_y, sq_x, 0);

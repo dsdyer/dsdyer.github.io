@@ -1,9 +1,7 @@
-// related: javascript:(function(){document.body.appendChild(document.createElement('script'‌​)).src='http://dsdyer.github.io/script/classFinder.js';})();
-
-// console.log('this.frameElement: ', window.frames["TargetContent"]);
-
 var elems = document.getElementsByTagName("*"), item;
 var matches = [];
+var class_list = [];
+var class_num = '';
 
 String.prototype.isClassName = function() {
   return this.match(/[A-Z]*\s*[A-Z]+\d{0,3}\s+\d{2,4}[^\s]*\s\-\s[\w\d\s.]+/g) || false;
@@ -31,20 +29,15 @@ for (var i = 0, len = elems.length; i < len; i++) {
   }
 };
 
-var class_list = [];
-var class_num = '';
-
 for (var i = 0, l = matches.length; i < l; i++) {
   if (matches[i].isClassName()) {
     class_num = matches[i].match(/\d{2,4}/g)[0];
     class_list.push(matches[i]);
   } else {
       if (matches[i].match(/\b-[A-Z]{2,}/g)) {
-        // console.log('i is: ', i);
-        // console.log('the match is: ', matches[i]);
+
         class_list.push(class_num.trim() + '-' + matches[i].slice(0, matches[i].indexOf('-')) + " ");
     } else {
-      // console.log('pushing to class_list');
       class_list.push(matches[i].replace("MXM - ", ""));
     }
   }
@@ -52,27 +45,25 @@ for (var i = 0, l = matches.length; i < l; i++) {
 
 var output = class_list.join(',');
 
-// console.log('output above: ', output);
-// console.log('class_list above: ', class_list.join(','));
+// var url = "https://dsdyer.github.io/malcolmx-class-table/class_table.html";
+var url = "http://127.0.0.1:8080/malcolmx-class-table/class_table.html";
 
 
-var url = "https://dsdyer.github.io/malcolmx-class-table/class_table.html";
+
 var w = window.open(url, 'target=_blank');
 
 var done = false;
 var count = 0;
 
 var sendMsg = function() {
-  if (count > 500) window.clearInterval(sender);
-  // console.log('class_list below: ', class_list.join(','));
+  if (count > 5) window.clearInterval(sender);
     if (w && class_list) {
-      // console.log('class_list class_list is true: ', class_list.join(','));
       w.postMessage(class_list.join(), '*');
     }
     count++;
 };
 
-var sender = window.setInterval(sendMsg, 100);
+var sender = window.setInterval(sendMsg, 1000);
 
 window.addEventListener("message", function(e) {
   window.clearInterval(sender);

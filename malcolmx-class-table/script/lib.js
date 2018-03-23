@@ -17,31 +17,37 @@ var _resolveLocation = function(location) {
 };
 
 var _resolveDateTime = function(datetime) {
-  // Working:
-  // var dt = datetime.match(/(^(?:[A-Z][a-z])+\s.+[A|P]M.+?[A|P]M)?((?:[A-Z][a-z])+?.*$)/);
-  
-  // Better:
-  var dt = datetime.match(/(?:[A-Z][a-z])+\s.+?[A|P]M.+?[A|P]M/g);
-  console.log('dt: ', dt);
-  if (dt && dt.length === 1) return dt[0];
+  try {
+      // Working:
+      // var dt = datetime.match(/(^(?:[A-Z][a-z])+\s.+[A|P]M.+?[A|P]M)?((?:[A-Z][a-z])+?.*$)/);
+      
+      // Better:
+      var dt = datetime.match(/(?:[A-Z][a-z])+\s.+?[A|P]M.+?[A|P]M/g);
+      // console.log('dt: ', dt);
+      if (dt && dt.length === 1) return dt[0];
 
-  var day0 = dt[0].match(/^[A-Z][a-z]+\s/i)[0].trim();
-  var day1 = dt[1].match(/^[A-Z][a-z]+\s/i)[0].trim();
-  var time0 = dt[0].replace(day0, '').trim();
-  var time1 = dt[1].replace(day1, '').trim();
+      var day0 = dt[0].match(/^[A-Z][a-z]+\s/i)[0].trim();
+      var day1 = dt[1].match(/^[A-Z][a-z]+\s/i)[0].trim();
+      var time0 = dt[0].replace(day0, '').trim();
+      var time1 = dt[1].replace(day1, '').trim();
 
-  if (day0 === day1) return day0 + ' ' + time0 + '<br>' + time1;
-    // days are the same, return day0 plus the two times
-    // console.log('day0: ', day0);
-    // console.log('day1: ', day1);
-    // console.log('times: ', times);
+      if (day0 === day1) return day0 + ' ' + time0 + '<br>' + time1;
+        // days are the same, return day0 plus the two times
+        // console.log('day0: ', day0);
+        // console.log('day1: ', day1);
+        // console.log('times: ', times);
 
 
-  if (time0 === time1) return day0 + day1 + ' ' + time0;
+      if (time0 === time1) return day0 + day1 + ' ' + time0;
 
-  // days are different, concat them and return that plus the times
+      // days are different, concat them and return that plus the times
 
-  return day0 + day1 + ' ' + time0 + '<br>' + time1;
+      return day0 + day1 + ' ' + time0 + '<br>' + time1;
+  } catch(e) {
+    console.log('_resolveDateTime errored with error: ', e);
+    return 'day0day1';
+  }
+
 } 
 /////////////////
 
@@ -79,7 +85,6 @@ function ClassSection(a, b, c, d, e) {
 // Holding off on fixing some of this until I update to ES6 because holy shit
 
 String.prototype.isClassName = function() {
-  // console.log(this);
   return this.match(/[A-Z]*\s*[A-Z]+\d{0,3}\s+\d{2,4}[^\s]*\s\-\s[\w\d\s.]+/g) || false;
 };
 

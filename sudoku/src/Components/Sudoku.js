@@ -1,7 +1,6 @@
-function unpack(array) {  // Returns a deep copy of a multi-dimensional array
+function unpack(array) {  // Returns a shallow copy of a multi-dimensional array
   let a = array.map(c => {
     if (Array.isArray(c)) return unpack(c);
-    // console.log('unpacking: ', c, 'to: ', c.value);
     return c.value;
   });
   return a;
@@ -9,16 +8,13 @@ function unpack(array) {  // Returns a deep copy of a multi-dimensional array
 
 export default class Sudoku {
       constructor(puzzle) {
-        // console.log('puzzle: ', puzzle);
         this.puzzle = unpack(puzzle);
-        // console.log('this.puzzle: ', this.puzzle);
         this.rows = [];
         this.columns = [];
         this.boxes = [];
         this.blanks = [];
         this.pointer = 0;
 
-        // console.log(this.puzzle);
 
         for (let row = 0; row < 9; row++) {
           this.rows[row] = puzzle[row];
@@ -52,20 +48,11 @@ export default class Sudoku {
       }
 
       puzzleIsValid() {
-        return this.rows.every(r => 
-          r.every((x, i) => 
-          !x || r.every((y, j) => 
-          x !== y || i === j) ) ) &&
-          
-          
-               this.columns.every(c => 
-                        c.every((x, i) => 
-                        !x || c.every((y, j) => 
-                        x !== y || i === j) ) ) &&
-               this.boxes.every(b => 
-                  b.every((x, i) => 
-                  !x || b.every((y, j) => 
-                  x !== y || i === j) ) );
+        return this.rows.every(r => r.every((x, i) => !x || r.every((y, j) => x !== y || i === j))) &&
+                
+               this.columns.every(c => c.every((x, i) => !x || c.every((y, j) => x !== y || i === j))) &&
+
+               this.boxes.every(b => b.every((x, i) => !x || b.every((y, j) => x !== y || i === j)));
       }
 
       updateSquare(y, x, new_value) {
@@ -87,16 +74,9 @@ export default class Sudoku {
 
         while (true) {
           if (a.pointer >= a.blanks.length) break;
-          // try {
           square_coords = a.blanks[a.pointer];
           [row, col] = square_coords;
-          // col = blank[1];
-        // } catch(e) {
-        //   console.log('e: ', e);
-        //   console.log('a.blanks: ', a.blanks);
-        //   console.log('a.pointer: ', a.pointer);
-        //   break;
-        // }
+
           if (test_value > 9) { // If we've tried all 9 numbers for this square
             a.updateSquare(row, col, 0); // Set it back to 0 (blank)
             a.pointer--; // And go back to the previous square
@@ -105,17 +85,50 @@ export default class Sudoku {
           }
 
           if (a.squareIsValid(row, col, test_value)) {
-            a.updateSquare(row, col, test_value);
-            a.pointer++;
-            test_value = 1;
-            // if (a.pointer >= a.blanks.length) {
-            //   break;
-            // }
-          } else {
-            test_value++;
-            continue;
+                                                      a.updateSquare(row, col, test_value);
+                                                      a.pointer++;
+                                                      test_value = 1;
+                                                      } else {
+                                                        test_value++;
+                                                        continue;
+                                                      }
           }
-        }
         return a.puzzle;
       };
     };
+
+function solvePuzzle() {
+  // Create a Puzzle object from the input array
+  let a = this,
+      square_coords,
+      row,
+      col,
+      test_value = 1;
+
+  // Increment the square referenced by Puzzle.pointer
+
+  while (true) {
+    if (a.pointer >= a.blanks.length) break;
+    square_coords = a.blanks[a.pointer];
+    [row, col] = square_coords;
+
+    if (test_value > 9) { // If we've tried all 9 numbers for this square
+      a.updateSquare(row, col, 0); // Set it back to 0 (blank)
+      a.pointer--; // And go back to the previous square
+      test_value = a.puzzle[a.blanks[a.pointer][0]][a.blanks[a.pointer][1]] + 1;
+      continue;
+    }
+
+    if (a.squareIsValid(row, col, test_value)) {
+                                                a.updateSquare(row, col, test_value);
+                                                a.pointer++;
+                                                test_value = 1;
+                                                } else {
+                                                  test_value++;
+                                                  continue;
+                                                }
+    }
+  return a.puzzle;
+};
+
+// export {solvePuzzle};

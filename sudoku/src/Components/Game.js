@@ -1,6 +1,16 @@
 import React from 'react';
 import Puzzle from './Puzzle';
 import Sudoku from './Sudoku';
+// import {solvePuzzle} from './Sudoku';
+
+function shallowCopy(array) {  // Returns a deep copy of a multi-dimensional array
+  let a = array.map(c => {
+    if (Array.isArray(c)) return shallowCopy(c);
+    // console.log('unpacking: ', c, 'to: ', c.value);
+    return c;
+  });
+  return a;
+};
 
 // TO DO:
 // Add possible numbers to squares
@@ -23,6 +33,9 @@ import Sudoku from './Sudoku';
 // Optimize: Don't re-calculate so much
 // Sort out the difference between numbers and objects for squares
 // Clean up HTML
+
+
+
 
 export default class Game extends React.Component {
   constructor(props) {
@@ -64,66 +77,38 @@ export default class Game extends React.Component {
               return {value: square, possible: [], ruledOut: [], editing: false, locked: locked};
             });
           });
-          const sudoku = new Sudoku(puzzle);
-// debugger;
-          console.log('puzzle line 68: ', puzzle);
+          const sudoku = new Sudoku(shallowCopy(puzzle));
+
           this.state = {
             puzzle: puzzle,
             sudoku: sudoku
           };
-
-          console.log('this.state.puzzle line 74: ', this.state.puzzle);
-          console.log('this.state.sudoku line 75: ', this.state.sudoku);
-          console.log('this line 76: ', this);
-
-          // this.state = {
-          //   puzzle: this.getCorrectSolution(puzzle)
-          // }
-          this.solution = this.getCorrectSolution().map(row => {
-            return row.map(square => {
-              // const locked = (square === 0) ? false : true;
-              return {value: square, possible: [], ruledOut: [], editing: false, locked: true};
-            });
-          });;
       }
 
     this.handleClick = this.handleClick.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
     this.showCorrectSolution = this.showCorrectSolution.bind(this);
-    // debugger;
-          console.log('this.state.puzzle line 91: ', this.state.puzzle);
-          console.log('this.state.sudoku line 95: ', this.state.sudoku);
   }
 
   componentWillMount() {
-    // alert(this.getCorrectSolution().length);
     const debugData = this.getCorrectSolution();
     this.setState({
       debugData: debugData.map(row => JSON.stringify(row, null, 4))
     });
-    // this.showCorrectSolution();
+
   }
 
-  // componentDidUpdate() {
-  //   this.setState({
-  //     puzzleIsValid: new Sudoku(this.state.puzzle).puzzleIsValid()
-  //   });
-  // }
-
   getCorrectSolution() {
-    // const answers = this.state.puzzle.map(row => {
-    //   return row.map(square => {
-    //     return square.locked ? square.value : 0;
-    //   });
-    // });
     const solution = this.state.sudoku.solvePuzzle();
+    console.log('119 solution: ', solution);
     // console.log('sol: ', sol);
     return solution;
   }
 
   showCorrectSolution() {
+    console.log('124 this.solution: ', this.getCorrectSolution());
     this.setState({
-      puzzle: this.solution.map((row, i) => {
+      puzzle: this.getCorrectSolution().map((row, i) => {
           return row.map((square, j) => {
             const locked = (this.preLoad[i][j] === 0) ? false : true;
             return {value: square, possible: [], ruledOut: [], editing: false, locked: locked}
@@ -133,7 +118,6 @@ export default class Game extends React.Component {
   }
 
   handleClick(e, i) {
-    // const target = e.target;
     const puzzle = this.state.puzzle.map((row, j) => {
       return row.map((square, k) => {
         if (square.locked) {
@@ -168,7 +152,7 @@ export default class Game extends React.Component {
         return square;
       })
     });
-    this.setState({puzzle: puzzle, puzzleIsValid: new Sudoku(this.state.puzzle).puzzleIsValid()});
+    this.setState({puzzle: puzzle, puzzleIsValid: new Sudoku(shallowCopy(this.state.puzzle)).puzzleIsValid()});
   }
 
   render() {
@@ -203,5 +187,3 @@ export default class Game extends React.Component {
     );
   }
 }
-
-// console.log(solver(puzzle));

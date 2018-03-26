@@ -24,7 +24,7 @@ ol, ul {
 .big-square {
   float: left;
   overflow: hidden;
-  width: 224px;
+  width: 223px;
   border: 2px solid #000000;
 }
 

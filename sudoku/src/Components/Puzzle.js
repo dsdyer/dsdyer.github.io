@@ -138,11 +138,12 @@ export default class Puzzle extends React.Component {
         </div>
         <br />
         <div className="controls">
-          <button onClick={() => this.setState({message: 'I believe in you!'})}>Validate</button>
+          <button onClick={() => this.props.validatePuzzle()}>Validate</button>
           <button onClick={() => this.props.solvePuzzle()}>Solve</button>
         </div>
         <p className="message">
-          {this.state.message}
+          {this.props.puzzleIsValid ? 'Looks good so far!' : 'Ruh-roh! Something isn\'t right!'}
+          {this.props.message ? this.props.message : ''}
         </p>
       </div>
     );

@@ -7,7 +7,6 @@ export default class Square extends React.Component {
   }
 
   focusInput() {
-    console.log('focusing text input');
     this.input.focus(); 
   }
 
@@ -22,26 +21,22 @@ export default class Square extends React.Component {
     const locked = this.props.data.locked;
     const cssClass = locked ? 'locked' : 'unlocked';
 
-      if (this.props.data.editing) {
-        return (
-          <input type="text" maxLength="1"
-                             pattern="[0-9]"
-                             className={`square ${cssClass}`}
-                             onBlur={onBlur}
-                             ref={(i) => {this.input = i}}
-                            />
-        );
-      }
-
+    if (this.props.data.editing) {
       return (
-        <button className={`square ${cssClass}`} onClick={onClick}
-                                    >
-          {value ? value : null}
-        </button>
+        <input type="text" maxLength="1"
+                           pattern="[0-9]"
+                           className={`square ${cssClass}`}
+                           onBlur={onBlur}
+                           ref={(i) => {this.input = i}}
+                          />
       );
     }
-  }
 
-//   componentDidMount(){
-//    this.nameInput.focus(); 
-// }
+    return (
+      <button className={`square ${cssClass}`} onClick={onClick}
+                                  >
+        {value ? value : null}
+      </button>
+    );
+  }
+}

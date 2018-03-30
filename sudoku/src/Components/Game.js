@@ -22,39 +22,21 @@ const shallowCopy = helpers.shallowCopy;
 export default class Game extends React.Component {
   constructor(props) {
     super(props);
-    const preLoad = props.puzzle || data.puzzles ? data.puzzles[0] : null;
+    const preLoad = Sudoku.createPuzzle();
+    const sudoku = new Sudoku(preLoad);
+    const puzzle = preLoad.map(row => {
+      return row.map(square => {
+        const locked = (square === 0) ? false : true;
+        return {value: square, possible: [], ruledOut: [], editing: false, locked: locked};
+      });
+    });
 
-    if (!preLoad) {
-      const sudoku = new Sudoku();
-      const puzzle = sudoku.puzzle.map(row => {
-          return row.map(square => {
-            const locked = (square === 0) ? false : true;
-            return {value: square, possible: [], ruledOut: [], editing: false, locked: locked};
-          });
-        });
-        this.state = {
-          start: shallowCopy(puzzle),
-          puzzle: shallowCopy(puzzle),
-          sudoku: sudoku,
-          puzzleIsValid: sudoku.puzzleIsValid()
-        };
-      } else {
-          this.preLoad = preLoad;
-          const sudoku = new Sudoku(preLoad);
-          const puzzle = preLoad.map(row => {
-            return row.map(square => {
-              const locked = (square === 0) ? false : true;
-              return {value: square, possible: [], ruledOut: [], editing: false, locked: locked};
-            });
-          });
-        this.state = {
-          start: shallowCopy(puzzle),
-          puzzle: puzzle,
-          sudoku: sudoku,
-          puzzleIsValid: sudoku.puzzleIsValid()
-        };
-      }
-
+    this.state = {
+      start: shallowCopy(puzzle),
+      puzzle: puzzle,
+      sudoku: sudoku,
+      puzzleIsValid: sudoku.puzzleIsValid()
+    };
 
     this.handleClick = this.handleClick.bind(this);
     this.handleBlur = this.handleBlur.bind(this);

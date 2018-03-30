@@ -41,6 +41,7 @@ export default class Game extends React.Component {
         };
       } else {
           this.preLoad = preLoad;
+          const sudoku = new Sudoku(preLoad);
           const puzzle = preLoad.map(row => {
           // debugger;
 
@@ -49,7 +50,6 @@ export default class Game extends React.Component {
               return {value: square, possible: [], ruledOut: [], editing: false, locked: locked};
             });
           });
-      const sudoku = new Sudoku(shallowCopy(puzzle));
         this.state = {
           start: shallowCopy(puzzle),
           puzzle: puzzle,
@@ -65,30 +65,26 @@ export default class Game extends React.Component {
     this.validatePuzzle = this.validatePuzzle.bind(this);
   }
 
-  // componentWillMount() {
-  //   const debugData = this.getCorrectSolution();
-  //   this.setState({
-  //     debugData: debugData.map(row => JSON.stringify(row, null, 4))
-  //   });
-  // }
-
   getCorrectSolution() {
-    const solution = this.state.sudoku.solvePuzzle();
+    this.state.sudoku.solvePuzzle();
+    const solution = this.state.sudoku.solution;
     return solution;
   }
 
   showCorrectSolution() {
     const solution = this.getCorrectSolution();
+    const start = this.state.start;
+    console.log('solution: ', solution);
     if (!solution) {
       this.setState({message: 'No solution found!'});
       return;
     }
-
+    debugger;
     this.setState({
       puzzle: solution.map((row, i) => {
           return row.map((square, j) => {
-            debugger;
-            const locked = (this.start[i][j] === 0) ? false : true;
+            // debugger;
+            const locked = start[i][j].locked;
             return {value: square, possible: [], ruledOut: [], editing: false, locked: locked}
           })
         })
@@ -145,25 +141,10 @@ export default class Game extends React.Component {
             validatePuzzle={this.validatePuzzle}
             puzzleIsValid={this.state.puzzleIsValid}
             solvePuzzle={this.showCorrectSolution}
+            createPuzzle={Sudoku.createPuzzle}
             message={this.message}
           />
         </div>
-        {//<div className="game-info">
-                //   <div>{this.state.debugData[0]}</div>
-                //   <div>{this.state.debugData[1]}</div>
-                //   <div>{this.state.debugData[2]}</div>
-                //   <div>{this.state.debugData[3]}</div>
-                //   <div>{this.state.debugData[4]}</div>
-                //   <div>{this.state.debugData[5]}</div>
-                //   <div>{this.state.debugData[6]}</div>
-                //   <div>{this.state.debugData[7]}</div>
-                //   <div>{this.state.debugData[8]}</div>
-                //   <div>{this.state.debugData[9]}</div>
-                //   <p>
-                //     {JSON.stringify(this.state.puzzleIsValid)}
-                //   </p>
-                // </div>
-              }
       </div>
     );
   }

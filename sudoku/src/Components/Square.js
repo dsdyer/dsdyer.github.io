@@ -21,6 +21,8 @@ export default class Square extends React.Component {
     const locked = this.props.data.locked;
     const cssClass = locked ? 'locked' : 'unlocked';
 
+    // console.log('props: ', this.props);
+
     if (this.props.data.editing) {
       return (
         <input type="text" maxLength="1"

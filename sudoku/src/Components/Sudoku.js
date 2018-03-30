@@ -1,23 +1,27 @@
 import {helpers} from '../other/helpers';
 
-function unpack(array) {  // Returns a shallow copy of a multi-dimensional array
-  let a = array.map(c => {
-    if (Array.isArray(c)) return unpack(c);
-    if (typeof c === 'object' && c.value) return c.value;
-    return c;
-  });
-  return a;
-};
-
 export default class Sudoku {
+  // Takes a puzzle as a 2D array of numbers, with 0s representing blanks
+
   constructor(puzzle) {
-    this.start = puzzle ? helpers.shallowCopy(unpack(puzzle)) : this.createPuzzle();
-    this.puzzle = unpack(this.start);
+    // this.clues = puzzle ? puzzle.map(r => r.map(s => new Cell(s))) : this.createPuzzle();
+    this.clues = puzzle.map(r => r.map(s => s));
+    this.puzzle = puzzle.map(r => r.map(s => s));
     this.rows = [];
     this.columns = [];
     this.boxes = [];
     this.blanks = [];
     this.pointer = 0;
+    this.branchingFactor = 0;
+
+    this.setUp();
+  }
+
+  setUp() {
+    this.rows = [];
+    this.columns = [];
+    this.boxes = [];
+    this.blanks = [];
 
     for (let row = 0; row < 9; row++) {
       this.rows[row] = this.puzzle[row];
@@ -39,10 +43,23 @@ export default class Sudoku {
   }
 
   findBox(row, col) {
-    // The first number is the y coordinate of the box on a 3x3 grid,
-    // The second number is the x coordinate
     return Math.floor(row/3) * 3 + Math.floor(col/3)
   };
+
+  findCandidates(cell) {
+    const [row, col] = cell;
+    return Array.from(Array(10).keys()).filter(x => 
+           x !== 0 &&
+           this.rows[row].indexOf(x) === -1 &&
+           this.columns[col].indexOf(x) === -1 &&
+           this.boxes[this.findBox(row, col)].indexOf(x) === -1);
+  }
+
+  computeDifficulty () {
+    return (this.branchingFactor * 100) + this.clues.reduce((acc, val) => acc.concat(val), [])
+                                                    .filter(x => x === 0)
+                                                    .length;
+  }
 
   squareIsValid(row, col, square) {
     return this.rows[row].indexOf(square) === -1 &&
@@ -56,9 +73,7 @@ export default class Sudoku {
 
   puzzleIsValid() {
     return this.rows.every(r => r.every((x, i) => !x || r.every((y, j) => x !== y || i === j))) &&
-            
            this.columns.every(c => c.every((x, i) => !x || c.every((y, j) => x !== y || i === j))) &&
-
            this.boxes.every(b => b.every((x, i) => !x || b.every((y, j) => x !== y || i === j)));
   }
 
@@ -70,46 +85,55 @@ export default class Sudoku {
   };
 
   solvePuzzle() {
-    // Create a Puzzle object from the input array
-    let a = this,
-        square_coords,
-        row,
-        col,
-        test_value = 1;
+    this.setUp();
+    const blanks = this.blanks.map(b => {
+      return {  coords: b,
+                candidates: helpers.shuffleArray(this.findCandidates(b))
+             };
+    });
 
-    // Increment the square referenced by Puzzle.pointer
+    blanks.sort((a,b) => { // Sort blanks in order of fewest candidate values
+      return a.candidates.length - b.candidates.length;
+    });
 
-    while (true) {
-      if (a.pointer >= a.blanks.length) break;
-      square_coords = a.blanks[a.pointer];
-      [row, col] = square_coords;
-
-      if (test_value > 9) { // If we've tried all 9 numbers for this square
-        a.updateSquare(row, col, 0); // Set it back to 0 (blank)
-        a.pointer--; // And go back to the previous square
-        test_value = a.puzzle[a.blanks[a.pointer][0]][a.blanks[a.pointer][1]] + 1;
-        continue;
+    if (blanks.length === 0) { // Puzzle is solved
+      if (this.solution) {
+        this.multipleSolutions = true;
+      } else {
+        this.solution = helpers.shallowCopy(this.puzzle);
       }
-
-      if (a.squareIsValid(row, col, test_value)) {
-                                                  a.updateSquare(row, col, test_value);
-                                                  a.pointer++;
-                                                  test_value = 1;
-                                                  } else {
-                                                    test_value++;
-                                                    continue;
-                                                  }
-      }
-    if (a.puzzle && a.puzzleIsComplete() && a.puzzleIsValid()) {
-      return a.puzzle;
+      return false;
     }
+
+    const cell = blanks[0];
+
+    if (cell.candidates.length === 0) return false; // Puzzle is unsolvable
+
+    this.branchingFactor += Math.pow(cell.candidates.length - 1 , 2);
+
+    cell.candidates.forEach(candidate => {
+      if (this.squareIsValid(...cell.coords, candidate)) {
+
+        this.updateSquare(...cell.coords, candidate);
+        this.solvePuzzle();
+        this.updateSquare(...cell.coords, 0);
+      }
+    });
+
+    if (this.multipleSolutions) {
+      this.solution = undefined;
+      this.solutionDifficulty = undefined;
+      return false;
+    }
+
+    if (this.solution) {
+      this.solutionDifficulty = this.computeDifficulty();
+      return true
+    };
     return false;
   };
 
-  createPuzzle() {
-    const grid = Array(9).fill(Array(9).fill(0));
-    const candidates = Array(9).fill(Array(9).fill(Array(9).fill(0)));
-    // debugger;
-    return grid;
+  static createPuzzle() {
+
   }
 };

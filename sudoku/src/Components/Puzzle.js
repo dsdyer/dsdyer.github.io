@@ -138,7 +138,7 @@ export default class Puzzle extends React.Component {
         </div>
         <br />
         <div className="controls">
-          <button onClick={() => this.props.validatePuzzle()}>Validate</button>
+          <button onClick={() => this.props.clearPuzzle()}>Clear</button>
           <button onClick={() => this.props.solvePuzzle()}>Solve</button>
           <button onClick={() => this.props.createPuzzle()}>New Sudoku!</button>
         </div>

@@ -9,7 +9,6 @@ import {helpers} from '../other/helpers';
 // Add possible numbers to squares
 // Add numbers ruled out to squares
 
-// "Create random puzzle" button
 // Let user load their own puzzle
 // Add "How am I doing?" button
 // Add ability to undo moves
@@ -23,7 +22,7 @@ const shallowCopy = helpers.shallowCopy;
 export default class Game extends React.Component {
   constructor(props) {
     super(props);
-    const preLoad = data.puzzles ? data.puzzles[0] : null;
+    const preLoad = props.puzzle || data.puzzles ? data.puzzles[0] : null;
 
     if (!preLoad) {
       const sudoku = new Sudoku();
@@ -43,8 +42,6 @@ export default class Game extends React.Component {
           this.preLoad = preLoad;
           const sudoku = new Sudoku(preLoad);
           const puzzle = preLoad.map(row => {
-          // debugger;
-
             return row.map(square => {
               const locked = (square === 0) ? false : true;
               return {value: square, possible: [], ruledOut: [], editing: false, locked: locked};
@@ -62,12 +59,15 @@ export default class Game extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
     this.showCorrectSolution = this.showCorrectSolution.bind(this);
-    this.validatePuzzle = this.validatePuzzle.bind(this);
+    this.clearPuzzle = this.clearPuzzle.bind(this);
+    this.newRandomPuzzle = this.newRandomPuzzle.bind(this);
   }
 
   getCorrectSolution() {
     this.state.sudoku.solvePuzzle();
     const solution = this.state.sudoku.solution;
+    console.log('getCorrectSolution() solution: ', solution);
+    debugger;
     return solution;
   }
 
@@ -79,7 +79,6 @@ export default class Game extends React.Component {
       this.setState({message: 'No solution found!'});
       return;
     }
-    debugger;
     this.setState({
       puzzle: solution.map((row, i) => {
           return row.map((square, j) => {
@@ -92,7 +91,35 @@ export default class Game extends React.Component {
   }
 
   validatePuzzle() {
-    this.setState({puzzleIsValid: new Sudoku(shallowCopy(this.state.puzzle)).puzzleIsValid()});
+    this.setState({puzzleIsValid: this.state.sudoku.puzzleIsValid()});
+  }
+
+  clearPuzzle() {
+    this.setState({puzzle: this.state.puzzle.map(row => {
+                return row.map(square => {
+                  const value = square.locked ? square.value : 0;
+                  return {value: value, possible: [], ruledOut: [], editing: false, locked: square.locked};
+                });
+              })
+    });
+  }
+
+  newRandomPuzzle() {
+    const newPuzzle = Sudoku.createPuzzle();
+    const sudoku = new Sudoku(newPuzzle);
+    const puzzle = newPuzzle.map(row => {
+                return row.map(square => {
+                  const locked = (square === 0) ? false : true;
+                  return {value: square, possible: [], ruledOut: [], editing: false, locked: locked};
+                });
+              });
+
+    this.setState({
+          start: shallowCopy(puzzle),
+          puzzle: puzzle,
+          sudoku: sudoku,
+          puzzleIsValid: sudoku.puzzleIsValid()
+        });
   }
 
   handleClick(e, i) {
@@ -138,10 +165,10 @@ export default class Game extends React.Component {
             puzzle={this.state.puzzle}
             handleClick={this.handleClick}
             handleBlur={this.handleBlur}
-            validatePuzzle={this.validatePuzzle}
+            clearPuzzle={this.clearPuzzle}
             puzzleIsValid={this.state.puzzleIsValid}
             solvePuzzle={this.showCorrectSolution}
-            createPuzzle={Sudoku.createPuzzle}
+            createPuzzle={this.newRandomPuzzle}
             message={this.message}
           />
         </div>

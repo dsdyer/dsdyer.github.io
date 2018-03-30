@@ -84,14 +84,13 @@ export default class Sudoku {
     this.boxes[this.findBox(y, x)][((y % 3) * 3) + (x % 3)] = new_value;
   };
 
-  solvePuzzle() {
+  solvePuzzle(allow_multiples) {
     this.setUp();
     const blanks = this.blanks.map(b => {
       return {  coords: b,
                 candidates: helpers.shuffleArray(this.findCandidates(b))
              };
     });
-
     blanks.sort((a,b) => { // Sort blanks in order of fewest candidate values
       return a.candidates.length - b.candidates.length;
     });
@@ -101,6 +100,7 @@ export default class Sudoku {
         this.multipleSolutions = true;
       } else {
         this.solution = helpers.shallowCopy(this.puzzle);
+        if (allow_multiples) return true;
       }
       return false;
     }
@@ -115,7 +115,7 @@ export default class Sudoku {
       if (this.squareIsValid(...cell.coords, candidate)) {
 
         this.updateSquare(...cell.coords, candidate);
-        this.solvePuzzle();
+        if (this.solvePuzzle(allow_multiples) && allow_multiples) return true;
         this.updateSquare(...cell.coords, 0);
       }
     });
@@ -134,6 +134,33 @@ export default class Sudoku {
   };
 
   static createPuzzle() {
+    const grid = Array(9).fill(Array(9).fill(0));
+    let sudoku = new Sudoku(grid);
+    sudoku.solvePuzzle(true);
 
-  }
+    let best_solution = helpers.shallowCopy(sudoku.solution);
+
+    for (let i = 0; i < 200; i++) {
+      sudoku = new Sudoku(best_solution);
+      const randomCell1 = [Math.floor(Math.random() * 9), Math.floor(Math.random() * 9)];
+      const randomCell2 = [Math.floor(Math.random() * 9), Math.floor(Math.random() * 9)];
+
+      const value1 = sudoku.puzzle[randomCell1[0]][randomCell1[1]];
+      const value2 = sudoku.puzzle[randomCell2[0]][randomCell2[1]];
+
+      if (!value1 || !value2) continue;
+
+      sudoku.updateSquare(...randomCell1, 0);
+      sudoku.updateSquare(...randomCell2, 0);
+      const newGrid = helpers.shallowCopy(sudoku.puzzle);
+
+      if (sudoku.solvePuzzle()) {
+        best_solution = newGrid;
+      } else {
+          sudoku.updateSquare(...randomCell1, value1);
+          sudoku.updateSquare(...randomCell2, value2);
+      }
+    }
+    return best_solution;
+  };
 };

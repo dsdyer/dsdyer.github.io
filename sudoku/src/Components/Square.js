@@ -3,6 +3,7 @@ import React from 'react';
 export default class Square extends React.Component {
   constructor(props) {
     super(props);
+    // this.editing = this.props.editing;
     this.focusInput = this.focusInput.bind(this);
   }
 
@@ -17,13 +18,14 @@ export default class Square extends React.Component {
   render() {
     const onClick = this.props.onClick;
     const onBlur = this.props.onBlur;
-    const value = this.props.data.value;
-    const locked = this.props.data.locked;
+    const value = this.props.value;
+    // const value = this.props.data.value;
+    const locked = this.props.locked;
     const cssClass = locked ? 'locked' : 'unlocked';
 
     // console.log('props: ', this.props);
 
-    if (this.props.data.editing) {
+    if (this.props.editing) {
       return (
         <input type="text" maxLength="1"
                            pattern="[0-9]"

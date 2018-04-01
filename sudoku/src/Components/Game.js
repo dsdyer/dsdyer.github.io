@@ -1,7 +1,7 @@
 import React from 'react';
 import Puzzle from './Puzzle';
 import Sudoku from './Sudoku';
-import {data} from '../other/data';
+// import {data} from '../other/data';
 import {helpers} from '../other/helpers';
 // import {solvePuzzle} from './Sudoku';
 
@@ -24,18 +24,13 @@ export default class Game extends React.Component {
     super(props);
     const preLoad = Sudoku.createPuzzle();
     const sudoku = new Sudoku(preLoad);
-    const puzzle = preLoad.map(row => {
-      return row.map(square => {
-        const locked = (square === 0) ? false : true;
-        return {value: square, possible: [], ruledOut: [], editing: false, locked: locked};
-      });
-    });
+    const puzzle = preLoad;
 
     this.state = {
-      start: shallowCopy(puzzle),
+      clues: shallowCopy(puzzle),
       puzzle: puzzle,
       sudoku: sudoku,
-      puzzleIsValid: sudoku.puzzleIsValid()
+      currentlyEditing: null
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -48,94 +43,65 @@ export default class Game extends React.Component {
   getCorrectSolution() {
     this.state.sudoku.solvePuzzle();
     const solution = this.state.sudoku.solution;
-    console.log('getCorrectSolution() solution: ', solution);
-    debugger;
+    // console.log('getCorrectSolution() solution: ', solution);
+    // debugger;
     return solution;
   }
 
   showCorrectSolution() {
     const solution = this.getCorrectSolution();
-    const start = this.state.start;
-    console.log('solution: ', solution);
+    // console.log('solution: ', solution);
     if (!solution) {
       this.setState({message: 'No solution found!'});
       return;
     }
     this.setState({
-      puzzle: solution.map((row, i) => {
-          return row.map((square, j) => {
-            // debugger;
-            const locked = start[i][j].locked;
-            return {value: square, possible: [], ruledOut: [], editing: false, locked: locked}
-          })
-        })
-    });
+        puzzle: solution
+      });
   }
 
-  validatePuzzle() {
-    this.setState({puzzleIsValid: this.state.sudoku.puzzleIsValid()});
-  }
+  // validatePuzzle() {
+    // this.setState({puzzleIsValid: this.state.sudoku.puzzleIsValid()});
+  // }
 
   clearPuzzle() {
-    this.setState({puzzle: this.state.puzzle.map(row => {
-                return row.map(square => {
-                  const value = square.locked ? square.value : 0;
-                  return {value: value, possible: [], ruledOut: [], editing: false, locked: square.locked};
-                });
-              })
-    });
+      this.setState({puzzle: this.state.clues});
   }
 
   newRandomPuzzle() {
     const newPuzzle = Sudoku.createPuzzle();
     const sudoku = new Sudoku(newPuzzle);
-    const puzzle = newPuzzle.map(row => {
-                return row.map(square => {
-                  const locked = (square === 0) ? false : true;
-                  return {value: square, possible: [], ruledOut: [], editing: false, locked: locked};
-                });
-              });
+    const puzzle = newPuzzle;
 
     this.setState({
-          start: shallowCopy(puzzle),
+          clues: shallowCopy(puzzle),
           puzzle: puzzle,
-          sudoku: sudoku,
-          puzzleIsValid: sudoku.puzzleIsValid()
+          sudoku: sudoku
         });
   }
 
   handleClick(e, i) {
-    const puzzle = this.state.puzzle.map((row, j) => {
-      return row.map((square, k) => {
-        if (square.locked) {
-          return square;
-        }
-        square.editing = (i === j * 9 + k);
-        return square;
-      })
-    });
-    this.setState({puzzle: puzzle});
+    if (this.state.clues[Math.floor(i / 9)][i % 9]) return;
+    this.setState({currentlyEditing: [Math.floor(i / 9), i % 9]});
   }
 
   handleBlur(e, i) {
     const target = e.target;
-    const puzzle = this.state.puzzle.map((row, j) => {
-      return row.map((square, k) => {
-        square.editing = false;
-        if (i === j * 9 + k) {
-          const userInput = Number(target.value);
+    const puzzle = shallowCopy(this.state.puzzle);
+    const userInput = Number(target.value);
 
-          if (typeof userInput === 'number' &&
-              // typeof s.value === 'number' &&
-              userInput > 0 && userInput <= 9) {
-            square.value = userInput;
-          } else {
-            square.value = null;
-          }
+    if (typeof userInput === 'number' &&
+        userInput > 0 && userInput <= 9) {
+      puzzle[Math.floor(i / 9)][i % 9] = userInput;
+    } else {
+      puzzle[Math.floor(i / 9)][i % 9] = null;
+    }
+
+    if (this.state.currentlyEditing[0] === Math.floor(i / 9) &&
+        this.state.currentlyEditing[1] === i % 9) {
+          this.setState({currentlyEditing: null});
         }
-        return square;
-      })
-    });
+
     this.setState({puzzle: puzzle});
   }
 
@@ -145,10 +111,11 @@ export default class Game extends React.Component {
         <div className="game-board">
           <Puzzle
             puzzle={this.state.puzzle}
+            clues={this.state.clues}
+            currentlyEditing={this.state.currentlyEditing}
             handleClick={this.handleClick}
             handleBlur={this.handleBlur}
             clearPuzzle={this.clearPuzzle}
-            puzzleIsValid={this.state.puzzleIsValid}
             solvePuzzle={this.showCorrectSolution}
             createPuzzle={this.newRandomPuzzle}
             message={this.message}

@@ -9,10 +9,17 @@ export default class Puzzle extends React.Component {
   }
 
   renderSquare(i) {
-    return <Square data={this.props.puzzle[Math.floor(i / 9)][i % 9]}
+    const row = Math.floor(i / 9);
+    const col = i % 9;
+
+    return <Square value={this.props.puzzle[row][col]}
                    onClick= {(e) => {this.props.handleClick(e, i)}}
                    onBlur= {(e) => {this.props.handleBlur(e, i)}}
-                   key={i}
+                   locked= {this.props.clues[row][col] ? true : false}
+                   editing= {this.props.currentlyEditing &&
+                             this.props.currentlyEditing[0] === row &&
+                             this.props.currentlyEditing[1] === col ? true : false}
+                   key={`${row}, ${col}`}
           />;
   }
 
@@ -142,10 +149,6 @@ export default class Puzzle extends React.Component {
           <button onClick={() => this.props.solvePuzzle()}>Solve</button>
           <button onClick={() => this.props.createPuzzle()}>New Sudoku!</button>
         </div>
-        <p className="message">
-          {this.props.puzzleIsValid ? 'Looks good so far!' : 'Ruh-roh! Something isn\'t right!'}
-          {this.props.message ? this.props.message : ''}
-        </p>
       </div>
     );
   }

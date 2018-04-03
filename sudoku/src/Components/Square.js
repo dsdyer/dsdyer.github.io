@@ -26,7 +26,7 @@ export default class Square extends React.Component {
     if (this.props.editing) {
       return (
         <input type="text" maxLength="1"
-                           length="1"
+                           size="1"
                            pattern="[0-9]"
                            className={`square ${cssClass}`}
                            onBlur={onBlur}
@@ -36,7 +36,7 @@ export default class Square extends React.Component {
     }
 
     return (
-      <button className={`square ${cssClass}`} onClick={onClick}
+      <button className={`square ${cssClass}`} onClick={onClick} onFocus={onClick}
                                   >
         {value ? value : null}
       </button>

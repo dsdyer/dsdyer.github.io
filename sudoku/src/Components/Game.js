@@ -41,8 +41,8 @@ export default class Game extends React.Component {
   }
 
   getCorrectSolution() {
-    this.state.sudoku.solvePuzzle();
-    const solution = this.state.sudoku.solution;
+    // this.state.sudoku.solvePuzzle();
+    const solution = this.state.sudoku.solution || (this.state.sudoku.solvePuzzle() && this.state.sudoku.solution);
     return solution;
   }
 
@@ -96,7 +96,7 @@ export default class Game extends React.Component {
 
     if (this.state.currentlyEditing[0] === Math.floor(i / 9) &&
         this.state.currentlyEditing[1] === i % 9) {
-          // this.setState({currentlyEditing: null});
+          this.setState({currentlyEditing: null});
       }
 
     this.setState({puzzle: puzzle});

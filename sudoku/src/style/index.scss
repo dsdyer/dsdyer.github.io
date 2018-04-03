@@ -11,12 +11,6 @@ ol, ul {
   padding-left: 30px;
 }
 
-/*.board-row:after {
-  clear: both;
-  content: "";
-  display: table;
-}*/
-
 .board-row {
   flex: 1 1 0;
   display: flex;
@@ -43,7 +37,8 @@ ol, ul {
 }
 
 .square {
-  flex: 1 1 0;
+  flex: 1 1 auto;
+  width: 0;
   margin: -1px -1px 0 0;
   padding: 0;
   border: 1px solid #999;
@@ -60,7 +55,8 @@ ol, ul {
 }
 
 input.square {
-  border: 4px solid #0000ff;
+  outline: #0000ff solid 4px;
+  outline-offset: -4px;
 }
 
 .unlocked {
@@ -69,7 +65,7 @@ input.square {
 }
 
 .square:focus {
-  outline: none;
+  /*outline: none;*/
 }
 
 .kbd-navigation .square:focus {

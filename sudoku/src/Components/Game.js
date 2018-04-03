@@ -1,19 +1,19 @@
 import React from 'react';
 import Puzzle from './Puzzle';
 import Sudoku from './Sudoku';
-// import {data} from '../other/data';
-import {helpers} from '../other/helpers';
+// import {data} from '../data';
+import {helpers} from '../helpers';
 // import {solvePuzzle} from './Sudoku';
 
 // TO DO:
 // Add possible numbers to squares
-// Add numbers ruled out to squares
+
+// Make it responsive
 
 // Let user load their own puzzle
 // Add "How am I doing?" button
 // Add ability to undo moves
 // Optimize: Don't re-calculate so much
-// Sort out the difference between numbers and objects for squares
 // Change RenderSquare() to use coordinates instead of (i)
 // Clean up HTML
 
@@ -43,14 +43,11 @@ export default class Game extends React.Component {
   getCorrectSolution() {
     this.state.sudoku.solvePuzzle();
     const solution = this.state.sudoku.solution;
-    // console.log('getCorrectSolution() solution: ', solution);
-    // debugger;
     return solution;
   }
 
   showCorrectSolution() {
     const solution = this.getCorrectSolution();
-    // console.log('solution: ', solution);
     if (!solution) {
       this.setState({message: 'No solution found!'});
       return;
@@ -60,18 +57,18 @@ export default class Game extends React.Component {
       });
   }
 
-  // validatePuzzle() {
+  validatePuzzle() {
     // this.setState({puzzleIsValid: this.state.sudoku.puzzleIsValid()});
-  // }
+  }
 
   clearPuzzle() {
       this.setState({puzzle: this.state.clues});
   }
 
-  newRandomPuzzle() {
-    const newPuzzle = Sudoku.createPuzzle();
-    const sudoku = new Sudoku(newPuzzle);
-    const puzzle = newPuzzle;
+  newRandomPuzzle(difficulty) {
+    const newPuzzle = Sudoku.createPuzzle(difficulty),
+          sudoku = new Sudoku(newPuzzle),
+          puzzle = newPuzzle;
 
     this.setState({
           clues: shallowCopy(puzzle),
@@ -86,9 +83,9 @@ export default class Game extends React.Component {
   }
 
   handleBlur(e, i) {
-    const target = e.target;
-    const puzzle = shallowCopy(this.state.puzzle);
-    const userInput = Number(target.value);
+    const target = e.target,
+          puzzle = shallowCopy(this.state.puzzle),
+          userInput = Number(target.value);
 
     if (typeof userInput === 'number' &&
         userInput > 0 && userInput <= 9) {
@@ -99,29 +96,25 @@ export default class Game extends React.Component {
 
     if (this.state.currentlyEditing[0] === Math.floor(i / 9) &&
         this.state.currentlyEditing[1] === i % 9) {
-          this.setState({currentlyEditing: null});
-        }
+          // this.setState({currentlyEditing: null});
+      }
 
     this.setState({puzzle: puzzle});
   }
 
   render() {
     return (
-      <div className="game">
-        <div className="game-board">
-          <Puzzle
-            puzzle={this.state.puzzle}
-            clues={this.state.clues}
-            currentlyEditing={this.state.currentlyEditing}
-            handleClick={this.handleClick}
-            handleBlur={this.handleBlur}
-            clearPuzzle={this.clearPuzzle}
-            solvePuzzle={this.showCorrectSolution}
-            createPuzzle={this.newRandomPuzzle}
-            message={this.message}
-          />
-        </div>
-      </div>
+      <Puzzle
+        puzzle={this.state.puzzle}
+        clues={this.state.clues}
+        currentlyEditing={this.state.currentlyEditing}
+        handleClick={this.handleClick}
+        handleBlur={this.handleBlur}
+        clearPuzzle={this.clearPuzzle}
+        solvePuzzle={this.showCorrectSolution}
+        createPuzzle={this.newRandomPuzzle}
+        message={this.message}
+      />
     );
   }
 }

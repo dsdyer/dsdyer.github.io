@@ -1,15 +1,14 @@
 0 info it worked if it ends with ok
 1 verbose cli [ '/usr/local/Cellar/node@6/6.13.1/bin/node',
 1 verbose cli   '/usr/local/opt/node@6/bin/npm',
-1 verbose cli   'run',
-1 verbose cli   'build' ]
+1 verbose cli   'test' ]
 2 info using npm@3.10.10
 3 info using node@v6.13.1
 4 verbose stack Error: ENOENT: no such file or directory, open '/Users/ddyer/Desktop/repos/dsdyer.github.io/package.json'
 4 verbose stack     at Error (native)
 5 verbose cwd /Users/ddyer/Desktop/repos/dsdyer.github.io
 6 error Darwin 17.4.0
-7 error argv "/usr/local/Cellar/node@6/6.13.1/bin/node" "/usr/local/opt/node@6/bin/npm" "run" "build"
+7 error argv "/usr/local/Cellar/node@6/6.13.1/bin/node" "/usr/local/opt/node@6/bin/npm" "test"
 8 error node v6.13.1
 9 error npm  v3.10.10
 10 error path /Users/ddyer/Desktop/repos/dsdyer.github.io/package.json

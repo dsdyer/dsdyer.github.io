@@ -37,7 +37,8 @@ ol, ul {
   line-height: 34px;
   font-size: 3.1em;
   font-weight: bold;
-  text-align: center; }
+  text-align: center;
+  /*padding: 10px;*/ }
 
 .square-row {
   display: flex;
@@ -58,20 +59,39 @@ input.square {
 .kbd-navigation .square:focus {
   background: #ddd; }
 
+.controls p {
+  text-align: center; }
 .controls button {
   margin: 0 0 0 10px;
   padding: 10px 20px;
   font-size: 1.5em;
   border-radius: 8px; }
 
+.warning {
+  font-size: .8em; }
+
+/*.controls*/
+.game {
+  display: flex;
+  flex-direction: row; }
+
 .game-board {
   display: flex;
   flex-direction: column;
-  width: 30vw;
-  height: 30vw; }
+  width: 90vw;
+  height: 90vw;
+  max-width: 550px;
+  max-height: 550px;
+  margin-bottom: 20px; }
 
 .game-info {
   margin-left: 100px;
   max-width: 50%; }
+
+.leftCol p {
+  position: absolute;
+  bottom: 0;
+  margin: 0 0 0 10px;
+  font-size: .7em; }
 
 /*# sourceMappingURL=index.css.map */

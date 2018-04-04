@@ -9,6 +9,7 @@ export default class Sudoku {
     this.boxes = [];
     this.blanks = [];
     this.branchingFactor = 0;
+    this.branches = [];
 
     // TODO: Figure out why Array(9).fill([]) is
     // different from [] +
@@ -103,24 +104,44 @@ export default class Sudoku {
 
   solvePuzzle(puzzle_is_trusted) {  // If puzzle_is_trusted is false, we check EVERY # for every square
                                     // If it is true, we assume the puzzle only has 1 valid solution
+    // this.currentDepth++;
     const blanks = this.blanks;
     if (blanks.length === 0) { // Puzzle is solved
       if (this.solution) {
         this.multipleSolutions = true;
       } else {
         this.solution = helpers.shallowCopy(this.rows);
-        if (puzzle_is_trusted) return true;
+
+        if (puzzle_is_trusted) {
+          this.branches = this.branches.filter(b => {
+            return b.branches.length > 1;
+          })
+          // console.log('this.branches.length: ', this.branches.length);
+          // console.log('this.branches: ', this.branches);
+          return true;
+        }
       }
       return false;
     }
     const cell = blanks[0];
 
-    if (cell.candidates.length === 0) return false; // Puzzle is unsolvable
+    if (cell.candidates.length === 0) {
+      // this.currentDepth;
+      
+      return false; // Puzzle is unsolvable
+    }
 
-    this.branchingFactor += Math.pow(cell.candidates.length - 1 , 2);
+    // this.branchingFactor
 
     helpers.shuffleArray(cell.candidates);
 
+
+    const branch_record = { cell: cell.coords,
+                            branches: []
+                          };
+
+
+    this.branches.push(branch_record);
     cell.candidates.forEach(candidate => {
       // TODO: Figure out why puzzle_is_trusted is causing invalid candidates to be tested
       // MORE INFO:
@@ -133,6 +154,8 @@ export default class Sudoku {
 
       // The return value of forEach is undefined
       if (!puzzle_is_trusted || this.squareIsValid(...cell.coords, candidate)) {
+        branch_record.branches.push(candidate);
+
         this.updateSquare(...cell.coords, candidate);
         if (this.solvePuzzle(puzzle_is_trusted) && puzzle_is_trusted) return; 
         this.updateSquare(...cell.coords, 0);

@@ -1,57 +1,51 @@
-* {
-  box-sizing: border-box;
-}
+@import 'reset';
 
 body {
-  font: 14px "Century Gothic", Futura, sans-serif;
-  margin: 20px;
+  /*margin: 0;*/
 }
 
-ol, ul {
-  padding-left: 30px;
+.game {
+  font: medium "Century Gothic", Futura, sans-serif;
 }
 
 .board-row {
   flex: 1 1 0;
   display: flex;
-  flex-direction: row;
-}
-
-.status {
-  margin-bottom: 10px;
+  flex-flow: row;
 }
 
 .big-square {
   flex: 1 1 0;
   display: flex;
-  flex-direction: column;
-  border: 2px solid #000000;
+  flex-flow: column;
+  border-bottom: 2px solid #000000;
+  border-left: 2px solid #000000;
 }
 
-.light .square{
+.light {
   background-color: #bbffbb;
 }
 
-.dark .square{
+.dark {
   background-color: #bbbbff;
 }
 
 .square {
   flex: 1 1 auto;
-  width: 0;
+  width: 1px;
   margin: -1px -1px 0 0;
   padding: 0;
   border: 1px solid #999;
-  line-height: 34px;
-  font-size: 3.1em;
+  font-size: xx-large;
   font-weight: bold;
   text-align: center;
-  /*padding: 10px;*/
+  line-height: 1;
+  background: transparent;
 }
 
 .square-row {
   display: flex;
-  flex-direction: row;
+  flex-flow: row;
   flex: 1 1 0;
 }
 
@@ -65,55 +59,28 @@ input.square {
   font-family: cursive, sans-serif;
 }
 
-.square:focus {
-  /*outline: none;*/
-}
-
-.kbd-navigation .square:focus {
-  background: #ddd;
-}
-
-.controls {
-  p  {
-    text-align: center;
-  }
-
-  button {
-    margin: 0 0 0 10px;
-    padding: 10px 20px;
-    font-size: 1.5em;
-    border-radius: 8px;
-  }
-}
-
-.warning {
-  font-size: .8em;
-}
-
-/*.controls*/
-.game {
-  display: flex;
-  flex-direction: row;
+.controls button {
+  margin: 0 0 0 10px;
+  padding: 10px 20px;
+  font-size: 1.5em;
+  border-radius: 8px;
 }
 
 .game-board {
   display: flex;
-  flex-direction: column;
-  width: 90vw;
-  height: 90vw;
-  max-width: 550px;
-  max-height: 550px;
-  margin-bottom: 20px;
+  flex-flow: column;
+  margin-bottom: 1em;
+  width: 50vw;
+  height: 50vw;
+  min-width: 320px;
+  min-height: 320px;
+  max-width: 500px;
+  max-height: 500px;
+  border-top: 3px solid #000000;
+  border-right: 3px solid #000000;
 }
 
 .game-info {
   margin-left: 100px;
   max-width: 50%;
-}
-
-.leftCol p {
-  position: absolute;
-  bottom: 0;
-  margin: 0 0 0 10px;
-  font-size: .7em;
 }

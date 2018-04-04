@@ -12,15 +12,16 @@ export default class Puzzle extends React.Component {
     const row = Math.floor(i / 9);
     const col = i % 9;
 
-    return <Square value={this.props.puzzle[row][col]}
-                   onClick= {(e) => {this.props.handleClick(e, i)}}
-                   onBlur= {(e) => {this.props.handleBlur(e, i)}}
-                   locked= {this.props.clues[row][col] ? true : false}
-                   editing= {this.props.currentlyEditing &&
+    return <Square value = { this.props.puzzle[row][col] }
+                 onClick = { (e) => {this.props.handleClick(e, i)} }
+                  onBlur = { (e) => {this.props.handleBlur(e, i)} }
+                  locked = { this.props.clues[row][col] !== 0 }
+                  tabIndex = { i + 1 }
+                 editing = { this.props.currentlyEditing &&
                              this.props.currentlyEditing[0] === row &&
-                             this.props.currentlyEditing[1] === col ? true : false}
-                   key={`${row}, ${col}`}
-          />;
+                             this.props.currentlyEditing[1] === col }
+                 key={`${row}, ${col}`}
+        />;
   }
 
   render() {

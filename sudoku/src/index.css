@@ -68,11 +68,13 @@ body {
   margin: -1px -1px 0 0;
   padding: 0;
   border: 1px solid #999;
+  outline-offset: -4px;
   font-size: xx-large;
   font-weight: bold;
   text-align: center;
   line-height: 1;
-  background: transparent; }
+  background: transparent;
+}
 
 .square-row {
   display: flex;
@@ -81,7 +83,7 @@ body {
 
 input.square {
   outline: #0000ff solid 4px;
-  outline-offset: -4px; }
+}
 
 .unlocked {
   color: red;

@@ -101,15 +101,6 @@ function makeTable(data, subjects) {
       // This was used to separate the rows by class name, before we started mixing classes together
       // and sorting them by date. Not deleting it for now cause maybe we'll want to do that again someday.
 
-      // tablerow = document.createElement('tr');
-
-      // tableitem = tablerow.appendChild(document.createElement('th'));
-      // tableitem.textContent = classstring[i];
-      // tableitem.colSpan = 5;
-
-      // tablerow.className = 'class-name';
-      // tablerows.push(tablerow);
-
       currentclass = classstring[i].match(/[A-Z]*\s?[A-Z]+\d{0,3}\s+\d{2,4}[^\s]*/)[0];
       continue;
     }
@@ -141,8 +132,7 @@ function makeTable(data, subjects) {
       datebox = datebox[0];
       var day = document.createElement("td");
       var datetime = _resolveDateTime(datebox.textContent) || '';
-      // console.log('datebox.textContent: ', datebox.textContent);
-      // console.log('_resolveDateTime(datebox.textContent): ', _resolveDateTime(datebox.textContent));
+
       datebox.textContent = _resolveDateTime(datebox.textContent);
       day.innerHTML = datebox.textContent.match(/^[a-z]+\s/gi);
       day.className = "days";

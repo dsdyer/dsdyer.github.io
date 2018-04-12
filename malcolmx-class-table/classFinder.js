@@ -1,5 +1,3 @@
-// unrelated: https://leapfrogonline.attask-ondemand.com/attask/api-unsupported/timesheet/?id=566d199200727d76ab12bce7431d4e63&fields=hours&method=get&username=ddyer@leapfrogonline.com&password=
-
 var elems = document.getElementsByTagName("*"), item;
 var matches = [];
 

@@ -23,7 +23,6 @@ var _resolveDateTime = function(datetime) {
       
       // Better:
       var dt = datetime.match(/(?:[A-Z][a-z])+\s.+?[A|P]M.+?[A|P]M/g);
-      // console.log('dt: ', dt);
       if (dt && dt.length === 1) return dt[0];
 
       var day0 = dt[0].match(/^[A-Z][a-z]+\s/i)[0].trim();
@@ -33,13 +32,8 @@ var _resolveDateTime = function(datetime) {
 
       if (day0 === day1) return day0 + ' ' + time0 + '<br>' + time1;
         // days are the same, return day0 plus the two times
-        // console.log('day0: ', day0);
-        // console.log('day1: ', day1);
-        // console.log('times: ', times);
-
 
       if (time0 === time1) return day0 + day1 + ' ' + time0;
-
       // days are different, concat them and return that plus the times
 
       return day0 + day1 + ' ' + time0 + '<br>' + time1;
@@ -180,16 +174,12 @@ function getSubjectNames(data) {
   for (var i = 0, l = data.length; i < l; i++) {
     if (data[i].isClassName()){
       var subject = data[i].match(/[A-Z]*\s?[A-Z]+\d{0,3}/)[0];
-      // console.log(subjects.indexOf(subject));
       if (subjects.indexOf(subject) !== -1) continue;
       // ;
-      // document.write('\n');
       subjects.push(subject);
     }
-    // console.log(subjects);
   }
   return subjects;
-  // classstring[i]
 }
 
 function createSubjectChecklist(subjects) {

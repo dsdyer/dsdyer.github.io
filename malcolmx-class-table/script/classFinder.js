@@ -45,10 +45,8 @@ for (var i = 0, l = matches.length; i < l; i++) {
 
 var output = class_list.join(',');
 
-// var url = "https://dsdyer.github.io/malcolmx-class-table/class_table.html";
-var url = "http://127.0.0.1:8080/malcolmx-class-table/class_table.html";
-
-
+var url = "https://dsdyer.github.io/malcolmx-class-table/class_table.html";
+// var url = "http://127.0.0.1:8080/malcolmx-class-table/class_table.html";
 
 var w = window.open(url, 'target=_blank');
 

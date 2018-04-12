@@ -3,7 +3,6 @@ import Puzzle from './Puzzle';
 import Sudoku from './Sudoku';
 // import {data} from '../data';
 import {helpers} from '../helpers';
-// import {solvePuzzle} from './Sudoku';
 
 // TO DO:
 // Add possible numbers to squares
@@ -41,7 +40,6 @@ export default class Game extends React.Component {
   }
 
   getCorrectSolution() {
-    // this.state.sudoku.solvePuzzle();
     const solution = this.state.sudoku.solution || (this.state.sudoku.solvePuzzle() && this.state.sudoku.solution);
     return solution;
   }
@@ -53,8 +51,8 @@ export default class Game extends React.Component {
       return;
     }
     this.setState({
-        puzzle: solution
-      });
+      puzzle: solution
+    });
   }
 
   validatePuzzle() {
@@ -62,7 +60,7 @@ export default class Game extends React.Component {
   }
 
   clearPuzzle() {
-      this.setState({puzzle: this.state.clues});
+    this.setState({puzzle: this.state.clues});
   }
 
   newRandomPuzzle(difficulty) {
@@ -71,10 +69,10 @@ export default class Game extends React.Component {
           puzzle = newPuzzle;
 
     this.setState({
-          clues: shallowCopy(puzzle),
-          puzzle: puzzle,
-          sudoku: sudoku
-        });
+      clues: shallowCopy(puzzle),
+      puzzle: puzzle,
+      sudoku: sudoku
+    });
   }
 
   handleClick(e, i) {

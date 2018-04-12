@@ -19,14 +19,15 @@ var options = { enemySpecs: {
               };
 
 
-newGame.onclick = function(){
+newGame.onclick = function(e){
   window.keyStates = {};
   gameEl.innerHTML = '';
+  e.target.blur();
   try {
     game.endGame();
   } catch(e) {}
 
   game = new Game(options);
-
+  
   game.play();
 };

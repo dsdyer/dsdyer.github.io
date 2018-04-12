@@ -88,7 +88,7 @@ export default class Game {
     }
   }
   shoot(options) {
-    var pellet = new Pellet(options);
+    const pellet = new Pellet(options);
     this.elem.appendChild(pellet.elem);
 
     return pellet;

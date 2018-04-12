@@ -41,7 +41,6 @@ export default class Game {
     window.onkeyup = (e) => { this.keyStates[e.keyCode] = false; }
     window.onkeydown = (e) => { this.keyStates[e.keyCode] = true; }
 
-
     this.elem.appendChild(this.player.render());
     this.invadeSpace(options.enemySpecs, options.cols, options.rows, options.colHeight, options.rowWidth);
   }

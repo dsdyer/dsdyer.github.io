@@ -1,15 +1,11 @@
 import Game from './classes/game.js'
 
-// window.keyStates = {};
-// window.onkeyup = function(e) { keyStates[e.keyCode] = false; }
-// window.onkeydown = function(e) { keyStates[e.keyCode] = true; }
-
-var newGame = document.getElementById('newGame'),
-    gameEl = document.getElementById('game'),
-    game;
+const newGame = document.getElementById('newGame'),
+      gameEl = document.getElementById('game'),
+      game;
 
 // SETTINGS
-var options = { enemySpecs: {
+const options = { enemySpecs: {
                               width: 25, 
                               height: 25, 
                               distance: 1,
@@ -22,9 +18,7 @@ var options = { enemySpecs: {
                 html: gameEl
               };
 
-
 newGame.onclick = function(e){
-  // window.keyStates = {};
   gameEl.innerHTML = '';
   e.target.blur();
   try {

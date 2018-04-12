@@ -1,5 +1,5 @@
 import Player from './player.js'
-import Ship from './ship.js'
+// import Ship from './ship.js'
 import Enemy from './enemy.js'
 import Pellet from './pellet.js'
 
@@ -36,6 +36,11 @@ export default class Game {
     this.invaderFire = [];
     this.player = new Player({speed: speed});
     this.playerFire = null;
+
+    this.keyStates = {};
+    window.onkeyup = (e) => { this.keyStates[e.keyCode] = false; }
+    window.onkeydown = (e) => { this.keyStates[e.keyCode] = true; }
+
 
     this.elem.appendChild(this.player.render());
     this.invadeSpace(options.enemySpecs, options.cols, options.rows, options.colHeight, options.rowWidth);
@@ -118,7 +123,7 @@ export default class Game {
   play(enemySpecs, cols, rows, colHeight, rowWidth) {
     this.gameLoop = window.setInterval((function(self) {
       return function() {
-          if (keyStates[32] && (self.playerFire === null)) {
+          if (self.keyStates[32] && (self.playerFire === null)) {
             self.shots++
             self.playerFire = self.shoot({
               horizontal: (self.player.elem.offsetWidth / 2) - 1 + self.player.positionLeft - Math.floor(3 / 2), // todo, obvs
@@ -127,10 +132,10 @@ export default class Game {
               speed: 5
             });
           }
-          if (keyStates[37]) {
+          if (self.keyStates[37]) {
             self.player.moveLeft();
           }
-          if (keyStates[39]) {
+          if (self.keyStates[39]) {
             self.player.moveRight();
           }
 

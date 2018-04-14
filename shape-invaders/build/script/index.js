@@ -711,13 +711,9 @@ var _game2 = _interopRequireDefault(_game);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// window.keyStates = {};
-// window.onkeyup = function(e) { keyStates[e.keyCode] = false; }
-// window.onkeydown = function(e) { keyStates[e.keyCode] = true; }
-
 var newGame = document.getElementById('newGame'),
-    gameEl = document.getElementById('game'),
-    game;
+    gameEl = document.getElementById('game');
+var game = void 0;
 
 // SETTINGS
 var options = { enemySpecs: {
@@ -734,7 +730,6 @@ var options = { enemySpecs: {
 };
 
 newGame.onclick = function (e) {
-  // window.keyStates = {};
   gameEl.innerHTML = '';
   e.target.blur();
   try {

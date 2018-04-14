@@ -1,8 +1,8 @@
 import Game from './classes/game.js'
 
 const newGame = document.getElementById('newGame'),
-      gameEl = document.getElementById('game'),
-      game;
+      gameEl = document.getElementById('game');
+let game;
 
 // SETTINGS
 const options = { enemySpecs: {

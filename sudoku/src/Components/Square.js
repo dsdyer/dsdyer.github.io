@@ -3,11 +3,16 @@ import React from 'react';
 export default class Square extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {candidates: [1, 2, 3, 4, 5, 6, 7, 8, 9] || []};
     this.focusInput = this.focusInput.bind(this);
   }
 
   focusInput() {
-    this.input.focus(); 
+    this.input.focus();
+  }
+
+  toggleCandidates() {
+
   }
 
   componentDidUpdate() {
@@ -38,7 +43,8 @@ export default class Square extends React.Component {
           <button className={`square ${cssClass}`} onClick={onClick} onFocus={onClick} 
                   tabIndex={this.props.tabIndex}
                                       >
-            {value ? value : null}
+            {value ? value :
+                     this.props.showCandidates ? this.state.candidates :null}
           </button>
         );
     // }

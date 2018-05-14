@@ -32,3 +32,9 @@ gulp.task('default', [ 'js', 'css', 'html' ]);
 gulp.watch('src/**/*.js', ['js']);
 gulp.watch('src/**/*.css', ['css']);
 gulp.watch('src/**/*.html', ['html']);
+
+
+
+
+
+

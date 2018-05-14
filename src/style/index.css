@@ -45,13 +45,13 @@ table {
 
 .game {
   flex: 1 1 auto;
-  font: medium "Century Gothic", Futura, sans-serif; }
+  font: medium "Century Gothic", Futura, sans-serif;
+  max-height: 100vh; }
 
 .game > div {
   width: 80vw;
   min-width: 320px;
-  max-width: 650px;
-  max-height: 650px; }
+  max-width: 650px; }
 
 .game-board {
   display: flex;
@@ -80,7 +80,6 @@ table {
   flex: 1 1 0; }
 
 .square {
-  display: flex;
   flex: 1 1 auto;
   width: 1px;
   margin: -1px -1px 0 0;

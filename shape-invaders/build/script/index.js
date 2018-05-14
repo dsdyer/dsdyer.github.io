@@ -155,9 +155,6 @@ var invaderFireSpeed = 3;
 var fps = 60;
 
 var refreshRate = 1000 / fps || 16;
-
-// const game = document.getElementById('game');
-
 var p_display = document.getElementById('player');
 
 p_display.textContent = player.positionLeft;

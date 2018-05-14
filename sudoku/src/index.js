@@ -9,3 +9,11 @@ ReactDOM.render(
   </div>,
   document.getElementById('root')
 );
+
+Object({a: 1, b:2});
+
+Array(1,2,3);
+
+Array.reduce = function() {
+  
+}

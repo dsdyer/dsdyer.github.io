@@ -6,9 +6,9 @@ function setAttributes(el, attrs) {
   }
 }
 
-window.keyStates = {};
-window.onkeyup = function(e) { keyStates[e.keyCode] = false; }
-window.onkeydown = function(e) { keyStates[e.keyCode] = true; }
+// window.keyStates = {};
+// window.onkeyup = function(e) { keyStates[e.keyCode] = false; }
+// window.onkeydown = function(e) { keyStates[e.keyCode] = true; }
 
 // Reclaim memory in IE7 and earlier
 function purge(d) {

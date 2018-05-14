@@ -21,15 +21,14 @@ const shallowCopy = helpers.shallowCopy;
 export default class Game extends React.Component {
   constructor(props) {
     super(props);
-    const preLoad = Sudoku.createPuzzle();
-    const sudoku = new Sudoku(preLoad);
-    const puzzle = preLoad;
+    const puzzle = Sudoku.createPuzzle();
+    const sudoku = new Sudoku(puzzle);
 
     this.state = {
       clues: shallowCopy(puzzle),
       puzzle: puzzle,
       sudoku: sudoku,
-      currentlyEditing: null
+      currentlyEditing: false
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -94,7 +93,7 @@ export default class Game extends React.Component {
 
     if (this.state.currentlyEditing[0] === Math.floor(i / 9) &&
         this.state.currentlyEditing[1] === i % 9) {
-          this.setState({currentlyEditing: null});
+          this.setState({currentlyEditing: false});
       }
 
     this.setState({puzzle: puzzle});

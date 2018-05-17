@@ -38,6 +38,9 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
+.hide {
+  opacity: 0; }
+
 .container {
   display: flex;
   flex-flow: column;
@@ -60,7 +63,8 @@ table {
   height: 80vw;
   min-height: 320px;
   border-top: 3px solid #000000;
-  border-right: 3px solid #000000; }
+  border-right: 3px solid #000000;
+  user-select: none; }
 
 .board-row {
   flex: 1 1 0;
@@ -80,7 +84,6 @@ table {
   flex: 1 1 0; }
 
 .square {
-  display: flex;
   flex: 1 1 auto;
   width: 1px;
   margin: -1px -1px 0 0;
@@ -89,12 +92,19 @@ table {
   font-size: xx-large;
   font-weight: bold;
   text-align: center;
-  line-height: 1;
   background: transparent; }
 
+ol.square {
+  display: flex;
+  flex-wrap: wrap; }
+
 .square .candidate {
-  font-size: small;
-  font-color: blue; }
+  flex: 1 1 auto;
+  width: 33%;
+  font-size: medium;
+  font-weight: normal;
+  color: blue;
+  /*cursor: pointer;*/ }
 
 input.square {
   outline: #0000ff solid 4px;
@@ -111,7 +121,7 @@ input.square {
   font-family: cursive, sans-serif; }
 
 .controls button {
-  margin: 0 0 0 10px;
+  margin: 0 10px 0 0;
   padding: 10px 20px;
   font-size: 1.5em;
   border-radius: 8px; }

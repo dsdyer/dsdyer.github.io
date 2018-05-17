@@ -6,31 +6,23 @@ export default class Puzzle extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-                    message:props.message,
-                    showCandidates: false
+                    message:props.message
                  };
-    this.toggleCandidates = this.toggleCandidates.bind(this);
-  }
-
-  toggleCandidates() {
-    this.setState({showCandidates: !this.state.showCandidates});
   }
 
   renderSquare(i) {
     const row = Math.floor(i / 9);
     const col = i % 9;
 
-    return <Square value = { this.props.puzzle[row][col] }
-                   onClick = { (e) => {this.props.handleClick(e, i)} }
-                   onBlur = { (e) => {this.props.handleBlur(e, i)} }
-                   // toggleCandidates = { this.toggleCandidates }
-                   locked = { this.props.clues[row][col] !== 0 }
+    return <Square value    = { this.props.puzzle[row][col] }
+                   onClick  = { (e) => {this.props.handleClick(e, i)} }
+                   onBlur   = { (e) => {this.props.handleBlur(e, i)} }
+                   locked   = { this.props.clues[row][col] !== 0 }
                    tabIndex = { i + 1 }
-                   editing = { this.props.currentlyEditing &&
-                               this.props.currentlyEditing[0] === row &&
-                               this.props.currentlyEditing[1] === col }
-                   showCandidates={ this.state.showCandidates }
-                   key={`${row}, ${col}`}
+                   editing  = { this.props.currentlyEditing &&
+                                this.props.currentlyEditing[0] === row &&
+                                this.props.currentlyEditing[1] === col }
+                   key = {`${row}, ${col}`}
         />;
   }
 
@@ -154,23 +146,18 @@ export default class Puzzle extends React.Component {
           </div>
         </div>
 
+          <p>Shift-Click inside a square to add or remove candidate numbers.</p>
         <div className="controls">
           <button onClick={() => this.props.clearPuzzle()}>Clear</button>
           <button onClick={() => this.props.solvePuzzle()}>Solve</button>
-          {
-            this.state.showCandidates ?
-              <button onClick={() => this.toggleCandidates()}>Hide Candidates</button> :
-              <button onClick={() => this.toggleCandidates()}>Show Candidates</button>          
-          }
         </div>
         <div className="new-game controls">
-          <p>Shift-Click to add to remove candidate numbers.</p>
           <p>
             <strong>New Sudoku:</strong>
           </p>
           <button onClick={() => this.props.createPuzzle(20)}>Easy</button>
           <button onClick={() => this.props.createPuzzle(60)}>Medium</button>
-          <button onClick={() => this.props.createPuzzle(300)}>Hard</button>
+          <button onClick={() => this.props.createPuzzle(150)}>Hard</button>
           <p className="warning">(Hard puzzles might take a minute.)</p>
         </div>
       </div>

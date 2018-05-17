@@ -11,22 +11,20 @@ export default class Square extends React.Component {
     this.input.focus();
   }
 
-  toggleCandidates() {
-
-  }
-
   componentDidUpdate() {
     this.input && this.focusInput();
   }
 
   render() {
-    const onClick = this.props.onClick;
-    const onBlur = this.props.onBlur;
-    const value = this.props.value;
-    const locked = this.props.locked;
-    const cssClass = locked ? 'locked' : 'unlocked';
+    const editing  = this.props.editing,
+          onClick  = this.props.onClick,
+          onBlur   = this.props.onBlur,
+          value    = this.props.value,
+          locked   = this.props.locked,
+          cssClass = locked ? 'locked' : 'unlocked',
+          showCandidates   = this.props.showCandidates;
 
-    if (this.props.editing) {
+    if (editing) {
       return (
         <input type="text" maxLength="1"
                            size="1"
@@ -35,18 +33,38 @@ export default class Square extends React.Component {
                            onBlur={onBlur}
                            ref={(i) => {this.input = i}}
                            tabIndex={this.props.tabIndex}
-                          />
+        />
       );
-    }
-
-        return (
-          <button className={`square ${cssClass}`} onClick={onClick} onFocus={onClick} 
-                  tabIndex={this.props.tabIndex}
-                                      >
-            {value ? value :
-                     this.props.showCandidates ? this.state.candidates :null}
+    } else if (value) {
+        return  (
+          <button className = {`square ${cssClass}`}
+                  onClick   = {onClick}
+                  onFocus   = {onClick} // Focus via tab should behave the same as via click
+                  tabIndex  = {this.props.tabIndex}>
+            { value }
           </button>
         );
-    // }
+    } else {
+        const candidates = this.state.candidates.map(c => <li key = {c.toString()}
+                                                              className = 'candidate hide'
+                                                              onClick = { (e) => {
+                                                                if (e.shiftKey) {
+                                                                  e.preventDefault();
+                                                                  e.stopPropagation();
+                                                                  e.target.classList.toggle('hide');
+                                                                  // do stuff
+                                                                } else {
+                                                                  onClick();
+                                                                }
+                                                              }
+                                                            } >
+                                                            {c}
+                                                          </li>);
+        return (
+          <ol className = "square">
+            { candidates }
+          </ol>
+        );
+    }
   }
 }

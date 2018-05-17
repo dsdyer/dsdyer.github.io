@@ -1,5 +1,9 @@
 @import 'reset';
 
+.hide {
+  opacity: 0;
+}
+
 .container {
   display: flex;
   flex-flow: column;
@@ -26,6 +30,7 @@
   min-height: 320px;
   border-top: 3px solid #000000;
   border-right: 3px solid #000000;
+  user-select: none;
 }
 
 .board-row {
@@ -49,7 +54,6 @@
 }
 
 .square {
-  display: flex;
   flex: 1 1 auto;
   width: 1px;
   margin: -1px -1px 0 0;
@@ -58,13 +62,21 @@
   font-size: xx-large;
   font-weight: bold;
   text-align: center;
-  line-height: 1;
   background: transparent;
 }
 
+ol.square {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .square .candidate {
-  font-size: small;
-  font-color: blue;
+  flex: 1 1 auto;
+  width: 33%;
+  font-size: medium;
+  font-weight: normal;
+  color: blue;
+  /*cursor: pointer;*/
 }
 
 input.square {
@@ -85,7 +97,7 @@ input.square {
 }
 
 .controls button {
-  margin: 0 0 0 10px;
+  margin: 0 10px 0 0;
   padding: 10px 20px;
   font-size: 1.5em;
   border-radius: 8px;

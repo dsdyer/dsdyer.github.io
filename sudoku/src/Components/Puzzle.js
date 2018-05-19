@@ -14,11 +14,13 @@ export default class Puzzle extends React.Component {
     const row = Math.floor(i / 9);
     const col = i % 9;
 
-    return <Square value    = { this.props.puzzle[row][col] }
+    return <Square id       = { i }
+                   value    = { this.props.puzzle[row][col] }
+                   candidates = { this.props.candidates[i] }
                    onClick  = { (e) => {this.props.handleClick(e, i)} }
                    onBlur   = { (e) => {this.props.handleBlur(e, i)} }
+                   updateCandidate = {this.props.updateCandidate}
                    locked   = { this.props.clues[row][col] !== 0 }
-                   tabIndex = { i + 1 }
                    editing  = { this.props.currentlyEditing &&
                                 this.props.currentlyEditing[0] === row &&
                                 this.props.currentlyEditing[1] === col }
@@ -157,8 +159,6 @@ export default class Puzzle extends React.Component {
           </p>
           <button onClick={() => this.props.createPuzzle(20)}>Easy</button>
           <button onClick={() => this.props.createPuzzle(60)}>Medium</button>
-          <button onClick={() => this.props.createPuzzle(150)}>Hard</button>
-          <p className="warning">(Hard puzzles might take a minute.)</p>
         </div>
       </div>
     );

@@ -1,13 +1,9 @@
 import React from 'react';
 import Puzzle from './Puzzle';
 import Sudoku from './Sudoku';
-// import {data} from '../data';
 import {helpers} from '../helpers';
 
 // TO DO:
-// Add possible numbers to squares
-
-// Make it responsive
 
 // Let user load their own puzzle
 // Add "How am I doing?" button
@@ -18,6 +14,12 @@ import {helpers} from '../helpers';
 
 const shallowCopy = helpers.shallowCopy;
 
+function getBlankCandidates() {
+  const c = {};
+  new Array(81).fill(undefined).forEach((x,i) => c[i] = new Set());
+
+  return c;
+}
 export default class Game extends React.Component {
   constructor(props) {
     super(props);
@@ -28,12 +30,14 @@ export default class Game extends React.Component {
       clues: shallowCopy(puzzle),
       puzzle: puzzle,
       sudoku: sudoku,
-      currentlyEditing: false
-    };
+      currentlyEditing: false,
+      candidates: getBlankCandidates()
+    };    
 
     this.handleClick = this.handleClick.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
     this.showCorrectSolution = this.showCorrectSolution.bind(this);
+    this.updateCandidate = this.updateCandidate.bind(this);
     this.clearPuzzle = this.clearPuzzle.bind(this);
     this.newRandomPuzzle = this.newRandomPuzzle.bind(this);
   }
@@ -58,8 +62,23 @@ export default class Game extends React.Component {
     // this.setState({puzzleIsValid: this.state.sudoku.puzzleIsValid()});
   }
 
+  updateCandidate(square, number) {
+      console.log('square: ', square);
+      console.log('number: ', number);
+      const c = this.state.candidates;
+      if (c[square].has(number)) {
+        c[square].delete(number);
+      } else {
+        c[square].add(number);
+      }
+    this.setState({
+      candidates: c
+    });
+  }
+
   clearPuzzle() {
-    this.setState({puzzle: this.state.clues});
+    this.setState({puzzle: this.state.clues,
+                   candidates: getBlankCandidates()});
   }
 
   newRandomPuzzle(difficulty) {
@@ -104,9 +123,11 @@ export default class Game extends React.Component {
       <Puzzle
         puzzle={this.state.puzzle}
         clues={this.state.clues}
+        candidates={this.state.candidates}
         currentlyEditing={this.state.currentlyEditing}
         handleClick={this.handleClick}
         handleBlur={this.handleBlur}
+        updateCandidate={this.updateCandidate}
         clearPuzzle={this.clearPuzzle}
         solvePuzzle={this.showCorrectSolution}
         createPuzzle={this.newRandomPuzzle}

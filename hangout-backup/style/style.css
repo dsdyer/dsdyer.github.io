@@ -1,0 +1,16 @@
+span {
+	display: block;
+}
+
+.message-wrapper {
+	margin-bottom: 10px;
+}
+
+.sender {
+	font-weight: bold;
+}
+
+.time {
+	font-size: small;
+	font-style: italic;
+}

@@ -2,7 +2,7 @@
   window.onload = function() {
     var messages = document.getElementsByClassName('message-text');
 
-    var userKey = window.prompt('Hi! If you\'re supposed to be here, enter your decryption key. I love you!');
+    var userKey = window.prompt('Hi! If you\'re supposed to be here, enter your decryption key. Love you!');
 
 
     for (var i = messages.length - 1; i >= 0; i--) {

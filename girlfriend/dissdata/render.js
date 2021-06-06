@@ -17,6 +17,7 @@ function makeP(arr) {
 
 
 function appendSubThemeBox($container, name, participants) {
+  participants = _.uniqBy(participants, 'id');
   const $box = $(`<div class="sub-themebox"></div>`)
   const $header = $(`<h3>${name}</h3>`);
   const $contentBox = $('<div class="content"></div>');
@@ -51,10 +52,9 @@ function appendThemeBox($container, name, subThemes) {
 }
 
 $(document).ready(function () {
-  const thm = data[0];
+  // const thm = data[0];
   data.forEach(datum=>{
-  appendThemeBox($('#result'), datum.name, datum.subThemes);
-
+    appendThemeBox($('#result'), datum.name, datum.subThemes);
   })
   // appendThemeBox($('#result'), thm.name, thm.subThemes);
 

@@ -726,11 +726,11 @@ var data=[
           },
           {
             "id": "047",
-            "race": "",
-            "sexual": "",
-            "gender": "",
-            "childAges": "",
-            "childRelate": "",
+            "race": "White",
+            "sexual": "Queer",
+            "gender": "Cis Woman",
+            "childAges": "8,13,15,20,21",
+            "childRelate": "Biological Parent, Step Parent",
             "relationshipConfig": "Poly co-parents"
           },
           {

@@ -1,6 +1,6 @@
 var data=[
   {
-    "name": "Prioritizing Child (is this theme related to child needs?)",
+    "name": "P3rioritizing Child (is this theme related to child needs?)",
     "subThemes": [
       {
         "name": "In choosing/navigating CNM",
@@ -33,30 +33,12 @@ var data=[
             "relationshipConfig": "Poly co-parents"
           },
           {
-            "id": "017",
-            "race": "White",
-            "sexual": "gay",
-            "gender": "non-binary man",
-            "childAges": "1",
-            "childRelate": "Biological parent",
-            "relationshipConfig": "Poly co-parents"
-          },
-          {
             "id": "018",
             "race": "Asian",
             "sexual": "Pansexual",
             "gender": "Mostly female",
             "childAges": "11",
             "childRelate": "Biological parent",
-            "relationshipConfig": "Three or more parents"
-          },
-          {
-            "id": "019",
-            "race": "White",
-            "sexual": "Bi",
-            "gender": "Cis Woman",
-            "childAges": "2",
-            "childRelate": "Stepparent",
             "relationshipConfig": "Three or more parents"
           },
           {
@@ -200,15 +182,6 @@ var data=[
             "relationshipConfig": "Poly co-parents"
           },
           {
-            "id": "077",
-            "race": "South Asian",
-            "sexual": "Bisexual",
-            "gender": "Cis Woman",
-            "childAges": "6 and 3",
-            "childRelate": "Biological parent",
-            "relationshipConfig": "Poly co-parents"
-          },
-          {
             "id": "088",
             "race": "Asian",
             "sexual": "Bisexual",
@@ -266,15 +239,6 @@ var data=[
             "childAges": "10, 7",
             "childRelate": "Biological parent",
             "relationshipConfig": "Poly co-parents"
-          },
-          {
-            "id": "069",
-            "race": "white",
-            "sexual": "exploring",
-            "gender": "non binary",
-            "childAges": "5, 11, 16",
-            "childRelate": "Biological parent",
-            "relationshipConfig": "Single parent"
           },
           {
             "id": "069",
@@ -377,24 +341,6 @@ var data=[
             "sexual": "Bisexual",
             "gender": "Cis Woman",
             "childAges": "5, 15",
-            "childRelate": "Biological parent",
-            "relationshipConfig": "Poly co-parents"
-          },
-          {
-            "id": "049",
-            "race": "White",
-            "sexual": "Queer",
-            "gender": "Cis Woman",
-            "childAges": "10, 7",
-            "childRelate": "Biological parent",
-            "relationshipConfig": "Poly co-parents"
-          },
-          {
-            "id": "049",
-            "race": "White",
-            "sexual": "Queer",
-            "gender": "Cis Woman",
-            "childAges": "10, 7",
             "childRelate": "Biological parent",
             "relationshipConfig": "Poly co-parents"
           },
@@ -617,15 +563,6 @@ var data=[
             "relationshipConfig": "Poly co-parents"
           },
           {
-            "id": "020",
-            "race": "White",
-            "sexual": "Lesbian",
-            "gender": "Cis Woman",
-            "childAges": "3",
-            "childRelate": "Non-biological parent (e.g., your partner gave birth, or you used surrogacy),Adoptive parent",
-            "relationshipConfig": "Poly co-parents"
-          },
-          {
             "id": "015",
             "race": "Two or more races",
             "sexual": "Pansexual",
@@ -726,20 +663,11 @@ var data=[
           },
           {
             "id": "047",
-            "race": "White",
-            "sexual": "Queer",
-            "gender": "Cis Woman",
-            "childAges": "8,13,15,20,21",
-            "childRelate": "Biological Parent, Step Parent",
-            "relationshipConfig": "Poly co-parents"
-          },
-          {
-            "id": "049",
-            "race": "White",
-            "sexual": "Queer",
-            "gender": "Cis Woman",
-            "childAges": "10, 7",
-            "childRelate": "Biological parent",
+            "race": "",
+            "sexual": "",
+            "gender": "",
+            "childAges": "",
+            "childRelate": "",
             "relationshipConfig": "Poly co-parents"
           },
           {
@@ -833,15 +761,6 @@ var data=[
             "relationshipConfig": "Poly co-parents"
           },
           {
-            "id": "086",
-            "race": "White",
-            "sexual": "Queer",
-            "gender": "Cis Man",
-            "childAges": "5, 7",
-            "childRelate": "Foster parent",
-            "relationshipConfig": "Poly co-parents"
-          },
-          {
             "id": "088",
             "race": "Asian",
             "sexual": "Bisexual",
@@ -881,15 +800,6 @@ var data=[
             "childAges": "2",
             "childRelate": "Biological parent",
             "relationshipConfig": "Three or more parents"
-          },
-          {
-            "id": "039",
-            "race": "mixed white/Hispanic",
-            "sexual": "bisexual",
-            "gender": "Cis Woman",
-            "childAges": "0",
-            "childRelate": "Biological parent",
-            "relationshipConfig": "Poly co-parents"
           },
           {
             "id": "039",
@@ -985,15 +895,6 @@ var data=[
             "childAges": "10",
             "childRelate": "Biological parent",
             "relationshipConfig": "Single parent"
-          },
-          {
-            "id": "020",
-            "race": "White",
-            "sexual": "Lesbian",
-            "gender": "Cis Woman",
-            "childAges": "3",
-            "childRelate": "Non-biological parent (e.g., your partner gave birth, or you used surrogacy),Adoptive parent",
-            "relationshipConfig": "Poly co-parents"
           },
           {
             "id": "020",
@@ -1105,15 +1006,6 @@ var data=[
             "relationshipConfig": "Poly co-parents"
           },
           {
-            "id": "047",
-            "race": "",
-            "sexual": "",
-            "gender": "",
-            "childAges": "",
-            "childRelate": "",
-            "relationshipConfig": "Poly co-parents"
-          },
-          {
             "id": "011",
             "race": "White, latina",
             "sexual": "Bi/pansexual",
@@ -1154,15 +1046,6 @@ var data=[
       {
         "name": "Values full openness with kids (including showing intimacy):",
         "participants": [
-          {
-            "id": "003",
-            "race": "White",
-            "sexual": "Queer",
-            "gender": "Cis Woman",
-            "childAges": "10",
-            "childRelate": "Biological parent",
-            "relationshipConfig": "Single parent"
-          },
           {
             "id": "003",
             "race": "White",
@@ -1376,15 +1259,6 @@ var data=[
             "relationshipConfig": "Three or more parents"
           },
           {
-            "id": "002",
-            "race": "Black/Biracial",
-            "sexual": "Demisexual queer",
-            "gender": "Gender Fluid Femme",
-            "childAges": "16",
-            "childRelate": "Biological parent",
-            "relationshipConfig": "Three or more parents"
-          },
-          {
             "id": "011",
             "race": "White, latina",
             "sexual": "Bi/pansexual",
@@ -1455,15 +1329,6 @@ var data=[
             "childAges": "16",
             "childRelate": "Biological parent",
             "relationshipConfig": "Open co-parents"
-          },
-          {
-            "id": "053",
-            "race": "Black",
-            "sexual": "Heterosexual",
-            "gender": "Cis Woman",
-            "childAges": "23, 8",
-            "childRelate": "Biological parent",
-            "relationshipConfig": "Single parent"
           },
           {
             "id": "053",
@@ -1559,15 +1424,6 @@ var data=[
             "childAges": "16",
             "childRelate": "Biological parent",
             "relationshipConfig": "Three or more parents"
-          },
-          {
-            "id": "003",
-            "race": "White",
-            "sexual": "Queer",
-            "gender": "Cis Woman",
-            "childAges": "10",
-            "childRelate": "Biological parent",
-            "relationshipConfig": "Single parent"
           },
           {
             "id": "003",
@@ -1721,15 +1577,6 @@ var data=[
             "childAges": "8, 12",
             "childRelate": "Biological parent",
             "relationshipConfig": "Poly co-parents"
-          },
-          {
-            "id": "084",
-            "race": "Chinese American",
-            "sexual": "Bisexual",
-            "gender": "Cis Woman",
-            "childAges": "8, 12",
-            "childRelate": "Biological parent",
-            "relationshipConfig": "Poly co-parents"
           }
         ]
       }
@@ -1749,15 +1596,6 @@ var data=[
             "childAges": "16",
             "childRelate": "Biological parent",
             "relationshipConfig": "Three or more parents"
-          },
-          {
-            "id": "003",
-            "race": "White",
-            "sexual": "Queer",
-            "gender": "Cis Woman",
-            "childAges": "10",
-            "childRelate": "Biological parent",
-            "relationshipConfig": "Single parent"
           },
           {
             "id": "003",
@@ -1823,15 +1661,6 @@ var data=[
             "relationshipConfig": "Poly co-parents"
           },
           {
-            "id": "049",
-            "race": "White",
-            "sexual": "Queer",
-            "gender": "Cis Woman",
-            "childAges": "10, 7",
-            "childRelate": "Biological parent",
-            "relationshipConfig": "Poly co-parents"
-          },
-          {
             "id": "054",
             "race": "Black",
             "sexual": "Bi sexual",
@@ -1857,15 +1686,6 @@ var data=[
             "childAges": "3, 14",
             "childRelate": "Biological parent,Non-biological parent (e.g., your partner gave birth, or you used surrogacy)",
             "relationshipConfig": "Three or more parents and Single Parent"
-          },
-          {
-            "id": "077",
-            "race": "South Asian",
-            "sexual": "Bisexual",
-            "gender": "Cis Woman",
-            "childAges": "6 and 3",
-            "childRelate": "Biological parent",
-            "relationshipConfig": "Poly co-parents"
           },
           {
             "id": "077",
@@ -2033,24 +1853,6 @@ var data=[
             "gender": "Cis Woman",
             "childAges": "10",
             "childRelate": "Biological parent",
-            "relationshipConfig": "Single parent"
-          },
-          {
-            "id": "003",
-            "race": "White",
-            "sexual": "Queer",
-            "gender": "Cis Woman",
-            "childAges": "10",
-            "childRelate": "Biological parent",
-            "relationshipConfig": "Single parent"
-          },
-          {
-            "id": "024",
-            "race": "white",
-            "sexual": "queer",
-            "gender": "Cis Woman",
-            "childAges": "13",
-            "childRelate": "Adoptive parent",
             "relationshipConfig": "Single parent"
           },
           {
@@ -2734,39 +2536,12 @@ var data=[
             "relationshipConfig": "Poly co-parents"
           },
           {
-            "id": "011",
-            "race": "White, latina",
-            "sexual": "Bi/pansexual",
-            "gender": "Cis Woman",
-            "childAges": "2.5",
-            "childRelate": "Biological parent",
-            "relationshipConfig": "Poly co-parents"
-          },
-          {
             "id": "036",
             "race": "White",
             "sexual": "Heterosexual",
             "gender": "Demi male",
             "childAges": "2.5",
             "childRelate": "",
-            "relationshipConfig": "Poly co-parents"
-          },
-          {
-            "id": "012",
-            "race": "White",
-            "sexual": "Bisexual/ Queer",
-            "gender": "Cis Woman",
-            "childAges": "3",
-            "childRelate": "Biological parent",
-            "relationshipConfig": "Poly co-parents"
-          },
-          {
-            "id": "020",
-            "race": "White",
-            "sexual": "Lesbian",
-            "gender": "Cis Woman",
-            "childAges": "3",
-            "childRelate": "Non-biological parent (e.g., your partner gave birth, or you used surrogacy),Adoptive parent",
             "relationshipConfig": "Poly co-parents"
           },
           {
@@ -2802,15 +2577,6 @@ var data=[
             "sexual": "Bisexual",
             "gender": "Cis Woman",
             "childAges": "5, 15",
-            "childRelate": "Biological parent",
-            "relationshipConfig": "Poly co-parents"
-          },
-          {
-            "id": "067",
-            "race": "South Asian / Tamil",
-            "sexual": "Straight",
-            "gender": "Cis Man",
-            "childAges": "3, 5",
             "childRelate": "Biological parent",
             "relationshipConfig": "Poly co-parents"
           },
@@ -2867,15 +2633,6 @@ var data=[
             "childAges": "4",
             "childRelate": "Adoptive parent",
             "relationshipConfig": "Open co-parents"
-          },
-          {
-            "id": "086",
-            "race": "White",
-            "sexual": "Queer",
-            "gender": "Cis Man",
-            "childAges": "5, 7",
-            "childRelate": "Foster parent",
-            "relationshipConfig": "Poly co-parents"
           },
           {
             "id": "086",

@@ -1,4 +1,10 @@
-*.log
-.DS_Store
+diff
+.idea/*
+.nyc_output
+build
 node_modules
-dist
+test
+src/**.js
+coverage
+*.log
+yarn.lock

@@ -1,6 +1,6 @@
 var data=[
   {
-    "name": "P3rioritizing Child (is this theme related to child needs?)",
+    "name": "Prioritizing Child (is this theme related to child needs?)",
     "subThemes": [
       {
         "name": "In choosing/navigating CNM",

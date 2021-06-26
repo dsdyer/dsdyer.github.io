@@ -1,0 +1,59 @@
+h1,h2,h3,h4,h5,h6,p {margin: 10px 0 0 0;}
+
+h2{margin-bottom: 10px;}
+
+.content {
+  overflow: hidden;
+  clear: both;
+}
+
+.content-left {
+  width: 40%;
+  float: left;
+}
+
+.content-right {
+  width: 58%;
+  float: left;
+
+  min-height: 100px;
+}
+
+
+.content ul {margin: 0;}
+
+.demographic-container {
+  list-style-type: none;
+  width: 18%;
+  float: left;
+  border: 1px solid black;
+  margin-top: 0;
+  margin-right: 11px;
+  margin-bottom: 11px;
+}
+
+
+ul.demographics li {
+  font-weight: bold;
+  padding: 5px;
+}
+
+
+h4.demo-name{text-align: center;margin:0;padding: 5px 0 5px 0;border:1px solid black;}
+
+
+div.demo-box {overflow: hidden;}
+
+
+.demographic-container-race {background-color: rgba(132, 94, 194, 0.8)}
+.demographic-container-sexual {background-color: rgba(214, 93, 177, 0.8)}
+
+.demographic-container-gender {background-color: rgba(255, 111, 145, 0.8)}
+
+.demographic-container-childAges {background-color: rgba(255, 150, 113, 0.8)}
+
+.demographic-container-childRelate {background-color: rgba(255, 199, 95, 0.8)}
+.demographic-container-relationshipConfig {background-color: rgba(249, 248, 113, 0.8)}
+
+
+

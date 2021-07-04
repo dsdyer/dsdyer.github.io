@@ -6,8 +6,7 @@ const DEMOGRAPHICS = [
   "gender",
   "childAges",
   "childRelate",
-  "relationshipConfig",
-  "location"
+  "relationshipConfig"
 ];
 
 const $makeDemographicLI = demographic => {

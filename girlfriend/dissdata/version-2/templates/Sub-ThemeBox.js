@@ -18,7 +18,6 @@ export function $makeSubThemeBox(name, participants) {
   
   if(participants && participants.length) $left.append($makeParticipantList(participants))
 
-  if(participants && participants.length) 
   $right.append($makeDemoBox(participants))
   
   $contentBox.append($left);

@@ -3,7 +3,7 @@ import {$makeDemoBox} from './DemoBox.js'
 
 export function $makeThemeBox(name, subThemes) {
   const $box = $(`<div class="themebox"></div>`)
-  const $header = $(`<h1>${name}</h1>`);
+  const $header = $(`<h2>${name}</h2>`);
   const $contentBox = $('<div class="content"></div>');
   $box.append($header);               
   $box.append($contentBox);

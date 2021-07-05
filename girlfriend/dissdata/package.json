@@ -1,0 +1,63 @@
+{
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "start": "tsdx watch --onSuccess \"npm run dist\"",
+    "dist": "clear & node ./dist/index.js",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
+  },
+  "peerDependencies": {},
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "name": "gfdiss",
+  "author": "David Dyer",
+  "module": "dist/gfdiss.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/gfdiss.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/gfdiss.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^4.11.0",
+    "@types/lodash": "^4.14.170",
+    "husky": "^6.0.0",
+    "lodash": "^4.17.21",
+    "node-json2html": "^2.1.0",
+    "size-limit": "^4.11.0",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.2.0",
+    "typescript": "^3.9.9"
+  },
+  "dependencies": {
+    "http-server": "^0.12.3",
+    "node-watch": "^0.7.1"
+  }
+}

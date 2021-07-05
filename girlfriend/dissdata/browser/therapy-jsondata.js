@@ -88,7 +88,7 @@ var data=[
           {
             "id": "043",
             "race": "White",
-            "sexual": "\"Mostly straight\"",
+            "sexual": "Mostly straight\"",
             "gender": "Cis Man",
             "childAges": "2",
             "childRelate": "Nonbiological",
@@ -368,7 +368,7 @@ var data=[
           {
             "id": "043",
             "race": "White",
-            "sexual": "\"Mostly straight\"",
+            "sexual": "Mostly straight\"",
             "gender": "Cis Man",
             "childAges": "2",
             "childRelate": "Nonbiological",
@@ -448,7 +448,7 @@ var data=[
           {
             "id": "043",
             "race": "White",
-            "sexual": "\"Mostly straight\"",
+            "sexual": "Mostly straight\"",
             "gender": "Cis Man",
             "childAges": "2",
             "childRelate": "Nonbiological",
@@ -483,7 +483,7 @@ var data=[
           {
             "id": "043",
             "race": "White",
-            "sexual": "\"Mostly straight\"",
+            "sexual": "Mostly straight\"",
             "gender": "Cis Man",
             "childAges": "2",
             "childRelate": "Nonbiological",
@@ -953,7 +953,7 @@ var data=[
           {
             "id": "043",
             "race": "White",
-            "sexual": "\"Mostly straight\"",
+            "sexual": "Mostly straight\"",
             "gender": "Cis Man",
             "childAges": "2",
             "childRelate": "Nonbiological",

@@ -20,7 +20,7 @@ backcall @ file:///home/conda/feedstock_root/build_artifacts/backcall_1592338393
 backports.functools-lru-cache @ file:///home/conda/feedstock_root/build_artifacts/backports.functools_lru_cache_1687772187254/work
 bcrypt @ file:///D:/bld/bcrypt_1649165179217/work
 beautifulsoup4 @ file:///home/conda/feedstock_root/build_artifacts/beautifulsoup4_1680888073205/work
-black==23.3.0
+black==24.3.0
 bleach @ file:///home/conda/feedstock_root/build_artifacts/bleach_1629908509068/work
 blinker==1.7.0
 blis @ file:///D:/bld/cython-blis_1696148994513/work

@@ -299,7 +299,7 @@ weasel @ file:///home/conda/feedstock_root/build_artifacts/weasel_1699295455892/
 webcolors @ file:///home/conda/feedstock_root/build_artifacts/webcolors_1679900785843/work
 webencodings @ file:///home/conda/feedstock_root/build_artifacts/webencodings_1694681268211/work
 websocket-client @ file:///C:/ci_310/websocket-client_1642093970919/work
-Werkzeug==2.3.4
+Werkzeug==2.3.8
 widgetsnbextension @ file:///home/conda/feedstock_root/build_artifacts/widgetsnbextension_1672066693230/work
 win-inet-pton @ file:///D:/bld/win_inet_pton_1667051142467/work
 wordcloud @ file:///D:/bld/wordcloud_1661463945528/work

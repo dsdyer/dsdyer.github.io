@@ -182,7 +182,7 @@ patsy @ file:///home/conda/feedstock_root/build_artifacts/patsy_1665356157073/wo
 pendulum @ file:///D:/bld/pendulum_1695414910437/work
 phonenumbers @ file:///home/conda/feedstock_root/build_artifacts/phonenumbers_1625680196061/work
 pickleshare @ file:///home/conda/feedstock_root/build_artifacts/pickleshare_1602536217715/work
-Pillow==9.5.0
+Pillow==10.3.0
 pkgutil_resolve_name @ file:///home/conda/feedstock_root/build_artifacts/pkgutil-resolve-name_1694617248815/work
 platformdirs @ file:///home/conda/feedstock_root/build_artifacts/platformdirs_1657729053205/work
 plot-keras-history==1.1.38
